@@ -3,5 +3,5 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-require_once TNT_CORE_PATH . 'shortcodes/hello.php';
+
 require_once TNT_CORE_PATH . 'shortcodes/tool.php';

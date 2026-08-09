@@ -1,79 +1,48 @@
 <?php
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 /**
- * Load frontend CSS and JavaScript.
+ * Load ToolNTip Core frontend assets.
  */
 function tnt_enqueue_assets() {
 
     wp_enqueue_style(
-        'toolntip-core-style',
+        'toolntip-core',
         TNT_CORE_URL . 'assets/css/frontend.css',
         array(),
         TNT_CORE_VERSION
     );
-	
-	wp_enqueue_style(
 
-		'tnt-rating',
-
-		TNT_CORE_URL.'assets/css/rating.css',
-
-		array(),
-
-		TNT_CORE_VERSION
-
-	);
-	
-	wp_enqueue_style(
-
-		'tnt-rating',
-
-		TNT_CORE_URL.'assets/css/about.css',
-
-		array(),
-
-		TNT_CORE_VERSION
-
-	);
-	
-	wp_enqueue_style(
-
-		'tnt-rating',
-
-		TNT_CORE_URL.'assets/css/screenshots.css',
-
-		array(),
-
-		TNT_CORE_VERSION
-
-	);
-	
-	wp_enqueue_style(
-
-		'tnt-rating',
-
-		TNT_CORE_URL.'assets/css/pros-cons.css',
-
-		array(),
-
-		TNT_CORE_VERSION
-
-	);
-
-
-
-    wp_enqueue_script(
-        'toolntip-core-script',
-        TNT_CORE_URL . 'assets/js/frontend.js',
-        array(),
-        TNT_CORE_VERSION,
-        true
+    wp_enqueue_style(
+        'tnt-rating',
+        TNT_CORE_URL . 'assets/css/rating.css',
+        array( 'toolntip-core' ),
+        TNT_CORE_VERSION
     );
-	
-	
+
+    wp_enqueue_style(
+        'tnt-about',
+        TNT_CORE_URL . 'assets/css/about.css',
+        array( 'toolntip-core' ),
+        TNT_CORE_VERSION
+    );
+
+    wp_enqueue_style(
+        'tnt-screenshots',
+        TNT_CORE_URL . 'assets/css/screenshots.css',
+        array( 'toolntip-core' ),
+        TNT_CORE_VERSION
+    );
+
+    wp_enqueue_style(
+        'tnt-pros-cons',
+        TNT_CORE_URL . 'assets/css/pros-cons.css',
+        array( 'toolntip-core' ),
+        TNT_CORE_VERSION
+    );
 }
 
 add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );
