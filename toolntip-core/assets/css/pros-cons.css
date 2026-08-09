@@ -1,0 +1,66 @@
+.tnt-tool-pros-cons {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 32px;
+
+    margin-top: 48px;
+
+}
+
+.tnt-pros,
+.tnt-cons {
+
+    padding: 24px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+}
+
+.tnt-pros-list,
+.tnt-cons-list {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 24px 0 0;
+
+}
+
+.tnt-pro-item,
+.tnt-con-item {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-bottom: 14px;
+
+}
+
+.tnt-pro-item::before {
+
+    content: "✓";
+
+    color: #16a34a;
+
+    font-weight: bold;
+
+}
+
+.tnt-con-item::before {
+
+    content: "✕";
+
+    color: #dc2626;
+
+    font-weight: bold;
+
+}

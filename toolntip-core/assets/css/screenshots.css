@@ -1,0 +1,45 @@
+.tnt-tool-screenshots {
+
+    margin-top: 40px;
+
+}
+
+.tnt-screenshots-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+
+    margin-top: 20px;
+
+}
+
+.tnt-screenshot-item {
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+}
+
+.tnt-screenshot-item img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    transition: transform 0.3s ease;
+
+}
+
+.tnt-screenshot-item img:hover {
+
+    transform: scale(1.03);
+
+}
