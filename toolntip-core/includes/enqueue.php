@@ -16,6 +16,13 @@ function tnt_enqueue_assets() {
         TNT_CORE_VERSION
     );
 
+	wp_enqueue_style(
+		'tnt-tool-card',
+		TNT_CORE_URL . 'assets/css/tool-card.css',
+		array( 'toolntip-core' ),
+		TNT_CORE_VERSION
+	);
+
     wp_enqueue_style(
         'tnt-rating',
         TNT_CORE_URL . 'assets/css/rating.css',
@@ -43,6 +50,8 @@ function tnt_enqueue_assets() {
         array( 'toolntip-core' ),
         TNT_CORE_VERSION
     );
+
+
 }
 
 add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );

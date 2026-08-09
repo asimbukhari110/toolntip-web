@@ -80,6 +80,25 @@ function tnt_get_tool_data( $tool ) {
 	
 $last_verified = get_field( 'last_verified', $tool->ID );
 
+$platforms = get_field( 'platform', $tool->ID );
+
+	if ( empty( $platforms ) ) {
+		$platforms = array();
+	} elseif ( ! is_array( $platforms ) ) {
+		$platforms = array( $platforms );
+	}
+
+	$platforms = array_values(
+		array_filter(
+			array_map(
+				static function ( $platform ) {
+					return trim( (string) $platform );
+				},
+				$platforms
+			)
+		)
+	);
+
 return array(
 
     'id' => $tool->ID,
@@ -104,7 +123,7 @@ return array(
 
     'pricing' => get_field( 'pricing', $tool->ID ),
 
-    'platform' => get_field( 'platform', $tool->ID ),
+    'platform' => $platforms,
 
     'badges' => tnt_get_tool_badges( $tool ),
 
