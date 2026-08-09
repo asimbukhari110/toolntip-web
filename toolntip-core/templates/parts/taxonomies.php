@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <span class="tnt-category">
 
-                    <?php echo esc_html( $category->name ); ?>
+                    <?php echo esc_html( $category['name'] ); ?>
 
                 </span>
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <span class="tnt-tag">
 
-                    #<?php echo esc_html( $tag->name ); ?>
+                    #<?php echo esc_html( $tag['name'] ); ?>
 
                 </span>
 

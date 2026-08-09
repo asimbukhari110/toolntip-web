@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <?php tnt_render( 'similar-tools', $tool ); ?>
 
-        <?php tnt_render( 'tags', $tool ); ?>
+        <?php tnt_render( 'taxonomies', $tool ); ?>
 
     </main>
 

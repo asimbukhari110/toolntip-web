@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <?php include TNT_CORE_PATH . 'templates/parts/buttons.php'; ?>
 	
-	<?php tnt_render( 'gallery', $tool ); ?>
+	
 
     <?php include TNT_CORE_PATH . 'templates/parts/features.php'; ?>
 	
