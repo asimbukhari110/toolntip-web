@@ -9,26 +9,42 @@ if ( empty( $tool['screenshots'] ) ) {
 ?>
 
 <div id="screenshots" class="tnt-tool-detail-anchor">
-	<section class="tnt-tool-screenshots">
 
-		<h2 class="tnt-section-title">Screenshots</h2>
+    <section class="tnt-tool-screenshots">
 
-		<div class="tnt-screenshots-grid">
+        <header class="tnt-content-panel__header">
 
-			<?php foreach ( $tool['screenshots'] as $image ) : ?>
+            <span
+                class="tnt-content-panel__icon"
+                aria-hidden="true"
+            >
+                &#128247;
+            </span>
 
-				<figure class="tnt-screenshot-item">
+            <h2 class="tnt-section-title">
+                <?php echo esc_html__( 'Screenshots', 'toolntip-core' ); ?>
+            </h2>
 
-					<img
-						src="<?php echo esc_url( $image['thumb'] ); ?>"
-						alt="<?php echo esc_attr( $image['alt'] ); ?>"
-						loading="lazy">
+        </header>
 
-				</figure>
+        <div class="tnt-screenshots-grid">
 
-			<?php endforeach; ?>
+            <?php foreach ( $tool['screenshots'] as $image ) : ?>
 
-		</div>
+                <figure class="tnt-screenshot-item">
 
-	</section>
+                    <img
+                        src="<?php echo esc_url( $image['thumb'] ); ?>"
+                        alt="<?php echo esc_attr( $image['alt'] ); ?>"
+                        loading="lazy"
+                    >
+
+                </figure>
+
+            <?php endforeach; ?>
+
+        </div>
+
+    </section>
+
 </div>

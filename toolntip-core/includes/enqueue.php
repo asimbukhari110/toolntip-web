@@ -62,8 +62,15 @@ function tnt_enqueue_assets() {
         'tnt-screenshots',
         'tnt-pros-cons',
     ),
-    TNT_CORE_VERSION
-);
+		TNT_CORE_VERSION
+	);
+
+	wp_enqueue_style(
+		'tnt-reviews',
+		TNT_CORE_URL . 'assets/css/reviews.css',
+		array( 'tnt-tool-detail' ),
+		TNT_CORE_VERSION
+	);
 }
 
 add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );

@@ -50,6 +50,12 @@ if ( ! defined( 'ABSPATH' ) ) {
         </a>
     </li>
 
+	<li>
+		<a href="#reviews">
+			Reviews
+		</a>
+	</li>
+
     <li>
         <a href="#similar-tools">
             Similar Tools

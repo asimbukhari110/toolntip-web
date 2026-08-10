@@ -2,7 +2,7 @@
 /**
  * Tool Quick Actions.
  *
- * Displays primary and secondary Tool actions in the Tool Detail sidebar.
+ * Displays available Tool actions in the Tool Detail sidebar.
  *
  * @package ToolntipCore
  */
@@ -16,9 +16,20 @@ $button = $tool['use_tool'] ?? array();
 
 <section class="tnt-tool-quick-actions">
 
-    <h2 class="tnt-tool-quick-actions__title">
-        Quick Actions
-    </h2>
+    <header class="tnt-tool-quick-actions__header">
+
+        <span
+            class="tnt-tool-quick-actions__icon"
+            aria-hidden="true"
+        >
+            &#9889;
+        </span>
+
+        <h2 class="tnt-tool-quick-actions__title">
+            <?php echo esc_html__( 'Quick Actions', 'toolntip-core' ); ?>
+        </h2>
+
+    </header>
 
     <div class="tnt-tool-quick-actions__list">
 
@@ -30,7 +41,9 @@ $button = $tool['use_tool'] ?? array();
                     class="tnt-btn tnt-btn-primary is-disabled"
                     aria-disabled="true"
                 >
-                    <?php echo esc_html( $button['label'] ); ?>
+                    <span class="tnt-tool-action__label">
+                        <?php echo esc_html( $button['label'] ); ?>
+                    </span>
                 </span>
 
             <?php else : ?>
@@ -40,7 +53,13 @@ $button = $tool['use_tool'] ?? array();
                     class="tnt-btn tnt-btn-primary"
                     <?php echo ! empty( $button['external'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>
                 >
-                    <?php echo esc_html( $button['label'] ); ?>
+                    <span class="tnt-tool-action__icon" aria-hidden="true">
+                        &#9889;
+                    </span>
+
+                    <span class="tnt-tool-action__label">
+                        <?php echo esc_html( $button['label'] ); ?>
+                    </span>
                 </a>
 
             <?php endif; ?>
@@ -55,7 +74,13 @@ $button = $tool['use_tool'] ?? array();
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                Official Website
+                <span class="tnt-tool-action__label">
+                    <?php echo esc_html__( 'Official Website', 'toolntip-core' ); ?>
+                </span>
+
+                <span class="tnt-tool-action__external" aria-hidden="true">
+                    &#8599;
+                </span>
             </a>
 
         <?php endif; ?>

@@ -10,60 +10,78 @@ if (
     return;
 }
 ?>
+
 <div id="pros-cons" class="tnt-tool-detail-anchor">
-	<section class="tnt-section tnt-tool-pros-cons">
 
-		<?php if ( ! empty( $tool['pros'] ) ) : ?>
+    <section class="tnt-tool-pros-cons">
 
-			<div class="tnt-pros">
+        <header class="tnt-content-panel__header">
 
-				<h2 class="tnt-section-title">
-					Pros
-				</h2>
+            <span
+                class="tnt-content-panel__icon"
+                aria-hidden="true"
+            >
+                &#9878;
+            </span>
 
-				<ul class="tnt-pros-list">
+            <h2 class="tnt-section-title">
+                <?php echo esc_html__( 'Pros & Cons', 'toolntip-core' ); ?>
+            </h2>
 
-					<?php foreach ( $tool['pros'] as $pro ) : ?>
+        </header>
 
-						<li class="tnt-pro-item">
+        <div class="tnt-tool-pros-cons__grid">
 
-							<?php echo esc_html( $pro ); ?>
+            <?php if ( ! empty( $tool['pros'] ) ) : ?>
 
-						</li>
+                <div class="tnt-pros">
 
-					<?php endforeach; ?>
+                    <h3 class="tnt-tool-pros-cons__title">
+                        <?php echo esc_html__( 'Pros', 'toolntip-core' ); ?>
+                    </h3>
 
-				</ul>
+                    <ul class="tnt-pros-list">
 
-			</div>
+                        <?php foreach ( $tool['pros'] as $pro ) : ?>
 
-		<?php endif; ?>
+                            <li class="tnt-pro-item">
+                                <?php echo esc_html( $pro ); ?>
+                            </li>
 
-		<?php if ( ! empty( $tool['cons'] ) ) : ?>
+                        <?php endforeach; ?>
 
-			<div class="tnt-cons">
+                    </ul>
 
-				<h2 class="tnt-section-title">
-					Cons
-				</h2>
+                </div>
 
-				<ul class="tnt-cons-list">
+            <?php endif; ?>
 
-					<?php foreach ( $tool['cons'] as $con ) : ?>
+            <?php if ( ! empty( $tool['cons'] ) ) : ?>
 
-						<li class="tnt-con-item">
+                <div class="tnt-cons">
 
-							<?php echo esc_html( $con ); ?>
+                    <h3 class="tnt-tool-pros-cons__title">
+                        <?php echo esc_html__( 'Cons', 'toolntip-core' ); ?>
+                    </h3>
 
-						</li>
+                    <ul class="tnt-cons-list">
 
-					<?php endforeach; ?>
+                        <?php foreach ( $tool['cons'] as $con ) : ?>
 
-				</ul>
+                            <li class="tnt-con-item">
+                                <?php echo esc_html( $con ); ?>
+                            </li>
 
-			</div>
+                        <?php endforeach; ?>
 
-		<?php endif; ?>
+                    </ul>
 
-	</section>
-</dive>
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+    </section>
+
+</div>

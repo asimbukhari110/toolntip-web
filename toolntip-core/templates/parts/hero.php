@@ -54,12 +54,12 @@ if ( ! empty( $tool['featured_image'] ) ) {
 
                 <?php tnt_render( 'hero-meta', $tool ); ?>
 
+                <div class="tnt-tool-hero__badges">
+                    <?php tnt_render( 'badges', $tool ); ?>
+                </div>
+
             </div>
 
-        </div>
-
-        <div class="tnt-tool-hero__badges">
-            <?php tnt_render( 'badges', $tool ); ?>
         </div>
 
         <?php if ( ! empty( $feature_highlights ) ) : ?>
@@ -117,5 +117,7 @@ if ( ! empty( $tool['featured_image'] ) ) {
         <?php endif; ?>
 
     </div>
+
+    <?php tnt_render( 'hero-promo', $tool ); ?>
 
 </div>

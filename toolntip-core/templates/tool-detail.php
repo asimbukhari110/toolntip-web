@@ -61,6 +61,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             </section>
 
+			<section class="tnt-tool-detail__section tnt-tool-detail__section--reviews">
+
+				<?php tnt_render( 'reviews', $tool ); ?>
+
+			</section>
+
         </main>
 
         <aside

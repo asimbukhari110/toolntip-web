@@ -190,16 +190,28 @@ function tnt_calculate_related_score( WP_Post $tool, WP_Post $candidate ) {
     }
 
     /*
-     * Platform
-     * -------------------------------------------------
-     */
+	 * Platform
+	 * -------------------------------------------------
+	 *
+	 * Platform is a multi-value field. Related tools receive
+	 * the platform score when at least one normalized platform
+	 * value overlaps.
+	 */
 
-    if (
-        get_field( 'platform', $tool->ID ) ===
-        get_field( 'platform', $candidate->ID )
-    ) {
-        $score += 10;
-    }
+	$tool_platforms = get_field( 'platform', $tool->ID );
+	$candidate_platforms = get_field( 'platform', $candidate->ID );
+
+	$tool_platforms = is_array( $tool_platforms )
+		? $tool_platforms
+		: array_filter( array( $tool_platforms ) );
+
+	$candidate_platforms = is_array( $candidate_platforms )
+		? $candidate_platforms
+		: array_filter( array( $candidate_platforms ) );
+
+	if ( array_intersect( $tool_platforms, $candidate_platforms ) ) {
+		$score += 10;
+	}
 
     /*
      * Pricing
