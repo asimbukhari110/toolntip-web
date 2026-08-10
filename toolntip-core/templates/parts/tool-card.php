@@ -66,7 +66,7 @@ $details_url = get_permalink( $tool['post_id'] );
     <div class="tnt-tool-card__signals">
 
         <?php if ( $rating_value > 0 ) : ?>
-            <span class="tnt-tool-card__signal">
+            <span class="tnt-tool-card__signal tnt-tool-card__signal--rating">
                 Rating:
                 <?php echo esc_html( number_format_i18n( $rating_value, 1 ) ); ?>
             </span>
