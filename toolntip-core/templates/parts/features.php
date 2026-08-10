@@ -7,23 +7,24 @@ if ( empty( $tool['features'] ) ) {
     return;
 }
 ?>
+<div id="features" class="tnt-tool-detail-anchor">
+	<section class="tnt-tool-features">
 
-<section class="tnt-tool-features">
+		<h3>Features</h3>
 
-    <h3>Features</h3>
+		<ul>
 
-    <ul>
+			<?php foreach ( $tool['features'] as $feature ) : ?>
 
-        <?php foreach ( $tool['features'] as $feature ) : ?>
+				<li>
 
-            <li>
+					<?php echo esc_html( $feature ); ?>
 
-                <?php echo esc_html( $feature ); ?>
+				</li>
 
-            </li>
+			<?php endforeach; ?>
 
-        <?php endforeach; ?>
+		</ul>
 
-    </ul>
-
-</section>
+	</section>
+</div>

@@ -7,29 +7,30 @@ if ( empty( $tool['faqs'] ) ) {
     return;
 }
 ?>
+<div id="faq" class="tnt-tool-detail-anchor">
+	<section class="tnt-tool-faq">
 
-<section class="tnt-tool-faq">
+		<h3>Frequently Asked Questions</h3>
 
-    <h3>Frequently Asked Questions</h3>
+		<?php foreach ( $tool['faqs'] as $faq ) : ?>
 
-    <?php foreach ( $tool['faqs'] as $faq ) : ?>
+			<details class="tnt-faq-item">
 
-        <details class="tnt-faq-item">
+				<summary>
 
-            <summary>
+					<?php echo esc_html( $faq['question'] ); ?>
 
-                <?php echo esc_html( $faq['question'] ); ?>
+				</summary>
 
-            </summary>
+				<div class="tnt-faq-answer">
 
-            <div class="tnt-faq-answer">
+					<?php echo wp_kses_post( wpautop( $faq['answer'] ) ); ?>
 
-                <?php echo wp_kses_post( wpautop( $faq['answer'] ) ); ?>
+				</div>
 
-            </div>
+			</details>
 
-        </details>
+		<?php endforeach; ?>
 
-    <?php endforeach; ?>
-
-</section>
+	</section>
+</div>

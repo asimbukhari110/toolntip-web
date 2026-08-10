@@ -7,32 +7,33 @@ if ( empty( $tool['video'] ) ) {
     return;
 }
 ?>
+<div id="video" class="tnt-tool-detail-anchor">
+	<section class="tnt-tool-video">
 
-<section class="tnt-tool-video">
+		<h3>Demo Video</h3>
 
-    <h3>Demo Video</h3>
+		<?php
+		if ( ! empty( $tool['video']['embed'] ) ) {
 
-    <?php
-    if ( ! empty( $tool['video']['embed'] ) ) {
+			echo $tool['video']['embed'];
 
-        echo $tool['video']['embed'];
+		} else {
 
-    } else {
+			?>
 
-        ?>
+			<a
+				href="<?php echo esc_url( $tool['video']['url'] ); ?>"
+				target="_blank"
+				rel="noopener noreferrer">
 
-        <a
-            href="<?php echo esc_url( $tool['video']['url'] ); ?>"
-            target="_blank"
-            rel="noopener noreferrer">
+				Watch Demo Video
 
-            Watch Demo Video
+			</a>
 
-        </a>
+			<?php
 
-        <?php
+		}
+		?>
 
-    }
-    ?>
-
-</section>
+	</section>
+</div>
