@@ -15,23 +15,24 @@ if ( empty( $hero ) ) {
     <?php if ( ! empty( $hero['tagline'] ) ) : ?>
 
         <p class="tnt-tagline">
-
             <?php echo esc_html( $hero['tagline'] ); ?>
-
         </p>
 
     <?php endif; ?>
 
-    <?php include TNT_CORE_PATH . 'templates/parts/rating.php'; ?>
+    <div class="tnt-hero-meta__signals">
 
-    <?php if ( $hero['verified'] ) : ?>
+        <?php if ( ! empty( $hero['verified'] ) ) : ?>
 
-        <p class="tnt-verified">
+            <span class="tnt-verified">
+                <span class="tnt-verified__icon" aria-hidden="true">&#10003;</span>
+                <?php echo esc_html__( 'Verified by ToolNTip', 'toolntip-core' ); ?>
+            </span>
 
-            ✔ Verified by Toolntip
+        <?php endif; ?>
 
-        </p>
+        <?php tnt_render( 'rating', $tool ); ?>
 
-    <?php endif; ?>
+    </div>
 
 </div>

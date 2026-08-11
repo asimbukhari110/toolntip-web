@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 require_once TNT_CORE_PATH . 'includes/enqueue.php';
+require_once TNT_CORE_PATH . 'includes/template-loader.php';
 
 require_once TNT_CORE_PATH . 'includes/helpers.php';
 require_once TNT_CORE_PATH . 'includes/helpers-images.php';
@@ -21,7 +22,10 @@ require_once TNT_CORE_PATH . 'includes/helpers-faq.php';
 require_once TNT_CORE_PATH . 'includes/helpers-schema.php';
 require_once TNT_CORE_PATH . 'includes/helpers-hero.php';
 require_once TNT_CORE_PATH . 'includes/helpers-rating.php';
+require_once TNT_CORE_PATH . 'includes/helpers-promo.php';
+require_once TNT_CORE_PATH . 'includes/helpers-reviews.php';
 require_once TNT_CORE_PATH . 'includes/helpers-related-tools.php';
+
 
 
 require_once TNT_CORE_PATH . 'includes/render.php';

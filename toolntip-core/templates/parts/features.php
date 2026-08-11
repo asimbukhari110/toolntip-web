@@ -1,4 +1,14 @@
 <?php
+/**
+ * Tool Key Features Component.
+ *
+ * Uses the existing normalized feature-string contract. Presentation remains
+ * independent of the feature data source so richer feature metadata can be
+ * introduced later without changing Tool Detail orchestration.
+ *
+ * @package ToolntipCore
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
@@ -8,22 +18,43 @@ if ( empty( $tool['features'] ) ) {
 }
 ?>
 
-<section class="tnt-tool-features">
+<div id="features" class="tnt-tool-detail-anchor">
 
-    <h3>Features</h3>
+    <section class="tnt-tool-features">
 
-    <ul>
+        <header class="tnt-overview-panel__heading">
+            <span class="tnt-overview-panel__icon tnt-overview-panel__icon--features" aria-hidden="true">
+                &#9734;
+            </span>
 
-        <?php foreach ( $tool['features'] as $feature ) : ?>
+            <h2 class="tnt-section-title">
+                <?php echo esc_html__( 'Key Features', 'toolntip-core' ); ?>
+            </h2>
+        </header>
 
-            <li>
+        <ul class="tnt-feature-grid">
 
-                <?php echo esc_html( $feature ); ?>
+            <?php foreach ( $tool['features'] as $index => $feature ) : ?>
 
-            </li>
+                <li class="tnt-feature-card">
 
-        <?php endforeach; ?>
+                    <span
+                        class="tnt-feature-card__icon"
+                        aria-hidden="true"
+                    >
+                        <span class="tnt-feature-card__glyph"></span>
+                    </span>
 
-    </ul>
+                    <span class="tnt-feature-card__title">
+                        <?php echo esc_html( $feature ); ?>
+                    </span>
 
-</section>
+                </li>
+
+            <?php endforeach; ?>
+
+        </ul>
+
+    </section>
+
+</div>

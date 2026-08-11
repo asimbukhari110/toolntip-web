@@ -46,21 +46,13 @@
 }
 
 .tnt-pro-item::before {
-
-    content: "✓";
-
+    content: "\2713";
     color: #16a34a;
-
-    font-weight: bold;
-
+    font-weight: 700;
 }
 
 .tnt-con-item::before {
-
-    content: "✕";
-
+    content: "\2715";
     color: #dc2626;
-
-    font-weight: bold;
-
+    font-weight: 700;
 }

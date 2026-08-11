@@ -12,7 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Generate SoftwareApplication Schema.
  *
- * @param array $tool
+ * Community review data is used for aggregateRating.
+ * The ToolNTip editor rating remains separate and is not
+ * presented as a public aggregate rating.
+ *
+ * @param array $tool Normalized Tool data.
  * @return array
  */
 function tnt_get_tool_schema( $tool ) {
@@ -31,16 +35,51 @@ function tnt_get_tool_schema( $tool ) {
 
         'operatingSystem' => 'Web',
 
-        'url' => home_url( '/tool/' . $tool['slug'] . '/' ),
+        'url' => home_url(
+            '/tool/' . $tool['slug'] . '/'
+        ),
 
     );
 
+    /*
+     * Official website.
+     */
     if ( ! empty( $tool['official_website'] ) ) {
 
         $schema['sameAs'] = $tool['official_website'];
 
     }
 
-    return $schema;
+    /*
+     * Community aggregate rating.
+     *
+     * Only approved community reviews participate in this
+     * rating. The editor rating is intentionally excluded.
+     */
+    $community = ! empty( $tool['rating']['community'] )
+        ? $tool['rating']['community']
+        : array();
 
+    if (
+        ! empty( $community['count'] ) &&
+        ! empty( $community['value'] )
+    ) {
+
+        $schema['aggregateRating'] = array(
+
+            '@type' => 'AggregateRating',
+
+            'ratingValue' => (float) $community['value'],
+
+            'reviewCount' => (int) $community['count'],
+
+            'bestRating' => 5,
+
+            'worstRating' => 1,
+
+        );
+
+    }
+
+    return $schema;
 }

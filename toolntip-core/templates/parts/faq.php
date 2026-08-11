@@ -8,28 +8,47 @@ if ( empty( $tool['faqs'] ) ) {
 }
 ?>
 
-<section class="tnt-tool-faq">
+<div id="faq" class="tnt-tool-detail-anchor">
 
-    <h3>Frequently Asked Questions</h3>
+    <section class="tnt-tool-faq">
 
-    <?php foreach ( $tool['faqs'] as $faq ) : ?>
+        <header class="tnt-content-panel__header">
 
-        <details class="tnt-faq-item">
+            <span
+                class="tnt-content-panel__icon"
+                aria-hidden="true"
+            >
+                ?
+            </span>
 
-            <summary>
+            <h2 class="tnt-section-title">
+                <?php echo esc_html__( 'Frequently Asked Questions', 'toolntip-core' ); ?>
+            </h2>
 
-                <?php echo esc_html( $faq['question'] ); ?>
+        </header>
 
-            </summary>
+        <div class="tnt-tool-faq__list">
 
-            <div class="tnt-faq-answer">
+            <?php foreach ( $tool['faqs'] as $faq_item ) : ?>
 
-                <?php echo wp_kses_post( wpautop( $faq['answer'] ) ); ?>
+                <details class="tnt-faq-item">
 
-            </div>
+                    <summary>
+                        <span>
+                            <?php echo esc_html( $faq_item['question'] ); ?>
+                        </span>
+                    </summary>
 
-        </details>
+                    <div class="tnt-faq-answer">
+                        <?php echo wp_kses_post( wpautop( $faq_item['answer'] ) ); ?>
+                    </div>
 
-    <?php endforeach; ?>
+                </details>
 
-</section>
+            <?php endforeach; ?>
+
+        </div>
+
+    </section>
+
+</div>

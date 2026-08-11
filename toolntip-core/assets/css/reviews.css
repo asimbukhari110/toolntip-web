@@ -1,0 +1,206 @@
+/**
+ * Tool Community Reviews
+ */
+
+.tnt-tool-detail .tnt-tool-reviews {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__intro {
+    margin: -0.5rem 0 0;
+    color: var(--tnt-detail-muted);
+    line-height: 1.6;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__summary {
+    display: grid;
+    justify-items: end;
+    gap: 0.2rem;
+    min-width: 170px;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__score {
+    color: var(--tnt-detail-navy);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__stars,
+.tnt-tool-detail .tnt-tool-review__rating {
+    color: var(--tnt-detail-gold);
+    letter-spacing: 0.08em;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__count,
+.tnt-tool-detail .tnt-tool-reviews__empty,
+.tnt-tool-detail .tnt-tool-review__date {
+    color: var(--tnt-detail-muted);
+    font-size: 0.82rem;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__list {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.tnt-tool-detail .tnt-tool-review {
+    padding: 1rem;
+    background: var(--tnt-detail-surface-soft);
+    border: 1px solid var(--tnt-detail-border);
+    border-radius: 10px;
+}
+
+.tnt-tool-detail .tnt-tool-review__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.tnt-tool-detail .tnt-tool-review__author,
+.tnt-tool-detail .tnt-tool-review__date {
+    display: block;
+}
+
+.tnt-tool-detail .tnt-tool-review__author {
+    color: var(--tnt-detail-navy);
+}
+
+.tnt-tool-detail .tnt-tool-review__content {
+    margin-top: 0.8rem;
+    color: #475569;
+    line-height: 1.65;
+}
+
+.tnt-tool-detail .tnt-tool-review__content > :first-child {
+    margin-top: 0;
+}
+
+.tnt-tool-detail .tnt-tool-review__content > :last-child {
+    margin-bottom: 0;
+}
+
+.tnt-tool-detail .tnt-tool-reviews__form {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--tnt-detail-border);
+}
+
+.tnt-tool-detail .tnt-tool-reviews__form-title {
+    margin: 0 0 1rem;
+    color: var(--tnt-detail-navy);
+    font-size: 1.1rem;
+}
+
+.tnt-tool-detail .tnt-review-rating-field {
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+}
+
+.tnt-tool-detail .tnt-review-rating-field legend,
+.tnt-tool-detail .comment-form-comment label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--tnt-detail-navy);
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.tnt-tool-detail .tnt-review-rating-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.tnt-tool-detail .tnt-review-rating-options label {
+    cursor: pointer;
+}
+
+.tnt-tool-detail .tnt-review-rating-options input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tnt-tool-detail .tnt-review-rating-options span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0.5rem 0.7rem;
+    background: var(--tnt-detail-surface-soft);
+    border: 1px solid var(--tnt-detail-border);
+    border-radius: 8px;
+    color: var(--tnt-detail-muted);
+    font-size: 0.78rem;
+    font-weight: 650;
+}
+
+.tnt-tool-detail .tnt-review-rating-options input:checked + span,
+.tnt-tool-detail .tnt-review-rating-options input:focus-visible + span {
+    border-color: var(--tnt-detail-gold);
+    color: var(--tnt-detail-navy);
+    box-shadow: 0 0 0 3px rgba(245, 179, 0, 0.16);
+}
+
+.tnt-tool-detail .comment-form-comment textarea,
+.tnt-tool-detail .comment-form-author input,
+.tnt-tool-detail .comment-form-email input,
+.tnt-tool-detail .comment-form-url input {
+    width: 100%;
+    border: 1px solid var(--tnt-detail-border);
+    border-radius: 9px;
+    background: #fff;
+}
+
+.tnt-tool-detail .comment-form-comment textarea {
+    min-height: 140px;
+    padding: 0.85rem;
+    resize: vertical;
+}
+
+.tnt-tool-detail .comment-form-author input,
+.tnt-tool-detail .comment-form-email input,
+.tnt-tool-detail .comment-form-url input {
+    min-height: 42px;
+    padding: 0.6rem 0.75rem;
+}
+
+.tnt-tool-detail .form-submit {
+    margin-bottom: 0;
+}
+
+.tnt-tool-detail .form-submit .tnt-btn {
+    min-height: 44px;
+    padding: 0.7rem 1rem;
+    background: var(--tnt-detail-navy);
+    border: 1px solid var(--tnt-detail-navy);
+    border-radius: 9px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tnt-tool-detail .form-submit .tnt-btn:hover,
+.tnt-tool-detail .form-submit .tnt-btn:focus-visible {
+    background: var(--tnt-detail-navy-hover);
+    border-color: var(--tnt-detail-navy-hover);
+}
+
+@media (max-width: 640px) {
+    .tnt-tool-detail .tnt-tool-reviews__header {
+        display: grid;
+    }
+
+    .tnt-tool-detail .tnt-tool-reviews__summary {
+        justify-items: start;
+        min-width: 0;
+    }
+}
