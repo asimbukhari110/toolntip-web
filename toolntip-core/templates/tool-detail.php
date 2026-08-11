@@ -78,7 +78,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <?php tnt_render( 'tool-information', $tool ); ?>
 
-                <?php tnt_render( 'tool-quick-actions', $tool ); ?>
+                <?php
+					/*
+					 * WEB-005.8.1
+					 * Quick Actions UI deferred pending future product/data review.
+					 * Component retained for possible reactivation.
+					 */
+					// tnt_render( 'tool-quick-actions', $tool );
+					?>
 
 				<?php tnt_render( 'similar-tools', $tool ); ?>
             </div>
