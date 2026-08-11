@@ -71,6 +71,16 @@ function tnt_enqueue_assets() {
 		array( 'tnt-tool-detail' ),
 		TNT_CORE_VERSION
 	);
+
+	if ( is_post_type_archive( 'tool' ) ) {
+
+		wp_enqueue_style(
+			'tnt-tool-directory',
+			TNT_CORE_URL . 'assets/css/tool-directory.css',
+			array( 'toolntip-core', 'tnt-tool-card' ),
+			TNT_CORE_VERSION
+		);
+	}
 }
 
 add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );
