@@ -19,14 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function tnt_tool_template_include( $template ) {
 
-    if ( ! is_singular( 'tool' ) ) {
-        return $template;
+    if ( is_singular( 'tool' ) ) {
+
+        $tool_template = TNT_CORE_PATH . 'templates/single-tool.php';
+
+        if ( file_exists( $tool_template ) ) {
+            return $tool_template;
+        }
     }
 
-    $tool_template = TNT_CORE_PATH . 'templates/single-tool.php';
+    if ( is_post_type_archive( 'tool' ) ) {
 
-    if ( file_exists( $tool_template ) ) {
-        return $tool_template;
+        $archive_template = TNT_CORE_PATH . 'templates/archive-tool.php';
+
+        if ( file_exists( $archive_template ) ) {
+            return $archive_template;
+        }
     }
 
     return $template;
