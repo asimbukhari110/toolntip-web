@@ -410,3 +410,90 @@
         min-width: 0;
     }
 }
+
+/* =========================================================
+   WEB-006.3 - DIRECTORY FILTERING & SORTING
+   ========================================================= */
+
+.tnt-tool-directory__search-form {
+    flex-wrap: wrap;
+}
+
+.tnt-tool-directory__filters {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    flex: 0 0 100%;
+    gap: 0.75rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--tnt-directory-border);
+}
+
+.tnt-tool-directory__filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+}
+
+.tnt-tool-directory__filter > span {
+    color: var(--tnt-directory-muted);
+    font-size: 0.78rem;
+    font-weight: 750;
+}
+
+.tnt-tool-directory__filter select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 2.25rem 0.6rem 0.8rem;
+    color: var(--tnt-directory-navy);
+    background-color: var(--tnt-directory-surface-subtle);
+    border: 1px solid var(--tnt-directory-border);
+    border-radius: 10px;
+    font: inherit;
+}
+
+.tnt-tool-directory__filter select:focus-visible {
+    background-color: var(--tnt-directory-surface);
+    border-color: var(--tnt-directory-gold);
+    outline: 3px solid rgba(245, 179, 0, 0.18);
+    outline-offset: 1px;
+}
+
+.tnt-tool-directory__featured-filter {
+    display: inline-flex;
+    align-items: center;
+    align-self: end;
+    gap: 0.6rem;
+    min-height: 44px;
+    padding: 0.6rem 0.8rem;
+    color: var(--tnt-directory-navy);
+    background: var(--tnt-directory-surface-subtle);
+    border: 1px solid var(--tnt-directory-border);
+    border-radius: 10px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tnt-tool-directory__featured-filter input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--tnt-directory-navy);
+}
+
+@media (max-width: 980px) {
+    .tnt-tool-directory__filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .tnt-tool-directory__filters {
+        grid-template-columns: 1fr;
+    }
+
+    .tnt-tool-directory__featured-filter {
+        align-self: stretch;
+    }
+}
