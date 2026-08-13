@@ -60,6 +60,57 @@ function tnt_get_tool( $value ) {
 }
 
 /**
+ * Split Tool About content into introductory and extended sections.
+ *
+ * The existing about_this_tool field remains the single source of truth.
+ * Content before the first H2/H3 stays in the overview column; content from
+ * that heading onward is rendered as full-width extended editorial content.
+ * If a safe split point is not available, the complete content remains in the
+ * introductory region.
+ *
+ * @param string $content Raw About This Tool field content.
+ * @return array{intro:string,extended:string}
+ */
+function tnt_split_tool_about_content( $content ) {
+
+    $content = trim( (string) $content );
+
+    if ( $content === '' ) {
+        return array(
+            'intro'    => '',
+            'extended' => '',
+        );
+    }
+
+    // Preserve the existing About rendering contract before splitting.
+    $html = wpautop( $content );
+
+    if ( ! preg_match( '/<h[23]\b[^>]*>/i', $html, $match, PREG_OFFSET_CAPTURE ) ) {
+        return array(
+            'intro'    => $html,
+            'extended' => '',
+        );
+    }
+
+    $offset   = (int) $match[0][1];
+    $intro    = trim( substr( $html, 0, $offset ) );
+    $extended = trim( substr( $html, $offset ) );
+
+    // Avoid creating an empty overview column when content begins with a heading.
+    if ( $intro === '' || $extended === '' ) {
+        return array(
+            'intro'    => $html,
+            'extended' => '',
+        );
+    }
+
+    return array(
+        'intro'    => $intro,
+        'extended' => $extended,
+    );
+}
+
+/**
  * Get normalized Tool data.
  *
  * @param WP_Post|int|string $tool Tool object, ID or slug.
@@ -81,6 +132,8 @@ function tnt_get_tool_data( $tool ) {
 $last_verified = get_field( 'last_verified', $tool->ID );
 
 $platforms = get_field( 'platform', $tool->ID );
+
+$actions = tnt_get_tool_actions( $tool );
 
 	if ( empty( $platforms ) ) {
 		$platforms = array();
@@ -116,6 +169,8 @@ return array(
     'about' => get_field( 'about_this_tool', $tool->ID ),
 
     'tool_type' => get_field( 'tool_type', $tool->ID ),
+
+    'use_tool_url' => get_field( 'use_tool_url', $tool->ID ),
 
     'official_website' => get_field( 'official_website', $tool->ID ),
 
@@ -158,7 +213,9 @@ return array(
 
 		'logo' => tnt_get_tool_logo( $tool ),
 
-		'use_tool' => tnt_get_use_tool_button( $tool ),
+		'actions' => $actions,
+
+		'use_tool' => ! empty( $actions['use_tool'] ) ? $actions['use_tool'] : array(),
 
 		'featured_image' => get_the_post_thumbnail_url(
         $tool,

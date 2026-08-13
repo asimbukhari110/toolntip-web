@@ -32,9 +32,15 @@ $features = ! empty( $tool['features'] )
     ? array_slice( $tool['features'], 0, 3 )
     : array();
 
-$button = $tool['use_tool'] ?? array();
+$actions = ! empty( $tool['actions'] ) && is_array( $tool['actions'] )
+    ? $tool['actions']
+    : array();
 
-$details_url = get_permalink( $tool['post_id'] );
+$button = $actions['use_tool'] ?? ( $tool['use_tool'] ?? array() );
+$affiliate = $actions['affiliate'] ?? array();
+$details_url = ! empty( $actions['details']['url'] )
+    ? $actions['details']['url']
+    : get_permalink( $tool['post_id'] );
 ?>
 
 <article class="tnt-tool-card">
@@ -143,6 +149,17 @@ $details_url = get_permalink( $tool['post_id'] );
         >
             View Details
         </a>
+
+        <?php if ( ! empty( $affiliate['url'] ) ) : ?>
+            <a
+                href="<?php echo esc_url( $affiliate['url'] ); ?>"
+                class="tnt-btn tnt-btn-secondary tnt-btn-partner"
+                <?php echo ! empty( $affiliate['external'] ) ? 'target="_blank"' : ''; ?>
+                rel="<?php echo esc_attr( $affiliate['rel'] ?? 'sponsored nofollow' ); ?>"
+            >
+                <?php echo esc_html( $affiliate['label'] ); ?>
+            </a>
+        <?php endif; ?>
 
     </footer>
 
