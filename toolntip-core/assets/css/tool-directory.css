@@ -234,3 +234,179 @@
         padding: 0.45rem 0.6rem;
     }
 }
+
+/* =========================================================
+   WEB-006.2 - DIRECTORY SEARCH FOUNDATION
+   ========================================================= */
+
+.tnt-tool-directory__search {
+    margin-top: 1.25rem;
+    padding: 1rem;
+
+    background: var(--tnt-directory-surface);
+    border: 1px solid var(--tnt-directory-border);
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(11, 29, 51, 0.035);
+}
+
+.tnt-tool-directory__search-form {
+    display: flex;
+    align-items: stretch;
+    gap: 0.65rem;
+}
+
+.tnt-tool-directory__search-field {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tnt-tool-directory__search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+
+    color: var(--tnt-directory-muted);
+    pointer-events: none;
+}
+
+.tnt-tool-directory__search-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.tnt-tool-directory__search-input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.7rem 1rem 0.7rem 2.8rem;
+
+    color: var(--tnt-directory-navy);
+    background: var(--tnt-directory-surface-subtle);
+    border: 1px solid var(--tnt-directory-border);
+    border-radius: 10px;
+
+    font: inherit;
+    line-height: 1.35;
+}
+
+.tnt-tool-directory__search-field .tnt-tool-directory__search-input {
+    padding-left: 3.25rem;
+}
+.tnt-tool-directory__search-input::placeholder {
+    color: var(--tnt-directory-muted);
+    opacity: 0.9;
+}
+
+.tnt-tool-directory__search-input:focus {
+    background: var(--tnt-directory-surface);
+    border-color: var(--tnt-directory-gold);
+    outline: 3px solid rgba(245, 179, 0, 0.18);
+    outline-offset: 1px;
+}
+
+.tnt-tool-directory__search-submit,
+.tnt-tool-directory__search-clear,
+.tnt-tool-directory__empty-clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+    padding: 0.7rem 1.25rem;
+
+    border-radius: 10px;
+
+    font-size: 0.9rem;
+    font-weight: 750;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tnt-tool-directory__search-submit {
+    color: #FFFFFF;
+    background: var(--tnt-directory-navy);
+    border: 1px solid var(--tnt-directory-navy);
+}
+
+.tnt-tool-directory__search-submit:hover,
+.tnt-tool-directory__search-submit:focus-visible {
+    color: #FFFFFF;
+    background: #102B4D;
+}
+
+.tnt-tool-directory__search-clear,
+.tnt-tool-directory__empty-clear {
+    color: var(--tnt-directory-navy);
+    background: var(--tnt-directory-surface-subtle);
+    border: 1px solid var(--tnt-directory-border);
+}
+
+.tnt-tool-directory__search-clear:hover,
+.tnt-tool-directory__search-clear:focus-visible,
+.tnt-tool-directory__empty-clear:hover,
+.tnt-tool-directory__empty-clear:focus-visible {
+    color: var(--tnt-directory-navy);
+    background: #FFF6DC;
+    border-color: var(--tnt-directory-gold);
+}
+
+.tnt-tool-directory__search-submit:focus-visible,
+.tnt-tool-directory__search-clear:focus-visible,
+.tnt-tool-directory__empty-clear:focus-visible {
+    outline: 3px solid rgba(245, 179, 0, 0.35);
+    outline-offset: 2px;
+}
+
+.tnt-tool-directory__summary-context {
+    margin-right: auto;
+
+    color: var(--tnt-directory-muted);
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.tnt-tool-directory__empty-clear {
+    margin-top: 1.25rem;
+}
+
+@media (max-width: 600px) {
+
+    .tnt-tool-directory__search {
+        padding: 0.75rem;
+        border-radius: 12px;
+    }
+
+    .tnt-tool-directory__search-form {
+        flex-wrap: wrap;
+    }
+
+    .tnt-tool-directory__search-field {
+        flex-basis: 100%;
+    }
+
+    .tnt-tool-directory__search-submit {
+        flex: 1 1 auto;
+    }
+
+    .tnt-tool-directory__search-clear {
+        flex: 0 0 auto;
+    }
+
+    .tnt-tool-directory__summary {
+        align-items: center;
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+
+    .tnt-tool-directory__summary-context {
+        min-width: 0;
+    }
+}
