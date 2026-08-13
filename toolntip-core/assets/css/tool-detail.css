@@ -726,6 +726,9 @@
 .tnt-tool-detail__section--overview {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+        "about features"
+        "extended extended";
     gap: 0;
 
     padding: 0;
@@ -738,8 +741,20 @@
     padding: 1.35rem;
 }
 
+.tnt-tool-detail__section--overview > .tnt-tool-about {
+    grid-area: about;
+}
+
 .tnt-tool-detail__section--overview > .tnt-tool-detail-anchor {
+    grid-area: features;
     border-left: 1px solid var(--tnt-detail-border);
+}
+
+.tnt-tool-detail__section--overview > .tnt-tool-about-extended {
+    grid-area: extended;
+    min-width: 0;
+    padding: 1.35rem;
+    border-top: 1px solid var(--tnt-detail-border);
 }
 
 .tnt-overview-panel__heading {
@@ -2094,6 +2109,10 @@
 
     .tnt-tool-detail__section--overview {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "about"
+            "features"
+            "extended";
     }
 
     .tnt-tool-detail__section--overview > .tnt-tool-detail-anchor {
