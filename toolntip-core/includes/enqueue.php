@@ -71,8 +71,14 @@ function tnt_enqueue_assets() {
 		array( 'tnt-tool-detail' ),
 		TNT_CORE_VERSION
 	);
+    wp_enqueue_style(
+        'tnt-monetization-page-level',
+        TNT_CORE_URL . 'assets/css/monetization-page-level.css',
+        array( 'tnt-tool-detail' ),
+        TNT_CORE_VERSION
+    );
 
-	if ( is_post_type_archive( 'tool' ) ) {
+    if ( is_post_type_archive( 'tool' ) ) {
 
 		wp_enqueue_style(
 			'tnt-tool-directory',

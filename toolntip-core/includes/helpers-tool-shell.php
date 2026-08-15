@@ -16,10 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Resolve a Tool for the application-shell API.
  *
  * Resolution order is intentionally explicit and conservative:
- * 1. post_id
- * 2. tool_slug
+ * 1. explicit post_id
+ * 2. explicit tool_slug
  * 3. current post when it is a Tool CPT
- * 4. no invented implicit context; unresolved calls return null
+ * 4. current Application Page linked Tool context
+ * 5. unresolved calls return null
  *
  * @param array $args Context arguments.
  * @return WP_Post|null
@@ -60,44 +61,36 @@ function tnt_resolve_tool_shell_context( $args = array() ) {
         return tnt_get_tool( $current_post );
     }
 
-	$current_post = get_post();
+    /*
+     * Resolve Tool from the current Application Page binding.
+     */
+    $page_id = get_queried_object_id();
 
-	if ( $current_post instanceof WP_Post && $current_post->post_type === 'tool' ) {
-		return tnt_get_tool( $current_post );
-	}
+    if ( ! $page_id ) {
+        $page_id = get_the_ID();
+    }
 
-	/*
-	 * Resolve Tool from the current Application Page binding.
-	 */
-	$page_id = get_queried_object_id();
+    $page_id = absint( $page_id );
 
-	if ( ! $page_id ) {
-		$page_id = get_the_ID();
-	}
+    if ( $page_id > 0 && 'page' === get_post_type( $page_id ) ) {
+        $linked_tool_id = absint(
+            get_post_meta(
+                $page_id,
+                '_tnt_tool_context_id',
+                true
+            )
+        );
 
-	$page_id = absint( $page_id );
+        if ( $linked_tool_id > 0 ) {
+            $tool = tnt_get_tool( $linked_tool_id );
 
-	if ( $page_id > 0 && 'page' === get_post_type( $page_id ) ) {
+            if ( $tool ) {
+                return $tool;
+            }
+        }
+    }
 
-		$linked_tool_id = absint(
-			get_post_meta(
-				$page_id,
-				'_tnt_tool_context_id',
-				true
-			)
-		);
-
-		if ( $linked_tool_id > 0 ) {
-
-			$tool = tnt_get_tool( $linked_tool_id );
-
-			if ( $tool ) {
-				return $tool;
-			}
-		}
-	}
-
-	return null;
+    return null;
 }
 
 /**

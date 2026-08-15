@@ -41,5 +41,6 @@ require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-tool-tag.php';
 require_once TNT_CORE_PATH . 'includes/helpers-taxonomies.php';
 
 require_once TNT_CORE_PATH . 'includes/helpers-tool-shell.php';
-
 require_once TNT_CORE_PATH . 'includes/admin-tool-context.php';
+require_once TNT_CORE_PATH . 'includes/admin-promo-settings.php';
+require_once TNT_CORE_PATH . 'includes/render-tool-application-pages.php';
