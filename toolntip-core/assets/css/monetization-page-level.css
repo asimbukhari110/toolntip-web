@@ -1,0 +1,237 @@
+/* ---------------------------------------------------------
+   Compact Tool Promotion / Mini Hero
+   --------------------------------------------------------- */
+
+.tnt-tool-promo {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "label body cta";
+
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    min-height: 96px;
+
+    padding: .85rem 1.15rem;
+
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 14px;
+
+    background: #fff;
+
+    box-shadow:
+        0 6px 18px rgba(15, 23, 42, .05);
+}
+
+
+/* Featured badge */
+
+.tnt-tool-promo__label {
+    grid-area: label;
+
+    display: inline-flex;
+    align-items: center;
+
+    padding: .24rem .52rem;
+
+    border-radius: 999px;
+
+    background: #eef4ff;
+    color: #17345b;
+
+    font-size: .66rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: .04em;
+
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+
+/* Main identity */
+
+.tnt-tool-promo__body {
+    grid-area: body;
+
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-areas:
+        "logo eyebrow"
+        "logo title"
+        "logo description";
+
+    align-items: center;
+    column-gap: .8rem;
+
+    min-width: 0;
+}
+
+
+/* Tool icon */
+
+.tnt-tool-promo__logo {
+    grid-area: logo;
+
+    display: block;
+
+    width: 44px;
+    height: 44px;
+    max-width: 44px;
+    max-height: 44px;
+
+    margin: 0;
+
+    object-fit: contain;
+
+    border-radius: 9px;
+}
+
+
+/* ToolNTip eyebrow */
+
+.tnt-tool-promo__eyebrow {
+    grid-area: eyebrow;
+
+    margin: 0;
+
+    color: #17345b;
+
+    font-size: .66rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+}
+
+
+/* Tool title */
+
+.tnt-tool-promo__title {
+    grid-area: title;
+
+    margin: .08rem 0 0;
+
+    color: #0f2747;
+
+    font-size: .96rem;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+
+/* Short description */
+
+.tnt-tool-promo__description {
+    grid-area: description;
+
+    margin: .15rem 0 0;
+
+    color: #64748b;
+
+    font-size: .80rem;
+    line-height: 1.35;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* CTA */
+
+.tnt-tool-promo__cta {
+    grid-area: cta;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    min-width: 118px;
+
+    padding: .62rem .85rem;
+
+    border: 1px solid #f5b400;
+    border-radius: 8px;
+
+    background: #fbb900;
+    color: #071b35;
+
+    font-size: .82rem;
+    line-height: 1;
+    font-weight: 700;
+
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.tnt-tool-promo__cta:hover,
+.tnt-tool-promo__cta:focus {
+    background: #f5b400;
+    color: #071b35;
+    text-decoration: none;
+}
+
+
+/* Placement spacing */
+
+.tnt-external-tool-page__promo,
+.tnt-tool-detail__after-hero-monetization,
+.tnt-internal-tool-bottom__promo {
+    margin: .75rem 0;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+
+    .tnt-tool-promo {
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-areas:
+            "label label"
+            "body  cta";
+
+        min-height: auto;
+    }
+
+    .tnt-tool-promo__description {
+        white-space: normal;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+    .tnt-tool-promo {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "label"
+            "body"
+            "cta";
+
+        gap: .7rem;
+
+        padding: .85rem;
+    }
+
+    .tnt-tool-promo__body {
+        grid-template-columns: 40px minmax(0, 1fr);
+    }
+
+    .tnt-tool-promo__logo {
+        width: 40px;
+        height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .tnt-tool-promo__cta {
+        width: 100%;
+    }
+}

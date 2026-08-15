@@ -21,6 +21,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     </header>
 
+    <?php
+    if ( function_exists( 'tnt_render_monetization_placement' ) ) {
+        $external_after_hero = tnt_render_monetization_placement(
+            'external-after-hero',
+            $tool
+        );
+
+        if ( '' !== $external_after_hero ) {
+            echo '<div class="tnt-tool-detail__after-hero-monetization">';
+            echo $external_after_hero; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo '</div>';
+        }
+    }
+    ?>
+
     <nav
         class="tnt-tool-detail__nav"
         aria-label="<?php echo esc_attr__( 'Tool page sections', 'toolntip-core' ); ?>"
@@ -61,11 +76,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             </section>
 
-			<section class="tnt-tool-detail__section tnt-tool-detail__section--reviews">
+            <section class="tnt-tool-detail__section tnt-tool-detail__section--reviews">
 
-				<?php tnt_render( 'reviews', $tool ); ?>
+                <?php tnt_render( 'reviews', $tool ); ?>
 
-			</section>
+            </section>
 
         </main>
 
@@ -79,15 +94,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php tnt_render( 'tool-information', $tool ); ?>
 
                 <?php
-					/*
-					 * WEB-005.8.1
-					 * Quick Actions UI deferred pending future product/data review.
-					 * Component retained for possible reactivation.
-					 */
-					// tnt_render( 'tool-quick-actions', $tool );
-					?>
+                /* WEB-005.8.1 — Quick Actions deferred. */
+                // tnt_render( 'tool-quick-actions', $tool );
+                ?>
 
-				<?php tnt_render( 'similar-tools', $tool ); ?>
+                <?php tnt_render( 'similar-tools', $tool ); ?>
+
             </div>
 
         </aside>
