@@ -51,6 +51,7 @@
 }
 
 .tnt-tool-detail__hero .tnt-tool-hero__identity {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -145,6 +146,58 @@
     font-size: 0.8rem;
 }
 
+.tnt-tool-detail__hero .tnt-featured-ribbon {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    z-index: 3;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.48rem;
+
+    min-height: 36px;
+    padding: 0.58rem 1.25rem 0.58rem 1rem;
+
+    background: linear-gradient(135deg, #D71920 0%, #EF1B24 68%, #C20F16 100%);
+    border: 1px solid rgba(139, 0, 0, 0.35);
+    border-radius: 4px 4px 0 4px;
+    box-shadow: 0 6px 14px rgba(156, 15, 20, 0.20);
+
+    color: #FFFFFF;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tnt-tool-detail__hero .tnt-featured-ribbon::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid #8F0D12;
+    border-right: 7px solid transparent;
+}
+
+.tnt-tool-detail__hero .tnt-featured-ribbon__star {
+    color: #FFE07A;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.tnt-tool-detail__hero .tnt-tool-hero__brand-row--featured {
+    padding-right: 9.5rem;
+}
+
+.tnt-tool-detail__hero .tnt-tool-hero--identity-only {
+    grid-template-columns: minmax(0, 1fr);
+}
+
 .tnt-tool-detail__hero .tnt-rating {
     margin: 0;
 }
@@ -201,8 +254,9 @@
 /* Hero feature signals */
 
 .tnt-tool-detail__hero .tnt-tool-hero__highlights {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: 0.65rem;
 
     margin: 1rem 0 0;
@@ -214,6 +268,9 @@
 .tnt-tool-detail__hero .tnt-tool-hero__highlights li {
     position: relative;
 
+    flex: 0 0 auto;
+    width: fit-content;
+    max-width: 100%;
     min-width: 0;
     padding: 0.62rem 0.7rem 0.62rem 1.8rem;
 
@@ -720,41 +777,16 @@
 
 
 /* =========================================================
-   OVERVIEW - ABOUT + KEY FEATURES
+   OVERVIEW - ABOUT
    ========================================================= */
 
 .tnt-tool-detail__section--overview {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas:
-        "about features"
-        "extended extended";
-    gap: 0;
-
-    padding: 0;
-    overflow: hidden;
+    min-width: 0;
 }
 
 .tnt-tool-detail__section--overview > .tnt-tool-about,
-.tnt-tool-detail__section--overview > .tnt-tool-detail-anchor {
-    min-width: 0;
-    padding: 1.35rem;
-}
-
-.tnt-tool-detail__section--overview > .tnt-tool-about {
-    grid-area: about;
-}
-
-.tnt-tool-detail__section--overview > .tnt-tool-detail-anchor {
-    grid-area: features;
-    border-left: 1px solid var(--tnt-detail-border);
-}
-
 .tnt-tool-detail__section--overview > .tnt-tool-about-extended {
-    grid-area: extended;
     min-width: 0;
-    padding: 1.35rem;
-    border-top: 1px solid var(--tnt-detail-border);
 }
 
 .tnt-overview-panel__heading {
@@ -789,79 +821,9 @@
     line-height: 1;
 }
 
-.tnt-overview-panel__icon--info {
-    border-radius: 50%;
-}
-
 .tnt-overview-panel__icon--features {
     color: var(--tnt-detail-gold);
     font-size: 1rem;
-}
-
-
-/* =========================================================
-   ABOUT
-   ========================================================= */
-
-.tnt-tool-detail .tnt-tool-about {
-    display: flex;
-    flex-direction: column;
-}
-
-.tnt-tool-detail .tnt-about-content {
-    color: #334155;
-
-    font-size: 0.92rem;
-    line-height: 1.72;
-}
-
-.tnt-tool-detail .tnt-about-content > *:first-child {
-    margin-top: 0;
-}
-
-.tnt-tool-detail .tnt-about-content > *:last-child {
-    margin-bottom: 0;
-}
-
-.tnt-tool-detail .tnt-about-content ul,
-.tnt-tool-detail .tnt-about-content ol {
-    display: grid;
-    gap: 0.55rem;
-
-    margin: 1rem 0 0;
-    padding: 0;
-
-    list-style: none;
-}
-
-.tnt-tool-detail .tnt-about-content li {
-    position: relative;
-
-    padding-left: 1.55rem;
-}
-
-.tnt-tool-detail .tnt-about-content li::before {
-    content: "\2713";
-
-    position: absolute;
-    top: 0.08rem;
-    left: 0;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 1rem;
-    height: 1rem;
-
-    border-radius: 50%;
-
-    color: var(--tnt-detail-navy);
-    background: var(--tnt-detail-gold);
-
-    font-size: 0.64rem;
-    font-weight: 900;
-    line-height: 1;
 }
 
 
@@ -1052,13 +1014,23 @@
 
 
 /* =========================================================
-   WEB-005.7.9 - MEDIA + EVALUATION
+   TOOL DETAIL COMPOSITION - EVALUATION + MEDIA
    ========================================================= */
 
-.tnt-tool-detail__section--media,
 .tnt-tool-detail__section--evaluation {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-columns: minmax(280px, 2fr) minmax(0, 3fr);
+    gap: 1rem;
+
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.tnt-tool-detail__section--media {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
 
     padding: 0;
@@ -1079,6 +1051,21 @@
 
 .tnt-tool-detail__section--media .tnt-tool-detail-anchor,
 .tnt-tool-detail__section--evaluation .tnt-tool-detail-anchor {
+    height: 100%;
+}
+
+/* Key Features receives a card surface from page composition only. */
+.tnt-tool-detail__section--evaluation > .tnt-tool-detail-anchor {
+    padding: 1.15rem;
+
+    background: var(--tnt-detail-surface);
+    border: 1px solid var(--tnt-detail-border);
+    border-radius: 12px;
+
+    box-shadow: 0 4px 16px rgba(11, 29, 51, 0.05);
+}
+
+.tnt-tool-detail__section--evaluation > .tnt-tool-detail-anchor .tnt-tool-features {
     height: 100%;
 }
 
@@ -1352,7 +1339,7 @@
     line-height: 1.55;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 
     .tnt-tool-detail__section--media,
     .tnt-tool-detail__section--evaluation {
@@ -1734,6 +1721,15 @@
         transform 0.18s ease;
 }
 
+.tnt-tool-information__share-icon {
+    display: block;
+
+    width: 22px;
+    height: 22px;
+
+    object-fit: contain;
+}
+
 .tnt-tool-information__share-link:hover,
 .tnt-tool-information__share-link:focus-visible {
     color: var(--tnt-detail-navy);
@@ -2074,6 +2070,19 @@
         gap: 0.8rem;
     }
 
+    .tnt-tool-detail__hero .tnt-featured-ribbon {
+        top: 0;
+        right: 0;
+        min-height: 30px;
+        padding: 0.44rem 0.72rem;
+        font-size: 0.66rem;
+    }
+
+    .tnt-tool-detail__hero .tnt-tool-hero__brand-row--featured {
+        padding-top: 2.4rem;
+        padding-right: 0;
+    }
+
     .tnt-tool-detail__hero .tnt-tool-hero__logo {
         width: 72px;
         height: 72px;
@@ -2081,8 +2090,9 @@
         border-radius: 12px;
     }
 
-    .tnt-tool-detail__hero .tnt-tool-hero__highlights {
-        grid-template-columns: 1fr;
+    .tnt-tool-detail__hero .tnt-tool-hero__highlights li {
+        white-space: normal;
+        overflow-wrap: anywhere;
     }
 
     .tnt-tool-detail__hero .tnt-tool-hero__preview {
@@ -2105,19 +2115,6 @@
 
     .tnt-tool-detail__section {
         padding: 1.1rem;
-    }
-
-    .tnt-tool-detail__section--overview {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "about"
-            "features"
-            "extended";
-    }
-
-    .tnt-tool-detail__section--overview > .tnt-tool-detail-anchor {
-        border-top: 1px solid var(--tnt-detail-border);
-        border-left: 0;
     }
 
     .tnt-tool-detail .tnt-feature-grid {

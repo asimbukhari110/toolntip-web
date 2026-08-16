@@ -43,7 +43,14 @@ $details_url = ! empty( $actions['details']['url'] )
     : get_permalink( $tool['post_id'] );
 ?>
 
-<article class="tnt-tool-card">
+<article class="tnt-tool-card<?php echo ! empty( $tool['featured'] ) ? ' tnt-tool-card--featured' : ''; ?>">
+
+    <?php if ( ! empty( $tool['featured'] ) ) : ?>
+        <div class="tnt-tool-card__featured-ribbon" role="status" aria-label="<?php echo esc_attr__( 'Featured Tool', 'toolntip-core' ); ?>">
+            <span class="tnt-tool-card__featured-ribbon-star" aria-hidden="true">&#9733;</span>
+            <span><?php echo esc_html__( 'Featured', 'toolntip-core' ); ?></span>
+        </div>
+    <?php endif; ?>
 
     <header class="tnt-tool-card__header">
 
