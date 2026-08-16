@@ -11,6 +11,7 @@ require_once TNT_CORE_PATH . 'includes/enqueue.php';
 require_once TNT_CORE_PATH . 'includes/template-loader.php';
 require_once TNT_CORE_PATH . 'includes/helpers-directory-search.php';
 require_once TNT_CORE_PATH . 'includes/helpers-directory-filters.php';
+require_once TNT_CORE_PATH . 'includes/helpers-tool-query.php';
 
 require_once TNT_CORE_PATH . 'includes/helpers.php';
 require_once TNT_CORE_PATH . 'includes/helpers-images.php';

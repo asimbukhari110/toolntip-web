@@ -107,6 +107,20 @@
     height: 100%;
 }
 
+.tnt-tool-directory__before-grid-ad {
+    margin: 0 0 1.25rem;
+}
+
+.tnt-tool-directory__ad-card {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+}
+
+.tnt-tool-directory__ad-card > .tnt-ad-unit {
+    height: 100%;
+}
+
 .tnt-tool-directory__pagination {
     margin-top: 2rem;
 }
@@ -193,17 +207,18 @@
     line-height: 1.6;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 900px) {
+
+    .tnt-tool-directory {
+        padding-inline: 1rem;
+    }
 
     .tnt-tool-directory__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
-@media (max-width: 768px) {
 
-    .tnt-tool-directory {
-        padding-inline: 1rem;
-    }
+@media (max-width: 640px) {
 
     .tnt-tool-directory__grid {
         grid-template-columns: 1fr;

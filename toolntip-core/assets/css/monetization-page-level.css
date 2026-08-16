@@ -235,3 +235,83 @@
         width: 100%;
     }
 }
+
+/* ---------------------------------------------------------
+   Reusable Ad Units / Tool Directory Monetization
+   --------------------------------------------------------- */
+
+.tnt-ad-unit {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+}
+
+.tnt-ad-unit--context-directory-before-grid .tnt-ad-unit__disclosure,
+.tnt-ad-unit--context-directory-in-grid .tnt-ad-unit__disclosure {
+    margin: 0 0 .45rem;
+    color: #64748b;
+    font-size: .72rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.tnt-ad-unit__content {
+    width: 100%;
+    min-width: 0;
+}
+
+.tnt-ad-unit--context-directory-before-grid .tnt-ad-unit__content > :first-child,
+.tnt-ad-unit--context-directory-in-grid .tnt-ad-unit__content > :first-child {
+    margin-top: 0;
+}
+
+.tnt-ad-unit--context-directory-before-grid .tnt-ad-unit__content > :last-child,
+.tnt-ad-unit--context-directory-in-grid .tnt-ad-unit__content > :last-child {
+    margin-bottom: 0;
+}
+
+.tnt-ad-unit--context-directory-before-grid {
+    padding: .8rem 1rem;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 29, 51, .04);
+}
+
+.tnt-ad-unit--context-directory-before-grid .tnt-ad-unit__content {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.tnt-ad-unit--context-directory-in-grid {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #e6e9ef;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 29, 51, .06);
+}
+
+.tnt-ad-unit--context-directory-in-grid .tnt-ad-unit__content {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.tnt-ad-unit--context-directory-in-grid .tnt-ad-unit__content > * {
+    max-width: 100%;
+}
+
+@media (max-width: 640px) {
+    .tnt-ad-unit--context-directory-before-grid,
+    .tnt-ad-unit--context-directory-in-grid {
+        padding: .75rem;
+    }
+}
