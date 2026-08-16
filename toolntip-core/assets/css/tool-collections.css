@@ -1,0 +1,147 @@
+/**
+ * Tool collection shortcode presentation primitives.
+ *
+ * Presentation-neutral Core classes only. No Elementor/theme dependencies.
+ */
+
+.tnt-archive-container {
+    min-width: 0;
+}
+
+.tnt-archive-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.75rem;
+    margin: 0 0 1.25rem;
+}
+
+.tnt-field {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 150px;
+}
+
+.tnt-field--search {
+    flex: 1 1 260px;
+}
+
+.tnt-field--checkbox {
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+    gap: 0.45rem;
+    min-width: auto;
+}
+
+.tnt-field input[type="search"],
+.tnt-field select {
+    min-height: 44px;
+    padding: 0.55rem 0.7rem;
+    font: inherit;
+}
+
+.tnt-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.55rem 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tnt-archive-summary {
+    margin: 0 0 1rem;
+}
+
+.tnt-grid {
+    display: grid;
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+.tnt-grid--columns-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tnt-grid--columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tnt-grid--columns-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.tnt-grid--columns-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.tnt-card {
+    min-width: 0;
+    height: 100%;
+}
+
+.tnt-card > .tnt-tool-card {
+    height: 100%;
+}
+
+.tnt-grid--compact {
+    gap: 0.8rem;
+}
+
+.tnt-grid--compact .tnt-tool-card__features {
+    display: none;
+}
+
+.tnt-empty {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.tnt-pagination {
+    margin-top: 1.5rem;
+}
+
+.tnt-pagination .page-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+
+@media (max-width: 1200px) {
+    .tnt-grid--columns-6 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .tnt-grid--columns-3,
+    .tnt-grid--columns-4,
+    .tnt-grid--columns-6 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .tnt-grid--columns-2,
+    .tnt-grid--columns-3,
+    .tnt-grid--columns-4,
+    .tnt-grid--columns-6 {
+        grid-template-columns: 1fr;
+    }
+
+    .tnt-archive-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .tnt-field,
+    .tnt-field--search {
+        width: 100%;
+        min-width: 0;
+    }
+}

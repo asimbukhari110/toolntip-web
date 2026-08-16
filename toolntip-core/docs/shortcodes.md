@@ -19,12 +19,10 @@
 [tnt_detail_pros_cons]
 [tnt_detail_faq]
 
-Next: Screenshots
-
-Monitization : for pages / + Shortcode
-
-tools archive Shortcode
-tools archive Monitization
-final
+[tnt_ad_leaderboard]
+[tnt_ad_rectangle]
+[tnt_ad_horizontal]
+[tnt_ad_sidebar]
+[tnt_ad_mobile]
 
 Theme production
