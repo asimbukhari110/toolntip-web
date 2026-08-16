@@ -1,13 +1,157 @@
+/* =========================================================
+   ToolNTip Core
+   Standalone About Component
+   ========================================================= */
+
+.tnt-tool-about,
+.tnt-tool-about-extended {
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .tnt-tool-about {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
 
-    margin-top: 48px;
+.tnt-tool-about .tnt-overview-panel__heading {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 0 0 1rem;
+}
 
+.tnt-tool-about .tnt-overview-panel__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.tnt-tool-about .tnt-overview-panel__icon--info {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    border: 1px solid #bfdbfe;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #1d4ed8;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .06);
+    font-size: .88rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.tnt-tool-about .tnt-overview-panel__heading .tnt-section-title {
+    margin: 0;
+    color: #0b1d33;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    font-weight: 750;
 }
 
 .tnt-about-content {
+    width: 100%;
+    max-width: none;
+    color: #334155;
+    font-size: .92rem;
+    line-height: 1.72;
+}
 
-    line-height: 1.8;
+.tnt-about-content > *:first-child {
+    margin-top: 0;
+}
 
-    font-size: 1rem;
+.tnt-about-content > *:last-child {
+    margin-bottom: 0;
+}
 
+.tnt-about-content p {
+    margin: 0 0 1.1rem;
+}
+
+.tnt-about-content h3 {
+    margin: 1.65rem 0 .65rem;
+    color: #0b1d33;
+    font-size: clamp(1.18rem, 1.5vw, 1.42rem);
+    line-height: 1.3;
+    font-weight: 750;
+}
+
+.tnt-about-content ul,
+.tnt-about-content ol {
+    display: grid;
+    gap: .55rem;
+    margin: 1rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tnt-about-content li {
+    position: relative;
+    padding-left: 1.55rem;
+}
+
+.tnt-about-content li::before {
+    content: "\2713";
+    position: absolute;
+    top: .08rem;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    color: #f5b300;
+    font-size: .78rem;
+    font-weight: 800;
+}
+
+.tnt-tool-about-extended {
+    margin-top: 1.5rem;
+}
+
+.tnt-about-content--extended {
+    width: 100%;
+    max-width: none;
+}
+
+/* Native Tool Detail overview: consume the complete available main column. */
+.tnt-tool-detail__section--overview .tnt-tool-about,
+.tnt-tool-detail__section--overview .tnt-tool-about-extended,
+.tnt-tool-detail__section--overview .tnt-about-content,
+.tnt-tool-detail__section--overview .tnt-about-content--extended {
+    width: 100%;
+    max-width: none;
+}
+
+.tnt-tool-detail__section--overview .tnt-about-content > * {
+    max-width: none;
+}
+
+@media (max-width: 767px) {
+    .tnt-tool-about .tnt-overview-panel__heading {
+        gap: .65rem;
+    }
+
+    .tnt-tool-about .tnt-overview-panel__icon--info {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+    }
+
+    .tnt-tool-about .tnt-overview-panel__heading .tnt-section-title {
+        font-size: 1.2rem;
+    }
+
+    .tnt-about-content {
+        font-size: .9rem;
+        line-height: 1.68;
+    }
+
+    .tnt-about-content h3 {
+        margin-top: 1.45rem;
+        font-size: 1.16rem;
+    }
 }

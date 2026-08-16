@@ -85,7 +85,16 @@ function tnt_split_tool_about_content( $content ) {
     // Preserve the existing About rendering contract before splitting.
     $html = wpautop( $content );
 
-    if ( ! preg_match( '/<h[23]\b[^>]*>/i', $html, $match, PREG_OFFSET_CAPTURE ) ) {
+    /*
+     * The Tool page title is the document H1 and "About This Tool" is the
+     * component H2. Normalize author-entered H1/H2 subsection headings to H3
+     * so About content always maintains a valid, predictable heading hierarchy.
+     * Existing H3 headings are preserved.
+     */
+    $html = preg_replace( '/<h[12](\b[^>]*)>/i', '<h3$1>', $html );
+    $html = preg_replace( '/<\/h[12]>/i', '</h3>', $html );
+
+    if ( ! preg_match( '/<h3\b[^>]*>/i', $html, $match, PREG_OFFSET_CAPTURE ) ) {
         return array(
             'intro'    => $html,
             'extended' => '',

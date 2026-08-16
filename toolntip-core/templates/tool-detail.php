@@ -56,7 +56,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <?php tnt_render( 'about', $tool ); ?>
 
+            </section>
+
+            <section class="tnt-tool-detail__section tnt-tool-detail__section--evaluation">
+
                 <?php tnt_render( 'features', $tool ); ?>
+
+                <?php tnt_render( 'pros-cons', $tool ); ?>
 
             </section>
 
@@ -65,14 +71,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php tnt_render( 'screenshots', $tool ); ?>
 
                 <?php tnt_render( 'video', $tool ); ?>
-
-            </section>
-
-            <section class="tnt-tool-detail__section tnt-tool-detail__section--evaluation">
-
-                <?php tnt_render( 'pros-cons', $tool ); ?>
-
-                <?php tnt_render( 'faq', $tool ); ?>
 
             </section>
 
@@ -92,6 +90,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="tnt-tool-detail__sidebar-inner">
 
                 <?php tnt_render( 'tool-information', $tool ); ?>
+
+                <?php tnt_render( 'faq', $tool ); ?>
 
                 <?php
                 /* WEB-005.8.1 — Quick Actions deferred. */

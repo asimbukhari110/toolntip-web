@@ -43,6 +43,7 @@ $permalink = $post_id > 0
 
 $encoded_permalink = rawurlencode( $permalink );
 $encoded_title     = rawurlencode( $tool['title'] );
+$whatsapp_text    = rawurlencode( trim( $tool['title'] . ' ' . $permalink ) );
 ?>
 
 <section class="tnt-tool-information">
@@ -165,7 +166,12 @@ $encoded_title     = rawurlencode( $tool['title'] );
                     rel="noopener noreferrer"
                     aria-label="<?php echo esc_attr__( 'Share on Facebook', 'toolntip-core' ); ?>"
                 >
-                    f
+                    <img
+                        src="<?php echo esc_url( TNT_CORE_URL . 'assets/images/icons/facebook.svg' ); ?>"
+                        class="tnt-tool-information__share-icon"
+                        alt=""
+                        aria-hidden="true"
+                    >
                 </a>
 
                 <a
@@ -175,7 +181,12 @@ $encoded_title     = rawurlencode( $tool['title'] );
                     rel="noopener noreferrer"
                     aria-label="<?php echo esc_attr__( 'Share on X', 'toolntip-core' ); ?>"
                 >
-                    X
+                    <img
+                        src="<?php echo esc_url( TNT_CORE_URL . 'assets/images/icons/x.svg' ); ?>"
+                        class="tnt-tool-information__share-icon"
+                        alt=""
+                        aria-hidden="true"
+                    >
                 </a>
 
                 <a
@@ -185,7 +196,27 @@ $encoded_title     = rawurlencode( $tool['title'] );
                     rel="noopener noreferrer"
                     aria-label="<?php echo esc_attr__( 'Share on LinkedIn', 'toolntip-core' ); ?>"
                 >
-                    in
+                    <img
+                        src="<?php echo esc_url( TNT_CORE_URL . 'assets/images/icons/linkedin.svg' ); ?>"
+                        class="tnt-tool-information__share-icon"
+                        alt=""
+                        aria-hidden="true"
+                    >
+                </a>
+
+                <a
+                    href="<?php echo esc_url( 'https://wa.me/?text=' . $whatsapp_text ); ?>"
+                    class="tnt-tool-information__share-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="<?php echo esc_attr__( 'Share on WhatsApp', 'toolntip-core' ); ?>"
+                >
+                    <img
+                        src="<?php echo esc_url( TNT_CORE_URL . 'assets/images/icons/whatsapp.svg' ); ?>"
+                        class="tnt-tool-information__share-icon"
+                        alt=""
+                        aria-hidden="true"
+                    >
                 </a>
 
                 <a

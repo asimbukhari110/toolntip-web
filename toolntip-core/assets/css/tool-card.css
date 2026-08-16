@@ -16,6 +16,7 @@
     --tnt-card-text: #0B1D33;
     --tnt-card-text-muted: #64748B;
 
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
@@ -103,6 +104,63 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+}
+
+.tnt-tool-card__featured-ribbon {
+    position: absolute;
+    top: 14px;
+    right: -7px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    min-height: 30px;
+    padding: 0.42rem 0.9rem 0.42rem 0.72rem;
+    background: linear-gradient(135deg, #D71920 0%, #EF1B24 70%, #C20F16 100%);
+    border: 1px solid rgba(139, 0, 0, 0.28);
+    border-radius: 3px 3px 0 3px;
+    box-shadow: 0 5px 12px rgba(156, 15, 20, 0.18);
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tnt-tool-card__featured-ribbon::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid #8F0D12;
+    border-right: 7px solid transparent;
+}
+
+.tnt-tool-card__featured-ribbon-star {
+    color: #FFE07A;
+    font-size: 0.78rem;
+    line-height: 1;
+}
+
+.tnt-tool-card--featured .tnt-tool-card__header {
+    padding-right: 5.5rem;
+}
+
+@media (max-width: 520px) {
+    .tnt-tool-card__featured-ribbon {
+        top: 10px;
+        right: -5px;
+        padding: 0.38rem 0.68rem;
+        font-size: 0.64rem;
+    }
+
+    .tnt-tool-card--featured .tnt-tool-card__header {
+        padding-right: 4.6rem;
+    }
 }
 
 .tnt-tool-card__signal {
