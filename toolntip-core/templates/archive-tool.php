@@ -200,23 +200,84 @@ $has_state     = $is_searching || $has_filters || '' !== $filters['sort'];
 
         <?php if ( have_posts() ) : ?>
 
-            <div class="tnt-tool-directory__grid">
+            <?php
+            $directory_tools = array();
 
-                <?php while ( have_posts() ) : ?>
+            while ( have_posts() ) {
+                the_post();
 
-                    <?php
-                    the_post();
+                $tool = tnt_get_tool_data( get_post() );
+                if ( ! $tool ) {
+                    continue;
+                }
 
-                    $tool = tnt_get_tool_data( get_post() );
+                $directory_tools[] = $tool;
+            }
 
-                    if ( ! $tool ) {
-                        continue;
-                    }
-                    ?>
+            $before_grid_ad = function_exists( 'tnt_get_tool_directory_before_grid_ad_markup' )
+                ? tnt_get_tool_directory_before_grid_ad_markup()
+                : '';
+
+            $tool_ids = array_values(
+                array_filter(
+                    array_map(
+                        static function ( $tool ) {
+                            return absint( $tool['id'] ?? 0 );
+                        },
+                        $directory_tools
+                    )
+                )
+            );
+
+            $in_grid_slots = function_exists( 'tnt_get_tool_directory_ad_slots' )
+                ? tnt_get_tool_directory_ad_slots(
+                    count( $directory_tools ),
+                    array(
+                        'tools_loaded' => 0,
+                        'ads_rendered' => 0,
+                        'columns'      => 3,
+                        'tool_ids'     => $tool_ids,
+                    )
+                )
+                : array();
+
+            $in_grid_ad = ! empty( $in_grid_slots ) && function_exists( 'tnt_get_tool_directory_in_grid_ad_markup' )
+                ? tnt_get_tool_directory_in_grid_ad_markup()
+                : '';
+            ?>
+
+            <?php if ( '' !== $before_grid_ad ) : ?>
+                <div class="tnt-tool-directory__before-grid-ad">
+                    <?php echo $before_grid_ad; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                </div>
+            <?php endif; ?>
+
+            <?php
+            $rendered_ad_count = '' !== $in_grid_ad ? count( $in_grid_slots ) : 0;
+            $last_ad_after = $rendered_ad_count > 0 ? (int) end( $in_grid_slots ) : 0;
+            ?>
+
+            <div
+                class="tnt-tool-directory__grid"
+                data-tnt-tools-loaded="<?php echo esc_attr( count( $directory_tools ) ); ?>"
+                data-tnt-ads-rendered="<?php echo esc_attr( $rendered_ad_count ); ?>"
+                data-tnt-last-ad-after="<?php echo esc_attr( $last_ad_after ); ?>"
+            >
+
+                <?php foreach ( $directory_tools as $tool_index => $tool ) : ?>
 
                     <?php tnt_render( 'tool-card', $tool ); ?>
 
-                <?php endwhile; ?>
+                    <?php
+                    $tool_position = $tool_index + 1;
+                    if ( '' !== $in_grid_ad && in_array( $tool_position, $in_grid_slots, true ) ) :
+                        ?>
+                        <div class="tnt-tool-directory__ad-card" data-tnt-directory-ad-after="<?php echo esc_attr( $tool_position ); ?>">
+                            <?php echo $in_grid_ad; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                        </div>
+                    <?php endif; ?>
+
+                <?php endforeach; ?>
 
             </div>
 
