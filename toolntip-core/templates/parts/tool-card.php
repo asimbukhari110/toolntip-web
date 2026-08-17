@@ -66,13 +66,13 @@ $details_url = ! empty( $actions['details']['url'] )
                 </a>
             </h3>
 
-            <?php if ( ! empty( $tagline ) ) : ?>
-                <p class="tnt-tool-card__tagline">
-                    <?php echo esc_html( $tagline ); ?>
-                </p>
-            <?php endif; ?>
-
         </div>
+
+        <?php if ( ! empty( $tagline ) ) : ?>
+            <p class="tnt-tool-card__tagline">
+                <?php echo esc_html( $tagline ); ?>
+            </p>
+        <?php endif; ?>
 
     </header>
 

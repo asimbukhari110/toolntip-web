@@ -32,11 +32,14 @@ if ( ! empty( $tool['featured_image'] ) ) {
             $tool['title']
         );
 }
+
+$hero_tool = $tool;
+$hero_tool['_tnt_include_hero_actions'] = true;
 ?>
 
 <div class="tnt-tool-hero">
 
-    <?php tnt_render( 'hero-identity', $tool ); ?>
+    <?php tnt_render( 'hero-identity-content', $hero_tool ); ?>
 
     <div class="tnt-tool-hero__preview" aria-label="<?php echo esc_attr__( 'Tool preview', 'toolntip-core' ); ?>">
 

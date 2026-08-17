@@ -12,7 +12,7 @@ if ( empty( $hero ) ) {
 
 <div class="tnt-hero-meta">
 
-    <?php if ( ! empty( $hero['tagline'] ) ) : ?>
+    <?php if ( empty( $tool['_tnt_hide_tagline'] ) && ! empty( $hero['tagline'] ) ) : ?>
 
         <p class="tnt-tagline">
             <?php echo esc_html( $hero['tagline'] ); ?>

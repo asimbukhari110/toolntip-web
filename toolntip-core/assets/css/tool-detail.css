@@ -37,8 +37,12 @@
 .tnt-tool-detail__hero .tnt-tool-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr) minmax(240px, 0.75fr);
-    align-items: stretch;
-    gap: 1.25rem;
+    grid-template-areas:
+        "identity-header identity-header identity-header"
+        "identity-details preview         promo";
+    align-items: start;
+    column-gap: 1.25rem;
+    row-gap: 0.5rem;
 
     padding: 1.25rem;
 
@@ -58,11 +62,39 @@
     padding: 0.2rem;
 }
 
+.tnt-tool-detail__hero .tnt-tool-hero__identity-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.tnt-tool-detail__hero .tnt-tool-hero > .tnt-tool-hero__identity-header {
+    grid-area: identity-header;
+    padding: 0.2rem;
+}
+
+.tnt-tool-detail__hero .tnt-tool-hero__identity-details {
+    min-width: 0;
+}
+
+.tnt-tool-detail__hero .tnt-tool-hero > .tnt-tool-hero__identity-details {
+    grid-area: identity-details;
+    padding: 0.2rem;
+}
+
+.tnt-tool-detail__hero .tnt-tool-hero__identity-details .tnt-hero-meta__signals {
+    margin-top: 0;
+}
+
 .tnt-tool-detail__hero .tnt-tool-hero__brand-row {
     display: grid;
     grid-template-columns: 112px minmax(0, 1fr);
     align-items: start;
     gap: 1rem;
+    min-width: 0;
 }
 
 .tnt-tool-detail__hero .tnt-tool-hero__logo {
@@ -147,10 +179,10 @@
 }
 
 .tnt-tool-detail__hero .tnt-featured-ribbon {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
+    position: relative;
     z-index: 3;
+
+    justify-self: end;
 
     display: inline-flex;
     align-items: center;
@@ -191,11 +223,12 @@
 }
 
 .tnt-tool-detail__hero .tnt-tool-hero__brand-row--featured {
-    padding-right: 9.5rem;
+    padding-right: 0;
 }
 
 .tnt-tool-detail__hero .tnt-tool-hero--identity-only {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: none;
 }
 
 .tnt-tool-detail__hero .tnt-rating {
@@ -368,6 +401,9 @@
 .tnt-tool-detail__hero .tnt-tool-hero__preview {
     position: relative;
 
+    grid-area: preview;
+    align-self: start;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -471,6 +507,9 @@
 
 .tnt-tool-detail__hero .tnt-tool-hero__promo {
     position: relative;
+
+    grid-area: promo;
+    align-self: start;
 
     display: flex;
     flex-direction: column;
@@ -1981,10 +2020,13 @@
 
     .tnt-tool-detail__hero .tnt-tool-hero {
         grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+        grid-template-areas:
+            "identity-header identity-header"
+            "identity-details preview"
+            "promo            promo";
     }
 
     .tnt-tool-detail__hero .tnt-tool-hero__promo {
-        grid-column: 1 / -1;
         display: grid;
         grid-template-columns: auto minmax(0, 1fr) auto;
         align-items: center;
@@ -2036,6 +2078,11 @@
 
     .tnt-tool-detail__hero .tnt-tool-hero {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "identity-header"
+            "identity-details"
+            "preview"
+            "promo";
     }
 
     .tnt-tool-detail__hero .tnt-tool-hero__preview {
@@ -2043,7 +2090,6 @@
     }
 
     .tnt-tool-detail__hero .tnt-tool-hero__promo {
-        grid-column: auto;
         grid-template-columns: 1fr;
         align-items: stretch;
     }
@@ -2065,12 +2111,17 @@
         padding: 1rem;
     }
 
+    .tnt-tool-detail__hero .tnt-tool-hero__identity-header {
+        display: block;
+    }
+
     .tnt-tool-detail__hero .tnt-tool-hero__brand-row {
         grid-template-columns: 72px minmax(0, 1fr);
         gap: 0.8rem;
     }
 
     .tnt-tool-detail__hero .tnt-featured-ribbon {
+        position: absolute;
         top: 0;
         right: 0;
         min-height: 30px;
