@@ -26,3 +26,28 @@
 [tnt_ad_mobile]
 
 Theme production
+
+## ToolNTip Labs
+
+```text
+[tnt_labs]
+```
+
+Renders published Internal Tools using the existing Tool collection query engine and Tool Card component. Labs always enforces `tool_type = internal`; callers cannot override the Tool type.
+
+Supported attributes:
+
+```text
+category=""
+featured=""
+limit="8"
+columns="3"
+orderby="date"
+order="DESC"
+```
+
+Example:
+
+```text
+[tnt_labs category="developer-tools" featured="1" limit="6" columns="3"]
+```

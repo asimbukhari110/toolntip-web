@@ -1,0 +1,28 @@
+/**
+ * ToolNTip Labs contextual presentation.
+ *
+ * Tool cards and grid primitives remain owned by their existing components.
+ */
+
+.tnt-labs {
+    min-width: 0;
+}
+
+.tnt-labs__empty {
+    border: 1px solid #E6E9EF;
+    border-radius: 14px;
+    background: #FFFFFF;
+}
+
+.tnt-labs__empty > :first-child {
+    margin-top: 0;
+}
+
+.tnt-labs__empty > :last-child {
+    margin-bottom: 0;
+}
+
+.tnt-labs__empty-title {
+    color: #0B1D33;
+    font-weight: 700;
+}
