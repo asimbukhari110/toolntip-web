@@ -9,6 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once TNT_CORE_PATH . 'includes/enqueue.php';
 require_once TNT_CORE_PATH . 'includes/template-loader.php';
+require_once TNT_CORE_PATH . 'includes/content-types/post-type-resource.php';
+require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-type.php';
+require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-topic.php';
+require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-tag.php';
+require_once TNT_CORE_PATH . 'includes/resource-domain.php';
+require_once TNT_CORE_PATH . 'includes/helpers-resource-relationships.php';
+require_once TNT_CORE_PATH . 'includes/helpers-resource-tool-scoring.php';
+require_once TNT_CORE_PATH . 'includes/helpers-resource-resource-scoring.php';
+require_once TNT_CORE_PATH . 'includes/admin-resource-editor.php';
 require_once TNT_CORE_PATH . 'includes/helpers-directory-search.php';
 require_once TNT_CORE_PATH . 'includes/helpers-directory-filters.php';
 require_once TNT_CORE_PATH . 'includes/helpers-tool-query.php';
