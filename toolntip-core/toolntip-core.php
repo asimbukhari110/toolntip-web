@@ -3,7 +3,7 @@
  * Plugin Name: Toolntip Core
  * Plugin URI: https://toolntip.com
  * Description: Core functionality for the Toolntip platform.
- * Version: 1.0.29
+ * Version: 1.0.34
  * Author: Syed Asim Raza
  * Author URI: https://toolntip.com
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Constants
  */
 
-define( 'TNT_CORE_VERSION', '1.0.29' );
+define( 'TNT_CORE_VERSION', '1.0.34' );
 define( 'TNT_CORE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TNT_CORE_URL', plugin_dir_url( __FILE__ ) );
 

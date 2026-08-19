@@ -131,3 +131,68 @@ function tnt_get_resource_related_resource_ids( $resource_id, $published_only = 
         )
     );
 }
+
+/**
+ * Read-only reverse discovery for a saved Resource -> Tool relationship.
+ */
+function tnt_get_resource_ids_related_to_tool( $tool_id ) {
+    $tool_id = absint( $tool_id );
+    if ( ! $tool_id || 'tool' !== get_post_type( $tool_id ) ) {
+        return array();
+    }
+
+    $matches = array();
+    $ids = get_posts( array(
+        'post_type' => 'resource',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+        'no_found_rows' => true,
+    ) );
+
+    foreach ( $ids as $resource_id ) {
+        if ( in_array( $tool_id, tnt_get_resource_related_tool_ids( $resource_id ), true ) ) {
+            $matches[] = absint( $resource_id );
+        }
+    }
+
+    return array_values( array_unique( array_filter( $matches ) ) );
+}
+
+/**
+ * Read-only bidirectional discovery for a single-sided Resource relationship.
+ */
+function tnt_get_resource_ids_related_to_resource( $resource_id ) {
+    $resource_id = absint( $resource_id );
+    if ( ! $resource_id || 'resource' !== get_post_type( $resource_id ) ) {
+        return array();
+    }
+
+    $matches = array();
+
+    foreach ( tnt_get_resource_related_resource_ids( $resource_id ) as $related_id ) {
+        $related_id = absint( $related_id );
+        if ( $related_id && $related_id !== $resource_id && 'resource' === get_post_type( $related_id ) && 'publish' === get_post_status( $related_id ) ) {
+            $matches[] = $related_id;
+        }
+    }
+
+    $ids = get_posts( array(
+        'post_type' => 'resource',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+        'post__not_in' => array( $resource_id ),
+        'no_found_rows' => true,
+    ) );
+
+    foreach ( $ids as $candidate_id ) {
+        if ( in_array( $resource_id, tnt_get_resource_related_resource_ids( $candidate_id ), true ) ) {
+            $matches[] = absint( $candidate_id );
+        }
+    }
+
+    $matches = array_values( array_unique( array_filter( array_map( 'absint', $matches ) ) ) );
+    sort( $matches, SORT_NUMERIC );
+    return $matches;
+}

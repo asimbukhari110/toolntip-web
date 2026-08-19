@@ -1,3 +1,12 @@
+## 1.0.34 — WEB-007.4 / 4.3 Resource Query Engine
+
+- Added the canonical Resource query helper with filtering, ordering, pagination and relationship-aware queries.
+- Added Resource → Tool reverse discovery and bidirectional Resource ↔ Resource relationship query support.
+- Added the `[tnt_resources]` shortcode with Resource Type, Topic, Tag, search, ordering and limit controls.
+- Added fail-closed validation for invalid relationship query targets.
+- Preserved Resource and Tool shortcode post-type isolation.
+- Restored the approved three-column default for Tool collections while preserving explicit column overrides.
+- Completed Resource Query Engine validation with the query matrix, relationship regression and platform regression gates passing.
 ## 1.0.14 — WEB-007.4 / 4.2 Resource Editorial Foundation
 
 - Added single-selection Resource Type editorial UX with publication enforcement.
