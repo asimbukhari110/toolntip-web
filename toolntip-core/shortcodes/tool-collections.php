@@ -219,7 +219,7 @@ function tnt_tool_archive_shortcode( $atts ) {
     $atts = shortcode_atts(
         array(
             'posts_per_page' => 16,
-            'columns'        => 4,
+            'columns'  => 3,
             'show_search'    => 'true',
             'show_filters'   => 'true',
             'show_sorting'   => 'true',
@@ -238,7 +238,7 @@ function tnt_tool_archive_shortcode( $atts ) {
     );
 
     $posts_per_page = max( 1, min( 100, absint( $atts['posts_per_page'] ) ) );
-    $columns        = tnt_tool_query_normalize_columns( $atts['columns'], array( 2, 3, 4, 6 ), 4 );
+    $columns        = tnt_tool_query_normalize_columns( $atts['columns'], array( 2, 3, 4, 6 ), 3 );
     $layout         = sanitize_key( $atts['layout'] );
     $layout         = in_array( $layout, array( 'grid', 'compact' ), true ) ? $layout : 'grid';
     $show_search    = tnt_tool_query_parse_bool( $atts['show_search'], true );
@@ -341,7 +341,7 @@ function tnt_tools_shortcode( $atts ) {
             'featured' => '',
             'tag'      => '',
             'limit'    => 8,
-            'columns'  => 4,
+            'columns'  => 3,
             'orderby'  => 'date',
             'order'    => 'DESC',
         ),
@@ -349,7 +349,7 @@ function tnt_tools_shortcode( $atts ) {
         'tnt_tools'
     );
 
-    $columns = tnt_tool_query_normalize_columns( $atts['columns'], array( 2, 3, 4 ), 4 );
+    $columns = tnt_tool_query_normalize_columns( $atts['columns'], array( 2, 3, 4 ), 3 );
     $query   = new WP_Query( tnt_build_tools_shortcode_query_args( $atts ) );
 
     tnt_enqueue_tool_collection_assets();
