@@ -10,13 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register Tool Category taxonomy.
+ * Register the canonical shared Category taxonomy for Tools and Resources.
  */
 function tnt_register_tool_category_taxonomy() {
 
     register_taxonomy(
         'tool_category',
-        array( 'tool' ),
+        array( 'tool', 'resource' ),
         array(
 
             'labels' => array(
