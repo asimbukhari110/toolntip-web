@@ -23,6 +23,13 @@ function tnt_enqueue_assets() {
 		TNT_CORE_VERSION
 	);
 
+	wp_register_style(
+		'tnt-resource-card',
+		TNT_CORE_URL . 'assets/css/resource-card.css',
+		array( 'toolntip-core' ),
+		TNT_CORE_VERSION
+	);
+
     wp_enqueue_style(
         'tnt-rating',
         TNT_CORE_URL . 'assets/css/rating.css',

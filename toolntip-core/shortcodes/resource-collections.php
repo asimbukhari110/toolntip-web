@@ -5,7 +5,7 @@
  * WEB-007.4 / 4.3D.3
  *
  * Query behavior is delegated to the canonical Resource query helper.
- * Final Resource Card / collection presentation belongs to WEB-007.4 / 4.4.
+ * Resource Card/collection presentation is owned by WEB-007.4 / 4.4.
  *
  * @package ToolntipCore
  */
@@ -15,41 +15,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Render a deliberately minimal Resource collection.
+ * Render a Resource collection from a canonical Resource query.
  *
- * This is an interim semantic renderer for 4.3 query/shortcode validation.
- * WEB-007.4 / 4.4 will replace presentation ownership with the canonical
- * Resource Card and collection/grid components.
+ * Query construction remains owned by WEB-007.4 / 4.3. This renderer owns
+ * only collection structure, Resource Card delegation, and the simple empty
+ * state frozen in WEB-007.4 / 4.4B.
  *
  * @param WP_Query $query Resource query.
  * @return string
  */
-function tnt_render_resource_shortcode_validation_collection( $query ) {
+function tnt_render_resource_collection( $query ) {
 	if ( ! ( $query instanceof WP_Query ) || ! $query->have_posts() ) {
-		return '<div class="tnt-resources tnt-resources--empty"><p>' .
+		return '<div class="tnt-resource-collection"><div class="tnt-empty"><p>' .
 			esc_html__( 'No resources found.', 'toolntip-core' ) .
-		'</p></div>';
+			'</p></div></div>';
 	}
 
-	$output = '<div class="tnt-resources tnt-resources--validation">';
-	$output .= '<ul class="tnt-resources__list">';
+	ob_start();
+	?>
+	<div class="tnt-resource-collection">
+		<div class="tnt-resource-grid">
+			<?php foreach ( $query->posts as $resource ) : ?>
+				<?php
+				if ( ! ( $resource instanceof WP_Post ) || 'resource' !== $resource->post_type ) {
+					continue;
+				}
 
-	foreach ( $query->posts as $resource ) {
-		if ( ! ( $resource instanceof WP_Post ) ) {
-			continue;
-		}
+				$card_data = tnt_get_resource_card_data( $resource );
 
-		$output .= '<li class="tnt-resources__item">';
-		$output .= '<a class="tnt-resources__link" href="' . esc_url( get_permalink( $resource ) ) . '">';
-		$output .= esc_html( get_the_title( $resource ) );
-		$output .= '</a>';
-		$output .= '</li>';
-	}
+				if ( empty( $card_data ) ) {
+					continue;
+				}
 
-	$output .= '</ul>';
-	$output .= '</div>';
+				tnt_render( 'resource-card', $card_data );
+				?>
+			<?php endforeach; ?>
+		</div>
+	</div>
+	<?php
 
-	return $output;
+	return ob_get_clean();
 }
 
 /**
@@ -68,6 +73,10 @@ function tnt_render_resource_shortcode_validation_collection( $query ) {
  * @return string
  */
 function tnt_resources_shortcode( $atts = array() ) {
+	if ( wp_style_is( 'tnt-resource-card', 'registered' ) ) {
+		wp_enqueue_style( 'tnt-resource-card' );
+	}
+
 	$atts = shortcode_atts(
 		array(
 			'limit'   => 12,
@@ -95,6 +104,6 @@ function tnt_resources_shortcode( $atts = array() ) {
 
 	$query = tnt_get_resources( $query_args );
 
-	return tnt_render_resource_shortcode_validation_collection( $query );
+	return tnt_render_resource_collection( $query );
 }
 add_shortcode( 'tnt_resources', 'tnt_resources_shortcode' );

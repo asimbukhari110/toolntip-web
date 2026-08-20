@@ -1,0 +1,318 @@
+/**
+ * Resource Card & Collection
+ *
+ * WEB-007.4 / 4.4C.4
+ *
+ * Extends the established ToolNTip card visual language for editorial
+ * Resources. Presentation-neutral Core CSS only; no theme/Elementor coupling.
+ */
+
+.tnt-resource-collection {
+    min-width: 0;
+}
+
+.tnt-resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+.tnt-resource-card {
+    --tnt-resource-navy: #0B1D33;
+    --tnt-resource-navy-hover: #142A45;
+    --tnt-resource-gold: #F5B300;
+    --tnt-resource-gold-soft: #FFF6DC;
+    --tnt-resource-surface: #FFFFFF;
+    --tnt-resource-surface-subtle: #F8FAFC;
+    --tnt-resource-surface-hover: #F1F5F9;
+    --tnt-resource-border: #E6E9EF;
+    --tnt-resource-text: #0B1D33;
+    --tnt-resource-text-muted: #64748B;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+
+    background: var(--tnt-resource-surface);
+    border: 1px solid var(--tnt-resource-border);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 29, 51, 0.06);
+
+    color: var(--tnt-resource-text);
+    overflow: hidden;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+.tnt-resource-card:hover {
+    border-color: rgba(11, 29, 51, 0.18);
+    box-shadow: 0 8px 28px rgba(11, 29, 51, 0.09);
+}
+
+.tnt-resource-card__media {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    background: var(--tnt-resource-surface-subtle);
+    border-bottom: 1px solid var(--tnt-resource-border);
+
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.tnt-resource-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tnt-resource-card__media-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(135deg, rgba(11, 29, 51, 0.04), rgba(245, 179, 0, 0.10)),
+        var(--tnt-resource-surface-subtle);
+}
+
+.tnt-resource-card__media-fallback::before {
+    content: "TNT";
+    color: rgba(11, 29, 51, 0.30);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.tnt-resource-card__media:focus-visible,
+.tnt-resource-card__title a:focus-visible,
+.tnt-resource-card__type a:focus-visible,
+.tnt-resource-card__topic a:focus-visible,
+.tnt-resource-card__tag:focus-visible,
+.tnt-resource-card__action:focus-visible {
+    outline: 3px solid rgba(245, 179, 0, 0.35);
+    outline-offset: 2px;
+}
+
+.tnt-resource-card__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.5rem;
+}
+
+.tnt-resource-card__type {
+    align-self: flex-start;
+}
+
+.tnt-resource-card__type a,
+.tnt-resource-card__type {
+    color: var(--tnt-resource-navy);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.045em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.tnt-resource-card__type a {
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    padding: 0.35rem 0.7rem;
+
+    background: var(--tnt-resource-gold-soft);
+    border: 1px solid rgba(245, 179, 0, 0.32);
+    border-radius: 999px;
+}
+
+.tnt-resource-card__type a:hover {
+    border-color: rgba(245, 179, 0, 0.58);
+}
+
+.tnt-resource-card__title {
+    margin: 0;
+
+    color: var(--tnt-resource-text);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.tnt-resource-card__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.tnt-resource-card__title a:hover {
+    color: var(--tnt-resource-navy-hover);
+}
+
+.tnt-resource-card__excerpt {
+    margin: 0;
+
+    color: var(--tnt-resource-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.tnt-resource-card__topic {
+    margin-top: auto;
+}
+
+.tnt-resource-card__topic a,
+.tnt-resource-card__topic {
+    color: var(--tnt-resource-navy);
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.tnt-resource-card__topic a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+}
+
+.tnt-resource-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.tnt-resource-card__tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0.3rem 0.62rem;
+
+    background: var(--tnt-resource-surface-subtle);
+    border: 1px solid var(--tnt-resource-border);
+    border-radius: 999px;
+
+    color: var(--tnt-resource-text-muted);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+}
+
+a.tnt-resource-card__tag:hover {
+    background: var(--tnt-resource-surface-hover);
+    border-color: rgba(11, 29, 51, 0.18);
+    color: var(--tnt-resource-navy);
+}
+
+.tnt-resource-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    margin-top: 0.15rem;
+    padding-top: 1rem;
+
+    border-top: 1px solid var(--tnt-resource-border);
+}
+
+.tnt-resource-card__date {
+    color: var(--tnt-resource-text-muted);
+    font-size: 0.82rem;
+    line-height: 1.35;
+}
+
+.tnt-resource-card__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0.68rem 0.95rem;
+
+    background: var(--tnt-resource-surface-subtle);
+    border: 1px solid var(--tnt-resource-border);
+    border-radius: 10px;
+
+    color: var(--tnt-resource-navy);
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        transform 160ms ease;
+}
+
+.tnt-resource-card__action:hover {
+    background: var(--tnt-resource-surface-hover);
+    border-color: var(--tnt-resource-navy);
+    color: var(--tnt-resource-navy);
+}
+
+.tnt-resource-card__action:active {
+    transform: translateY(1px);
+}
+
+.tnt-resource-collection .tnt-empty {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.tnt-resource-collection .tnt-empty p {
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .tnt-resource-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .tnt-resource-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tnt-resource-card__body {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tnt-resource-card__body {
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .tnt-resource-card__title {
+        font-size: 1.1rem;
+    }
+
+    .tnt-resource-card__excerpt {
+        font-size: 0.9rem;
+    }
+
+    .tnt-resource-card__footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .tnt-resource-card__action {
+        width: 100%;
+    }
+}
