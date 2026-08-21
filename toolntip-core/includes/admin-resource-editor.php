@@ -707,6 +707,68 @@ function tnt_validate_resource_relationship_storage( $post_id ) {
 add_action( 'save_post_resource', 'tnt_validate_resource_relationship_storage', 90 );
 
 /**
+ * Synchronize derived Resource relationship indexes after canonical storage.
+ *
+ * Canonical relationship metadata remains authoritative. The derived scalar
+ * indexes are rebuilt only after Resource relationship values have completed
+ * their normal save-time normalization and validation.
+ *
+ * WEB-007.4 / 4.4C-A / A6.3.2
+ *
+ * @param int     $post_id Resource post ID.
+ * @param WP_Post $post    Resource post object.
+ * @param bool    $update  Whether this is an existing post update.
+ * @return void
+ */
+function tnt_sync_resource_relationship_index_after_save(
+    $post_id,
+    $post,
+    $update
+) {
+
+    unset( $update );
+
+    $post_id = absint( $post_id );
+
+    if ( ! $post_id ) {
+        return;
+    }
+
+    if ( ! $post instanceof WP_Post ) {
+        return;
+    }
+
+    if ( 'resource' !== $post->post_type ) {
+        return;
+    }
+
+    if ( wp_is_post_revision( $post_id ) ) {
+        return;
+    }
+
+    if ( wp_is_post_autosave( $post_id ) ) {
+        return;
+    }
+
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+
+    if ( ! function_exists( 'tnt_rebuild_resource_relationship_index' ) ) {
+        return;
+    }
+
+    tnt_rebuild_resource_relationship_index( $post_id );
+}
+
+add_action(
+    'save_post_resource',
+    'tnt_sync_resource_relationship_index_after_save',
+    100,
+    3
+);
+
+/**
  * Enforce exactly one Resource Type for published/future Resources.
  *
  * Invalid publication is safely reverted to Draft without deleting editorial
