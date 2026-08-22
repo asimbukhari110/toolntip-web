@@ -29,6 +29,7 @@ function tnt_resource_query_defaults() {
         'type'             => '',
         'topic'            => '',
         'tag'              => '',
+        'featured'         => '',
         'orderby'          => 'date',
         'order'            => 'DESC',
         'related_tool'     => 0,
@@ -157,6 +158,7 @@ function tnt_normalize_resource_query_args( $args = array() ) {
         'type'             => tnt_resource_query_parse_slugs( $args['type'] ),
         'topic'            => tnt_resource_query_parse_slugs( $args['topic'] ),
         'tag'              => tnt_resource_query_parse_slugs( $args['tag'] ),
+        'featured'         => in_array( strtolower( trim( (string) $args['featured'] ) ), array( '1', 'true', 'yes', 'on' ), true ) ? '1' : '',
         'orderby'          => $orderby,
         'order'            => $order,
         'related_tool'     => absint( $args['related_tool'] ),
@@ -256,6 +258,16 @@ function tnt_build_resource_query_args( $args = array() ) {
     }
 
     $query_args = tnt_resource_query_apply_tax_filters( $query_args, $args );
+
+    if ( '1' === $args['featured'] ) {
+        $query_args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+            array(
+                'key'     => 'tnt_resource_featured',
+                'value'   => '1',
+                'compare' => '=',
+            ),
+        );
+    }
 
     $relationship_sets = array();
 

@@ -23,6 +23,7 @@ require_once TNT_CORE_PATH . 'includes/helpers-directory-filters.php';
 require_once TNT_CORE_PATH . 'includes/helpers-tool-query.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-query.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-card.php';
+require_once TNT_CORE_PATH . 'includes/helpers-resource-hub.php';
 require_once TNT_CORE_PATH . 'includes/helpers-labs.php';
 
 require_once TNT_CORE_PATH . 'includes/helpers.php';

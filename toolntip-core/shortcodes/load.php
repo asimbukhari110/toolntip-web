@@ -11,3 +11,4 @@ require_once TNT_CORE_PATH . 'shortcodes/monetization.php';
 require_once TNT_CORE_PATH . 'shortcodes/tool-collections.php';
 require_once TNT_CORE_PATH . 'shortcodes/labs.php';
 require_once TNT_CORE_PATH . 'shortcodes/resource-collections.php';
+require_once TNT_CORE_PATH . 'shortcodes/resource-hub.php';
