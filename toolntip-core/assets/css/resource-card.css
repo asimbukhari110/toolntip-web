@@ -30,6 +30,7 @@
     --tnt-resource-text: #0B1D33;
     --tnt-resource-text-muted: #64748B;
 
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -41,12 +42,61 @@
     box-shadow: 0 4px 20px rgba(11, 29, 51, 0.06);
 
     color: var(--tnt-resource-text);
-    overflow: hidden;
+    overflow: visible;
 
     transition:
         border-color 160ms ease,
         box-shadow 160ms ease,
         transform 160ms ease;
+}
+
+.tnt-resource-card__featured-ribbon {
+    position: absolute;
+    top: 14px;
+    right: -7px;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    min-height: 30px;
+    padding: 0.42rem 0.9rem 0.42rem 0.72rem;
+    background: linear-gradient(135deg, #D71920 0%, #EF1B24 70%, #C20F16 100%);
+    border: 1px solid rgba(139, 0, 0, 0.28);
+    border-radius: 3px 3px 0 3px;
+    box-shadow: 0 5px 12px rgba(156, 15, 20, 0.18);
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tnt-resource-card__featured-ribbon::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid #8F0D12;
+    border-right: 7px solid transparent;
+}
+
+.tnt-resource-card__featured-ribbon-star {
+    color: #FFE07A;
+    font-size: 0.78rem;
+    line-height: 1;
+}
+
+@media (max-width: 520px) {
+    .tnt-resource-card__featured-ribbon {
+        top: 10px;
+        right: -5px;
+        padding: 0.38rem 0.68rem;
+        font-size: 0.64rem;
+    }
 }
 
 .tnt-resource-card:hover {
@@ -62,6 +112,7 @@
 
     background: var(--tnt-resource-surface-subtle);
     border-bottom: 1px solid var(--tnt-resource-border);
+    border-radius: 14px 14px 0 0;
 
     overflow: hidden;
     text-decoration: none;
@@ -314,5 +365,93 @@ a.tnt-resource-card__tag:hover {
 
     .tnt-resource-card__action {
         width: 100%;
+    }
+}
+
+/* =========================================================
+   WEB-007.4 / 4.5.7 - RESOURCE CARD DENSITY ALIGNMENT
+   Keeps editorial media while matching Tool Directory card rhythm.
+   ========================================================= */
+
+.tnt-resource-card {
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 29, 51, 0.05);
+}
+
+.tnt-resource-card__media {
+    aspect-ratio: 16 / 8;
+}
+
+.tnt-resource-card__body {
+    gap: 0.75rem;
+    padding: 1.25rem;
+}
+
+.tnt-resource-card__type a {
+    min-height: 28px;
+    padding: 0.3rem 0.62rem;
+    font-size: 0.74rem;
+}
+
+.tnt-resource-card__title {
+    font-size: 1.12rem;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.tnt-resource-card__excerpt {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.tnt-resource-card__topic a,
+.tnt-resource-card__topic {
+    font-size: 0.82rem;
+}
+
+.tnt-resource-card__tag {
+    min-height: 26px;
+    padding: 0.28rem 0.58rem;
+    font-size: 0.74rem;
+}
+
+.tnt-resource-card__footer {
+    padding-top: 0.85rem;
+}
+
+.tnt-resource-card__date {
+    font-size: 0.78rem;
+}
+
+.tnt-resource-card__action {
+    min-height: 38px;
+    padding: 0.58rem 0.8rem;
+    border-radius: 9px;
+    font-size: 0.82rem;
+}
+
+/* =========================================================
+   WEB-007.4 / 4.5.8.1 - FEATURED IMAGE PRESENTATION REFINEMENT
+   Tightens editorial artwork inside the Resource media frame without
+   changing the canonical card markup or featured-resource behavior.
+   ========================================================= */
+
+.tnt-resource-card__media:has(.tnt-resource-card__image) {
+    background: #FFFFFF;
+}
+
+.tnt-resource-card__image {
+    /*
+     * Resource artwork is commonly supplied as social/editorial creative
+     * with a small built-in safe margin. A modest visual zoom removes the
+     * excessive canvas effect while preserving the artwork's proportions.
+     */
+    transform: scale(1.08);
+    transform-origin: center;
+}
+
+@media (max-width: 767px) {
+    .tnt-resource-card__image {
+        transform: scale(1.05);
     }
 }

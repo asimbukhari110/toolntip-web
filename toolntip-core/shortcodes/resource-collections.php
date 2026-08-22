@@ -24,37 +24,103 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param WP_Query $query Resource query.
  * @return string
  */
-function tnt_render_resource_collection( $query ) {
-	if ( ! ( $query instanceof WP_Query ) || ! $query->have_posts() ) {
-		return '<div class="tnt-resource-collection"><div class="tnt-empty"><p>' .
-			esc_html__( 'No resources found.', 'toolntip-core' ) .
-			'</p></div></div>';
-	}
+function tnt_render_resource_collection( $query, $args = array() ) {
+    if ( ! ( $query instanceof WP_Query ) || ! $query->have_posts() ) {
+        return '<div class="tnt-resource-collection"><div class="tnt-empty"><p>' .
+            esc_html__( 'No resources found.', 'toolntip-core' ) .
+            '</p></div></div>';
+    }
 
-	ob_start();
-	?>
-	<div class="tnt-resource-collection">
-		<div class="tnt-resource-grid">
-			<?php foreach ( $query->posts as $resource ) : ?>
-				<?php
-				if ( ! ( $resource instanceof WP_Post ) || 'resource' !== $resource->post_type ) {
-					continue;
-				}
+    $args = wp_parse_args(
+        (array) $args,
+        array(
+            'monetization' => false,
+            'columns'      => 3,
+        )
+    );
 
-				$card_data = tnt_get_resource_card_data( $resource );
+    $resources = array();
+    foreach ( $query->posts as $resource ) {
+        if ( ! ( $resource instanceof WP_Post ) || 'resource' !== $resource->post_type ) {
+            continue;
+        }
 
-				if ( empty( $card_data ) ) {
-					continue;
-				}
+        $card_data = tnt_get_resource_card_data( $resource );
+        if ( empty( $card_data ) ) {
+            continue;
+        }
 
-				tnt_render( 'resource-card', $card_data );
-				?>
-			<?php endforeach; ?>
-		</div>
-	</div>
-	<?php
+        $resources[] = array(
+            'id'   => absint( $resource->ID ),
+            'card' => $card_data,
+        );
+    }
 
-	return ob_get_clean();
+    if ( empty( $resources ) ) {
+        return '<div class="tnt-resource-collection"><div class="tnt-empty"><p>' .
+            esc_html__( 'No resources found.', 'toolntip-core' ) .
+            '</p></div></div>';
+    }
+
+    $before_grid_ad = '';
+    $in_grid_ad     = '';
+    $in_grid_slots  = array();
+
+    if ( ! empty( $args['monetization'] ) ) {
+        $before_grid_ad = function_exists( 'tnt_get_tool_directory_before_grid_ad_markup' )
+            ? tnt_get_tool_directory_before_grid_ad_markup()
+            : '';
+
+        $resource_ids = array_column( $resources, 'id' );
+        $seed = 'resource-hub|page:' . max( 1, tnt_resource_hub_current_page() )
+            . '|query:' . (string) wp_json_encode( wp_unslash( $_GET ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            . '|resources:' . implode( ',', $resource_ids );
+
+        $in_grid_slots = function_exists( 'tnt_get_tool_directory_ad_slots' )
+            ? tnt_get_tool_directory_ad_slots(
+                count( $resources ),
+                array(
+                    'tools_loaded' => 0,
+                    'ads_rendered' => 0,
+                    'columns'      => max( 1, absint( $args['columns'] ) ),
+                    'tool_ids'     => $resource_ids,
+                    'seed'         => $seed,
+                )
+            )
+            : array();
+
+        $in_grid_ad = ! empty( $in_grid_slots ) && function_exists( 'tnt_get_tool_directory_in_grid_ad_markup' )
+            ? tnt_get_tool_directory_in_grid_ad_markup()
+            : '';
+    }
+
+    ob_start();
+    ?>
+    <div class="tnt-resource-collection">
+        <?php if ( '' !== $before_grid_ad ) : ?>
+            <div class="tnt-resource-collection__before-grid-ad">
+                <?php echo $before_grid_ad; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="tnt-resource-grid">
+            <?php foreach ( $resources as $resource_index => $resource ) : ?>
+                <?php tnt_render( 'resource-card', $resource['card'] ); ?>
+
+                <?php
+                $resource_position = $resource_index + 1;
+                if ( '' !== $in_grid_ad && in_array( $resource_position, $in_grid_slots, true ) ) :
+                    ?>
+                    <div class="tnt-resource-grid__ad-card" data-tnt-resource-ad-after="<?php echo esc_attr( $resource_position ); ?>">
+                        <?php echo $in_grid_ad; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
+
+    return ob_get_clean();
 }
 
 /**
@@ -66,6 +132,7 @@ function tnt_render_resource_collection( $query ) {
  * - topic
  * - tag
  * - search
+ * - featured
  * - orderby
  * - order
  *
@@ -84,6 +151,7 @@ function tnt_resources_shortcode( $atts = array() ) {
 			'topic'   => '',
 			'tag'     => '',
 			'search'  => '',
+			'featured' => '',
 			'orderby' => 'date',
 			'order'   => 'DESC',
 		),
@@ -97,6 +165,7 @@ function tnt_resources_shortcode( $atts = array() ) {
 		'topic'   => $atts['topic'],
 		'tag'     => $atts['tag'],
 		'search'  => sanitize_text_field( (string) $atts['search'] ),
+		'featured' => $atts['featured'],
 		'orderby' => $atts['orderby'],
 		'order'   => $atts['order'],
 		'status'  => 'publish',

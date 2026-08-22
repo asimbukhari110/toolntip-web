@@ -104,6 +104,21 @@ function tnt_register_resource_relationship_meta() {
 
     register_post_meta(
         'resource',
+        'tnt_resource_featured',
+        array(
+            'type'              => 'boolean',
+            'single'            => true,
+            'default'           => false,
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'show_in_rest'      => true,
+            'auth_callback'     => static function () {
+                return current_user_can( 'edit_posts' );
+            },
+        )
+    );
+
+    register_post_meta(
+        'resource',
         'tnt_related_tool_ids',
         array(
             'type'              => 'array',
@@ -157,6 +172,15 @@ function tnt_register_resource_acf_editor_fields() {
             'key'      => 'group_tnt_resource_editorial',
             'title'    => __( 'ToolNTip Resource Editorial', 'toolntip-core' ),
             'fields'   => array(
+                array(
+                    'key'           => 'field_tnt_resource_featured',
+                    'label'         => __( 'Featured Resource', 'toolntip-core' ),
+                    'name'          => 'tnt_resource_featured',
+                    'type'          => 'true_false',
+                    'instructions'  => __( 'Promote this Resource with the ToolNTip Featured treatment in Resource cards and curated Resource queries.', 'toolntip-core' ),
+                    'ui'            => 1,
+                    'default_value' => 0,
+                ),
                 array(
                     'key'           => 'field_tnt_related_tools',
                     'label'         => __( 'Related Tools', 'toolntip-core' ),
@@ -448,6 +472,18 @@ function tnt_add_resource_fallback_meta_boxes() {
         'high'
     );
 
+    // ACF Pro supplies the enhanced Featured Resource control when available.
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        add_meta_box(
+            'tnt-resource-featured',
+            __( 'Featured Resource', 'toolntip-core' ),
+            'tnt_render_resource_featured_fallback_meta_box',
+            'resource',
+            'side',
+            'default'
+        );
+    }
+
     // ACF Pro supplies the enhanced relationship UI when available.
     if ( function_exists( 'acf_add_local_field_group' ) ) {
         return;
@@ -501,6 +537,25 @@ function tnt_render_resource_type_fallback_meta_box( $post ) {
             </p>
         <?php endforeach; ?>
     <?php endif; ?>
+    <?php
+}
+
+/**
+ * Render Core fallback Featured Resource control.
+ *
+ * @param WP_Post $post Current Resource.
+ */
+function tnt_render_resource_featured_fallback_meta_box( $post ) {
+
+    $featured = (bool) get_post_meta( $post->ID, 'tnt_resource_featured', true );
+
+    wp_nonce_field( 'tnt_save_resource_editorial', 'tnt_resource_editorial_nonce' );
+    ?>
+    <label>
+        <input type="checkbox" name="tnt_resource_featured" value="1" <?php checked( $featured ); ?>>
+        <?php esc_html_e( 'Feature this Resource', 'toolntip-core' ); ?>
+    </label>
+    <p class="description"><?php esc_html_e( 'Displays the ToolNTip Featured treatment and makes the Resource available to featured-only queries.', 'toolntip-core' ); ?></p>
     <?php
 }
 
@@ -670,6 +725,12 @@ function tnt_save_resource_editorial_fields( $post_id ) {
     }
 
     if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        update_post_meta(
+            $post_id,
+            'tnt_resource_featured',
+            isset( $_POST['tnt_resource_featured'] ) ? '1' : '0'
+        );
+
         $related_tools = isset( $_POST['tnt_related_tool_ids'] ) ? (array) wp_unslash( $_POST['tnt_related_tool_ids'] ) : array();
         $related_tools = tnt_normalize_resource_relationship_ids( $related_tools, 'tool' );
         update_post_meta( $post_id, 'tnt_related_tool_ids', $related_tools );

@@ -48,7 +48,14 @@ $date = ! empty( $resource['date'] ) && is_array( $resource['date'] )
     : array();
 ?>
 
-<article class="tnt-resource-card">
+<article class="tnt-resource-card<?php echo ! empty( $resource['featured'] ) ? ' tnt-resource-card--featured' : ''; ?>">
+
+    <?php if ( ! empty( $resource['featured'] ) ) : ?>
+        <div class="tnt-resource-card__featured-ribbon" role="status" aria-label="<?php echo esc_attr__( 'Featured Resource', 'toolntip-core' ); ?>">
+            <span class="tnt-resource-card__featured-ribbon-star" aria-hidden="true">&#9733;</span>
+            <span><?php echo esc_html__( 'Featured', 'toolntip-core' ); ?></span>
+        </div>
+    <?php endif; ?>
 
     <a
         class="tnt-resource-card__media"

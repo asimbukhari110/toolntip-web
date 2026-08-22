@@ -105,6 +105,7 @@ function tnt_get_resource_card_data( $resource ) {
         'title'          => get_the_title( $resource ),
         'excerpt'        => get_the_excerpt( $resource ),
         'permalink'      => get_permalink( $resource ),
+        'featured'       => (bool) get_post_meta( $resource->ID, 'tnt_resource_featured', true ),
         'featured_image' => array(
             'url' => $image_url ? $image_url : '',
             'alt' => trim( (string) $image_alt ),

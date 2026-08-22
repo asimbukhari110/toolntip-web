@@ -30,6 +30,13 @@ function tnt_enqueue_assets() {
 		TNT_CORE_VERSION
 	);
 
+	wp_register_style(
+		'tnt-resource-hub',
+		TNT_CORE_URL . 'assets/css/resource-hub.css',
+		array( 'toolntip-core', 'tnt-resource-card' ),
+		TNT_CORE_VERSION
+	);
+
     wp_enqueue_style(
         'tnt-rating',
         TNT_CORE_URL . 'assets/css/rating.css',
@@ -94,6 +101,15 @@ function tnt_enqueue_assets() {
 			TNT_CORE_VERSION
 		);
 	}
+
+    if (
+        is_post_type_archive( 'resource' )
+        || is_tax( 'resource_type' )
+        || ( is_tax( 'tool_category' ) && 'resource' === get_query_var( 'post_type' ) )
+    ) {
+        wp_enqueue_style( 'tnt-resource-card' );
+        wp_enqueue_style( 'tnt-resource-hub' );
+    }
 }
 
 add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );
