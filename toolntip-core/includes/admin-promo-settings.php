@@ -30,6 +30,18 @@ function tnt_get_monetization_placement_definitions() {
             'label'       => __( 'Application Page — After Application', 'toolntip-core' ),
             'description' => __( 'Renders immediately after the interactive application on the linked Tool Application Page.', 'toolntip-core' ),
         ),
+        'resource-after-hero' => array(
+            'label'       => __( 'Resource Detail — After Hero', 'toolntip-core' ),
+            'description' => __( 'Renders after Resource identity, featured media and taxonomy, before the reading layout.', 'toolntip-core' ),
+        ),
+        'resource-sidebar' => array(
+            'label'       => __( 'Resource Detail — Sidebar', 'toolntip-core' ),
+            'description' => __( 'Renders after Related Tools and Related Resources in the Resource contextual sidebar.', 'toolntip-core' ),
+        ),
+        'resource-before-comments' => array(
+            'label'       => __( 'Resource Detail — Before Comments', 'toolntip-core' ),
+            'description' => __( 'Renders after the Resource reading/contextual region and immediately before Comments.', 'toolntip-core' ),
+        ),
     );
 }
 
@@ -129,6 +141,22 @@ function tnt_get_default_monetization_settings() {
             'tool_ids'    => array(),
             'custom_code' => '',
         );
+    }
+
+    // Resource Detail placements reuse the existing administrator-managed ad
+    // units through their restricted ToolNTip monetization shortcodes. The ad
+    // unit renderer itself remains fail-closed when no unit markup is saved.
+    $resource_ad_defaults = array(
+        'resource-after-hero'      => '[tnt_ad_leaderboard]',
+        'resource-sidebar'         => '[tnt_ad_rectangle]',
+        'resource-before-comments' => '[tnt_ad_leaderboard]',
+    );
+
+    foreach ( $resource_ad_defaults as $placement => $shortcode ) {
+        if ( isset( $placements[ $placement ] ) ) {
+            $placements[ $placement ]['mode'] = 'custom';
+            $placements[ $placement ]['custom_code'] = $shortcode;
+        }
     }
 
     foreach ( tnt_get_monetization_ad_unit_definitions() as $unit => $definition ) {

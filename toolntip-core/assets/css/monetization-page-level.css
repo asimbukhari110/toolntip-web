@@ -315,3 +315,60 @@
         padding: .75rem;
     }
 }
+
+/* ---------------------------------------------------------
+   Resource Detail Monetization — WEB-007.4 / 4.6-G4
+   --------------------------------------------------------- */
+
+.tnt-resource-detail__monetization {
+    width: min(100%, 1180px);
+    min-width: 0;
+    margin: 1.5rem auto;
+}
+
+.tnt-resource-detail__monetization--sidebar {
+    width: 100%;
+    margin: 0;
+}
+
+.tnt-resource-detail__monetization .tnt-monetization {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: .8rem 1rem;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 29, 51, .04);
+}
+
+.tnt-resource-detail__monetization::before {
+    display: block;
+    margin: 0 0 .45rem;
+    color: #64748b;
+    font-size: .72rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    content: "Advertisement";
+}
+
+.tnt-resource-detail__monetization--sidebar .tnt-monetization {
+    padding: .75rem;
+}
+
+@media (max-width: 767px) {
+    .tnt-resource-detail__monetization {
+        margin: 1.25rem 0;
+    }
+
+    .tnt-resource-detail__monetization--sidebar {
+        margin: 0;
+    }
+
+    .tnt-resource-detail__monetization .tnt-monetization {
+        padding: .75rem;
+    }
+}

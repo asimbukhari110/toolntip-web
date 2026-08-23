@@ -182,6 +182,17 @@ function tnt_register_resource_acf_editor_fields() {
                     'default_value' => 0,
                 ),
                 array(
+                    'key'           => 'field_tnt_resource_icon',
+                    'label'         => __( 'Resource Icon', 'toolntip-core' ),
+                    'name'          => 'tnt_resource_icon',
+                    'type'          => 'image',
+                    'instructions'  => __( 'Optional square identity icon for compact Resource recommendations. ToolNTip site identity is used automatically when no icon is assigned.', 'toolntip-core' ),
+                    'return_format' => 'id',
+                    'preview_size'  => 'thumbnail',
+                    'library'       => 'all',
+                    'mime_types'    => 'jpg,jpeg,png,gif,webp,svg',
+                ),
+                array(
                     'key'           => 'field_tnt_related_tools',
                     'label'         => __( 'Related Tools', 'toolntip-core' ),
                     'name'          => 'tnt_related_tool_ids',

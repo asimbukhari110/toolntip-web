@@ -37,6 +37,13 @@ function tnt_enqueue_assets() {
 		TNT_CORE_VERSION
 	);
 
+	wp_register_style(
+		'tnt-resource-detail',
+		TNT_CORE_URL . 'assets/css/resource-detail.css',
+		array( 'toolntip-core' ),
+		TNT_CORE_VERSION
+	);
+
     wp_enqueue_style(
         'tnt-rating',
         TNT_CORE_URL . 'assets/css/rating.css',
@@ -92,15 +99,26 @@ function tnt_enqueue_assets() {
         TNT_CORE_VERSION
     );
 
-    if ( is_post_type_archive( 'tool' ) ) {
+    wp_register_style(
+        'tnt-tool-directory',
+        TNT_CORE_URL . 'assets/css/tool-directory.css',
+        array( 'toolntip-core', 'tnt-tool-card' ),
+        TNT_CORE_VERSION
+    );
 
-		wp_enqueue_style(
-			'tnt-tool-directory',
-			TNT_CORE_URL . 'assets/css/tool-directory.css',
-			array( 'toolntip-core', 'tnt-tool-card' ),
-			TNT_CORE_VERSION
-		);
-	}
+    if ( is_post_type_archive( 'tool' ) ) {
+        wp_enqueue_style( 'tnt-tool-directory' );
+    }
+
+    if ( is_singular( 'resource' ) ) {
+        // Resource Detail owns its shell, contextual recommendations and comments presentation.
+        wp_enqueue_style( 'tnt-tool-directory' );
+        wp_enqueue_style( 'tnt-resource-detail' );
+
+        if ( comments_open() && get_option( 'thread_comments' ) ) {
+            wp_enqueue_script( 'comment-reply' );
+        }
+    }
 
     if (
         is_post_type_archive( 'resource' )
