@@ -22,7 +22,39 @@ function tnt_get_monetization_settings() {
     $stored = get_option( 'tnt_monetization_settings', null );
 
     if ( is_array( $stored ) ) {
-        return wp_parse_args( $stored, $defaults );
+        // Merge nested monetization collections individually so placements or
+        // ad units introduced by a plugin update are available immediately on
+        // existing installations. Stored administrator choices remain
+        // authoritative for every key that already exists.
+        $settings = wp_parse_args( $stored, $defaults );
+
+        foreach ( array( 'ad_units', 'placements' ) as $collection ) {
+            $stored_collection = isset( $stored[ $collection ] ) && is_array( $stored[ $collection ] )
+                ? $stored[ $collection ]
+                : array();
+            $default_collection = isset( $defaults[ $collection ] ) && is_array( $defaults[ $collection ] )
+                ? $defaults[ $collection ]
+                : array();
+
+            $settings[ $collection ] = wp_parse_args( $stored_collection, $default_collection );
+        }
+
+        $stored_directory = isset( $stored['directory_policy'] ) && is_array( $stored['directory_policy'] )
+            ? $stored['directory_policy']
+            : array();
+        $default_directory = isset( $defaults['directory_policy'] ) && is_array( $defaults['directory_policy'] )
+            ? $defaults['directory_policy']
+            : array();
+        $settings['directory_policy'] = wp_parse_args( $stored_directory, $default_directory );
+
+        if ( isset( $default_directory['in_grid'] ) && is_array( $default_directory['in_grid'] ) ) {
+            $stored_in_grid = isset( $stored_directory['in_grid'] ) && is_array( $stored_directory['in_grid'] )
+                ? $stored_directory['in_grid']
+                : array();
+            $settings['directory_policy']['in_grid'] = wp_parse_args( $stored_in_grid, $default_directory['in_grid'] );
+        }
+
+        return $settings;
     }
 
     $settings = $defaults;

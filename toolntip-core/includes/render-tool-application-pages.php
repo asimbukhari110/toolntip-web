@@ -111,6 +111,36 @@ function tnt_render_tool_promo_markup( $promo, $placement, $variant = 'standalon
     return $output;
 }
 
+/**
+ * Expand only ToolNTip's registered reusable ad-unit shortcodes inside trusted
+ * monetization placement code.
+ *
+ * General shortcode execution is intentionally not enabled for placement code.
+ * This bridge recognizes only the five provider-neutral ToolNTip ad-unit
+ * shortcodes that read administrator-managed markup from centralized settings.
+ *
+ * @param string $code Trusted placement code.
+ *
+ * @return string
+ */
+function tnt_expand_monetization_ad_shortcodes( $code ) {
+    $code = (string) $code;
+
+    if ( '' === $code || false === strpos( $code, '[tnt_ad_' ) ) {
+        return $code;
+    }
+
+    $pattern = '/\[(tnt_ad_(?:leaderboard|rectangle|horizontal|sidebar|mobile))\s*\/?\]/';
+
+    return (string) preg_replace_callback(
+        $pattern,
+        static function ( $matches ) {
+            return do_shortcode( $matches[0] );
+        },
+        $code
+    );
+}
+
 function tnt_render_monetization_placement( $placement, $tool = array(), $args = array() ) {
     $placement = sanitize_key( $placement );
     if ( '' === $placement ) {
@@ -134,7 +164,13 @@ function tnt_render_monetization_placement( $placement, $tool = array(), $args =
             $class .= ' tnt-monetization--hero';
         }
 
-        return '<div class="' . esc_attr( $class ) . '">' . $payload['code'] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        $code = tnt_expand_monetization_ad_shortcodes( $payload['code'] );
+
+        if ( '' === trim( $code ) ) {
+            return '';
+        }
+
+        return '<div class="' . esc_attr( $class ) . '">' . $code . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     return '';

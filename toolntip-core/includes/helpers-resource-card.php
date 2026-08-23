@@ -66,6 +66,63 @@ function tnt_get_resource_card_terms( $resource_id, $taxonomy ) {
 }
 
 /**
+ * Resolve the compact identity icon for a Resource.
+ *
+ * Resolution order is intentionally centralized:
+ * 1. Resource-specific icon (`tnt_resource_icon`).
+ * 2. The currently configured WordPress Site Icon as the ToolNTip identity fallback.
+ *
+ * Featured Image is deliberately not used here; it remains editorial media.
+ *
+ * @param WP_Post|int $resource Resource object or ID.
+ * @param string      $size     Registered image size for attachment-backed icons.
+ * @return array{url:string,alt:string,source:string}
+ */
+function tnt_get_resource_icon( $resource, $size = 'thumbnail' ) {
+
+    $resource_id = $resource instanceof WP_Post ? $resource->ID : absint( $resource );
+
+    if ( ! $resource_id || 'resource' !== get_post_type( $resource_id ) ) {
+        return array( 'url' => '', 'alt' => '', 'source' => '' );
+    }
+
+    $icon_value = get_post_meta( $resource_id, 'tnt_resource_icon', true );
+    $icon_id    = 0;
+
+    if ( is_numeric( $icon_value ) ) {
+        $icon_id = absint( $icon_value );
+    } elseif ( is_array( $icon_value ) && ! empty( $icon_value['ID'] ) ) {
+        $icon_id = absint( $icon_value['ID'] );
+    }
+
+    if ( $icon_id ) {
+        $icon_url = wp_get_attachment_image_url( $icon_id, $size );
+
+        if ( $icon_url ) {
+            $icon_alt = trim( (string) get_post_meta( $icon_id, '_wp_attachment_image_alt', true ) );
+
+            return array(
+                'url'    => $icon_url,
+                'alt'    => $icon_alt ? $icon_alt : get_the_title( $resource_id ),
+                'source' => 'resource',
+            );
+        }
+    }
+
+    $site_icon_url = get_site_icon_url( 192 );
+
+    if ( $site_icon_url ) {
+        return array(
+            'url'    => $site_icon_url,
+            'alt'    => get_bloginfo( 'name' ),
+            'source' => 'site-icon',
+        );
+    }
+
+    return array( 'url' => '', 'alt' => '', 'source' => '' );
+}
+
+/**
  * Return focused Resource Card data without loading detail-only domains.
  *
  * Accepts a Resource WP_Post object or numeric post ID and fails closed for
@@ -106,6 +163,7 @@ function tnt_get_resource_card_data( $resource ) {
         'excerpt'        => get_the_excerpt( $resource ),
         'permalink'      => get_permalink( $resource ),
         'featured'       => (bool) get_post_meta( $resource->ID, 'tnt_resource_featured', true ),
+        'icon'           => tnt_get_resource_icon( $resource ),
         'featured_image' => array(
             'url' => $image_url ? $image_url : '',
             'alt' => trim( (string) $image_alt ),

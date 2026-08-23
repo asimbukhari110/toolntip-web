@@ -19,6 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function tnt_tool_template_include( $template ) {
 
+    if ( is_singular( 'resource' ) ) {
+
+        $resource_template = TNT_CORE_PATH . 'templates/single-resource.php';
+
+        if ( file_exists( $resource_template ) ) {
+            return $resource_template;
+        }
+    }
+
     if ( is_singular( 'tool' ) ) {
 
         $tool_template = TNT_CORE_PATH . 'templates/single-tool.php';
