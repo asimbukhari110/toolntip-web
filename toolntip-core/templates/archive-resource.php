@@ -18,7 +18,7 @@ get_header();
 global $wp_query;
 ?>
 
-<main class="tnt-resource-archive" id="main">
+<div class="tnt-resource-archive">
     <div class="tnt-resource-archive__inner">
         <?php
         if ( function_exists( 'tnt_render_resource_hub' ) ) {
@@ -26,7 +26,7 @@ global $wp_query;
         }
         ?>
     </div>
-</main>
+</div>
 
 <?php
 get_footer();

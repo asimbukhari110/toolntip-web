@@ -30,7 +30,7 @@ while ( have_posts() ) :
     $modified  = (string) ( $resource['date']['modified_machine'] ?? '' );
     $show_modified = $published && $modified && $published !== $modified;
     ?>
-    <main class="tnt-resource-detail" id="main">
+    <div class="tnt-resource-detail">
         <article <?php post_class( 'tnt-resource-detail__article' ); ?>>
             <div class="tnt-resource-detail__inner">
                 <header class="tnt-resource-detail__identity">
@@ -285,7 +285,7 @@ while ( have_posts() ) :
                 ?>
             </div>
         </article>
-    </main>
+    </div>
     <?php
 endwhile;
 

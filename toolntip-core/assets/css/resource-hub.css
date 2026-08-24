@@ -348,11 +348,18 @@
 
 .tnt-resource-hub__eyebrow,
 .tnt-resource-hub__results-kicker {
-    color: #A87700;
     font-size: 0.76rem;
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: 0.08em;
+}
+
+.tnt-resource-hub__eyebrow {
+    color: #956700;
+}
+
+.tnt-resource-hub__results-kicker {
+    color: #A87700;
 }
 
 .tnt-resource-hub__title {

@@ -68,20 +68,34 @@ function tnt_render_resource_hub( $atts = array(), $query = null ) {
     $topics = tnt_resource_hub_topic_terms();
     $hub_url = tnt_resource_hub_url();
 
-    $archive_term = is_tax( array( 'resource_type', 'tool_category' ) ) ? get_queried_object() : null;
+    $archive_term = is_tax( array( 'resource_type', 'tool_category', 'resource_tag' ) )
+    ? get_queried_object()
+    : null;
     $is_taxonomy_collection = $archive_term instanceof WP_Term;
     $collection_title = '';
     $collection_kicker = '';
 
     if ( $is_taxonomy_collection ) {
-        if ( 'resource_type' === $archive_term->taxonomy ) {
-            $collection_kicker = __( 'Resource Type', 'toolntip-core' );
-            $collection_title = sprintf( __( '%s Resources', 'toolntip-core' ), $archive_term->name );
-        } else {
-            $collection_kicker = __( 'Resource Topic', 'toolntip-core' );
-            $collection_title = sprintf( __( '%s Resources', 'toolntip-core' ), $archive_term->name );
-        }
-    }
+		if ( 'resource_type' === $archive_term->taxonomy ) {
+			$collection_kicker = __( 'Resource Type', 'toolntip-core' );
+			$collection_title  = sprintf(
+				__( '%s Resources', 'toolntip-core' ),
+				$archive_term->name
+			);
+		} elseif ( 'tool_category' === $archive_term->taxonomy ) {
+			$collection_kicker = __( 'Resource Topic', 'toolntip-core' );
+			$collection_title  = sprintf(
+				__( '%s Resources', 'toolntip-core' ),
+				$archive_term->name
+			);
+		} elseif ( 'resource_tag' === $archive_term->taxonomy ) {
+			$collection_kicker = __( 'Resource Tag', 'toolntip-core' );
+			$collection_title  = sprintf(
+				__( '%s Resources', 'toolntip-core' ),
+				$archive_term->name
+			);
+		}
+	}
 
     ob_start();
     ?>
@@ -96,15 +110,15 @@ function tnt_render_resource_hub( $atts = array(), $query = null ) {
         <header class="tnt-resource-hub__header">
             <div class="tnt-resource-hub__intro">
                 <p class="tnt-resource-hub__eyebrow"><?php echo esc_html__( 'ToolNTip Resources', 'toolntip-core' ); ?></p>
-                <h2 id="tnt-resource-hub-title" class="tnt-resource-hub__title">
+                <h1 id="tnt-resource-hub-title" class="tnt-resource-hub__title">
                     <?php echo esc_html__( 'Learn, build and solve with practical resources', 'toolntip-core' ); ?>
-                </h2>
+                </h1>
                 <p class="tnt-resource-hub__description">
                     <?php echo esc_html__( 'Search articles, tutorials and how-to guides, or browse by Resource Type and Topic.', 'toolntip-core' ); ?>
                 </p>
             </div>
 
-            <form class="tnt-resource-hub__search" method="get" action="<?php echo esc_url( $hub_url ); ?>" role="search">
+            <form class="tnt-resource-hub__search" method="get" action="<?php echo esc_url( $hub_url ); ?>" role="search" aria-label="<?php echo esc_attr__( 'Search Resources', 'toolntip-core' ); ?>">
                 <label class="tnt-resource-hub__search-label" for="tnt-resource-search">
                     <?php echo esc_html__( 'Search Resources', 'toolntip-core' ); ?>
                 </label>
@@ -132,9 +146,9 @@ function tnt_render_resource_hub( $atts = array(), $query = null ) {
         <div class="tnt-resource-hub__discovery">
             <?php if ( ! empty( $types ) ) : ?>
                 <section class="tnt-resource-hub__discovery-group" aria-labelledby="tnt-resource-type-title">
-                    <h3 id="tnt-resource-type-title" class="tnt-resource-hub__discovery-title">
+                    <h2 id="tnt-resource-type-title" class="tnt-resource-hub__discovery-title">
                         <?php echo esc_html__( 'Browse by Type', 'toolntip-core' ); ?>
-                    </h3>
+                    </h2>
                     <div class="tnt-resource-hub__chips">
                         <?php foreach ( $types as $type ) : ?>
                             <?php $type_url = get_term_link( $type ); ?>
@@ -151,9 +165,9 @@ function tnt_render_resource_hub( $atts = array(), $query = null ) {
 
             <?php if ( ! empty( $topics ) ) : ?>
                 <section class="tnt-resource-hub__discovery-group" aria-labelledby="tnt-resource-topic-title">
-                    <h3 id="tnt-resource-topic-title" class="tnt-resource-hub__discovery-title">
+                    <h2 id="tnt-resource-topic-title" class="tnt-resource-hub__discovery-title">
                         <?php echo esc_html__( 'Browse by Topic', 'toolntip-core' ); ?>
-                    </h3>
+                    </h2>
                     <div class="tnt-resource-hub__chips">
                         <?php foreach ( $topics as $topic ) : ?>
                             <?php $topic_url = tnt_resource_hub_topic_url( $topic ); ?>
@@ -176,7 +190,7 @@ function tnt_render_resource_hub( $atts = array(), $query = null ) {
                     <p class="tnt-resource-hub__results-kicker">
                         <?php echo $is_taxonomy_collection ? esc_html__( 'Browse Resources', 'toolntip-core' ) : ( '' !== $search ? esc_html__( 'Search results', 'toolntip-core' ) : esc_html__( 'Latest resources', 'toolntip-core' ) ); ?>
                     </p>
-                    <h3 class="tnt-resource-hub__results-title">
+                    <h2 class="tnt-resource-hub__results-title">
                         <?php if ( $is_taxonomy_collection ) : ?>
                             <?php echo esc_html( $collection_title ); ?>
                         <?php elseif ( '' !== $search ) : ?>
@@ -190,7 +204,7 @@ function tnt_render_resource_hub( $atts = array(), $query = null ) {
                         <?php else : ?>
                             <?php echo esc_html__( 'Explore Resources', 'toolntip-core' ); ?>
                         <?php endif; ?>
-                    </h3>
+                    </h2>
                 </div>
 
                 <p class="tnt-resource-hub__count">
