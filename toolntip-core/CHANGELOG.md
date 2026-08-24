@@ -1,3 +1,18 @@
+## 1.0.59 — WEB-007.4 / 4.7-E LINK-01 Resource Topic Internal-Link Correction
+
+- Corrected Resource-owned `tool_category` term links to use the canonical Resource Topic route under `/resources/topic/{slug}/`.
+- Applied the same Resource-context URL contract to Resource Detail and Resource Card taxonomy normalization.
+- Preserved native `/tool-category/{slug}/` links for Tool-context taxonomy archives; no global term-link filter, taxonomy rewrite, template, CSS, or query-engine change was introduced.
+
+## 1.0.58 — WEB-007.4 / 4.7-D Resource Topic Sitemap Integration
+
+- Added a narrow AIOSEO Additional Pages integration for canonical Resource Topic URLs under `/resources/topic/{slug}/`.
+- Reuses the frozen Resource Topic URL helper and includes only Tool Category terms attached to published Resources.
+- Preserves native shared `/tool-category/{slug}/` taxonomy URLs for Tool-context SEO; no taxonomy rewrites or global term-link filters were introduced.
+- Adds bounded sitemap metadata with priority `0.5`, monthly change frequency, and the latest associated published Resource modification time.
+- Deduplicates Resource Topic entries against existing AIOSEO Additional Pages and fails open when AIOSEO is absent or no published Resource Topics exist.
+- Completes Resource Tag archive query-envelope alignment so Tag pagination follows the same 12-item published Resource contract as Type and Topic archives.
+
 ## 1.0.55 — WEB-007.4 / 4.6-I DEF-002 Canonical Resource Canvas Alignment
 
 - Promoted the existing 1440px Resource Detail outer canvas to the canonical structural width for identity, taxonomy, Featured Media, reading layout and comments.

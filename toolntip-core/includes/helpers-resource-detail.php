@@ -37,7 +37,11 @@ function tnt_get_resource_detail_terms( $resource_id, $taxonomy ) {
             continue;
         }
 
-        $url = get_term_link( $term );
+        if ( 'tool_category' === $term->taxonomy && function_exists( 'tnt_resource_hub_topic_url' ) ) {
+            $url = tnt_resource_hub_topic_url( $term );
+        } else {
+            $url = get_term_link( $term );
+        }
 
         $normalized[] = array(
             'id'   => (int) $term->term_id,

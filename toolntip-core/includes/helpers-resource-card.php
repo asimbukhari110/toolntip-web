@@ -27,7 +27,11 @@ function tnt_normalize_resource_card_term( $term ) {
         return array();
     }
 
-    $url = get_term_link( $term );
+    if ( 'tool_category' === $term->taxonomy && function_exists( 'tnt_resource_hub_topic_url' ) ) {
+        $url = tnt_resource_hub_topic_url( $term );
+    } else {
+        $url = get_term_link( $term );
+    }
 
     return array(
         'id'   => (int) $term->term_id,

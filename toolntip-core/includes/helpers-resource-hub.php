@@ -253,7 +253,10 @@ function tnt_resource_hub_align_main_archive_query( $query ) {
     $is_resource_topic = $query->is_tax( 'tool_category' )
         && 'resource' === $query->get( 'post_type' );
 
-    if ( ! $is_resource_archive && ! $is_resource_type && ! $is_resource_topic ) {
+    $is_resource_tag = $query->is_tax( 'resource_tag' )
+        && 'resource' === $query->get( 'post_type' );
+
+    if ( ! $is_resource_archive && ! $is_resource_type && ! $is_resource_topic && ! $is_resource_tag ) {
         return;
     }
 

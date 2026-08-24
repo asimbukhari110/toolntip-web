@@ -47,10 +47,11 @@ function tnt_tool_template_include( $template ) {
     }
 
     if (
-        is_post_type_archive( 'resource' )
-        || is_tax( 'resource_type' )
-        || ( is_tax( 'tool_category' ) && 'resource' === get_query_var( 'post_type' ) )
-    ) {
+		is_post_type_archive( 'resource' )
+		|| is_tax( 'resource_type' )
+		|| is_tax( 'resource_tag' )
+		|| ( is_tax( 'tool_category' ) && 'resource' === get_query_var( 'post_type' ) )
+	) {
 
         $resource_archive_template = TNT_CORE_PATH . 'templates/archive-resource.php';
 
