@@ -1,3 +1,13 @@
+## 1.0.60-dev.1 — WEB-007.7 / 7.6-B.3 Application Shell Orchestration Foundation
+
+- Added the Core-owned internal application shell orchestrator.
+- Added compact application identity composition using existing Tool shell data.
+- Added trusted runtime execution through the registered runtime renderer contract.
+- Added controlled unavailable fallback without exposing runtime diagnostics to visitors.
+- Reused existing internal monetization placements before and after the runtime boundary.
+- Preserved existing Tool, Elementor, Resource, Labs, routing and supporting-content behavior; the new shell remains dormant until explicitly invoked for an enabled internal application.
+- Began WEB-007.7 development versioning at `1.0.60-dev.1`.
+
 ## 1.0.59 — WEB-007.4 / 4.7-E LINK-01 Resource Topic Internal-Link Correction
 
 - Corrected Resource-owned `tool_category` term links to use the canonical Resource Topic route under `/resources/topic/{slug}/`.
