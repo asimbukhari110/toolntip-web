@@ -1,3 +1,11 @@
+## 1.0.60-dev.3 - WEB-007.7 JSON Formatter Runtime
+
+- Added the trusted `json_formatter` internal application runtime registration.
+- Added client-side Format, Minify, Validate, Sample and Clear actions with controlled indentation.
+- Added split/stacked input-output workspace, validation feedback, lightweight statistics, Copy and Download result actions.
+- Added scoped JSON Formatter runtime CSS and JavaScript assets, enqueued only when the runtime renderer is invoked.
+- Preserved the existing Elementor JSON Formatter production path; this build registers the new runtime but does not cut production rendering over to the Core shell.
+
 ## 1.0.60-dev.2 - WEB-007.7 ACF Application Configuration
 
 - Added the minimal Internal Application Configuration ACF field group for Tool posts.

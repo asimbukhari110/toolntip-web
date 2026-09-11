@@ -131,3 +131,28 @@ function tnt_enqueue_assets() {
 }
 
 add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );
+
+/**
+ * Register trusted internal-application runtime assets.
+ *
+ * Assets are registered globally but only enqueued when the corresponding
+ * runtime markup is rendered. This keeps the existing production application
+ * path unchanged during WEB-007.7 migration.
+ */
+function tnt_register_application_runtime_assets() {
+    wp_register_style(
+        'tnt-json-formatter-runtime',
+        TNT_CORE_URL . 'assets/css/applications/json-formatter.css',
+        array(),
+        TNT_CORE_VERSION
+    );
+
+    wp_register_script(
+        'tnt-json-formatter-runtime',
+        TNT_CORE_URL . 'assets/js/applications/json-formatter.js',
+        array(),
+        TNT_CORE_VERSION,
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'tnt_register_application_runtime_assets', 5 );
