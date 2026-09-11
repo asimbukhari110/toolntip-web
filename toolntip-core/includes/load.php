@@ -62,5 +62,6 @@ require_once TNT_CORE_PATH . 'includes/admin-tool-context.php';
 require_once TNT_CORE_PATH . 'includes/admin-promo-settings.php';
 
 require_once TNT_CORE_PATH . 'includes/applications/runtime-registry.php';
+require_once TNT_CORE_PATH . 'includes/applications/application-resolver.php';
 
 require_once TNT_CORE_PATH . 'includes/render-tool-application-pages.php';
