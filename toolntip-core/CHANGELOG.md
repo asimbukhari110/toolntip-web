@@ -1,3 +1,12 @@
+## 1.0.60-dev.2 - WEB-007.7 ACF Application Configuration
+
+- Added the minimal Internal Application Configuration ACF field group for Tool posts.
+- Added controlled Runtime Module choices sourced from the trusted Core runtime registry.
+- Added optional Workspace Layout override using the frozen Core layout vocabulary.
+- Added save-time validation for runtime IDs and workspace layout values.
+- Updated plugin identity to ToolNTip Technologies and https://toolntip.com/.
+- Preserved existing Tool Details fields, routing, Elementor application pages, and dormant runtime behavior.
+
 ## 1.0.60-dev.1 — WEB-007.7 / 7.6-B.3 Application Shell Orchestration Foundation
 
 - Added the Core-owned internal application shell orchestrator.
