@@ -1,3 +1,122 @@
+## 1.0.60-dev.19 — ToolNTip Promotions Request De-duplication
+
+- Adds request-scoped de-duplication for first-party Tool promotions in the existing ToolNTip Promotions resolver.
+- Excludes Tool IDs already committed by an earlier Tool-promotion placement during the same PHP page request, while preserving each placement's existing eligibility configuration.
+- Selects another eligible Tool when available; when distinct Tool inventory is exhausted, the later placement returns empty and preserves the existing zero-footprint behavior.
+- Commits a Tool to the request ledger only after the promotion resolves to a valid renderable destination.
+- Leaves Custom Code placements independent and unchanged; no Tool-ID de-duplication is applied to custom advertisements.
+- Leaves the Application Shell, AD-A/AD-B/AD-C placement definitions, Similar Tools, routing, runtime and SEO/content architecture unchanged.
+
+## 1.0.60-dev.18 — WEB-007.7 Application Similar Tools Integration
+
+- Extends `[tnt_application_support]` with a compact Similar Tools discovery section.
+- Reuses the existing `tnt_get_related_tools()` selection, scoring, eligibility and ordering logic; no new recommendation algorithm, relationship storage, taxonomy scoring or query engine is introduced.
+- Adds application-specific compact rectangular cards with whole-card navigation, Tool logo, title and primary category metadata.
+- Reuses the existing `featured_tool` state to add a small FEATURED ribbon without changing similarity eligibility or ranking semantics.
+- Uses a fixed four-column desktop grid, two-column tablet layout and one-column mobile layout; one or two results occupy only their natural grid slots and never stretch to fill the row.
+- Keeps Similar Tools separate from Promotions and preserves the frozen Application Shell, runtime, AD-A/AD-B/AD-C, SEO content-ownership model and dev.17 support composition.
+
+## 1.0.60-dev.17 — WEB-007.7 Lean Application Support Integration
+
+- Adds `[tnt_application_support]` as a shell-compatible, Page→Tool-aware supporting-content surface for internal application pages.
+- Keeps identity, runtime and AD-A/AD-B/AD-C exclusively owned by `[tnt_application_shell]`; the support layer renders no monetization or duplicate application identity.
+- Reuses canonical Tool description, feature and FAQ helpers as concise About This Application, Key Capabilities and application-specific FAQ sections.
+- Deliberately does not migrate legacy Pros/Cons, screenshots/video or the legacy internal-after-app promotion wholesale.
+- Defers Related Resources/How-To discovery until a governed relationship contract exists; no title/tag guessing or duplicate SEO content is introduced.
+- Adds responsive, runtime-independent support presentation and fails closed when Tool context or enabled application context cannot be resolved.
+- Preserves dev.16 validation/failure handling, runtime behavior, Promotions, routing and the frozen Application Shell.
+
+## 1.0.60-dev.16 — WEB-007.7 Validation / Failure Handling
+
+- Adds normalized application-context failure codes for missing runtimes, unregistered runtimes, and invalid workspace configuration while keeping visitor output generic.
+- Hardens runtime failure logging so debug logs record only controlled Tool/runtime/reason identifiers and never exception messages, stack traces, visitor input, callback details, or filesystem paths.
+- Distinguishes renderer exceptions, non-string output, and empty output while failing closed to the same safe unavailable state.
+- Adds `aria-live` to controlled unavailable feedback for accessible status announcement.
+- Extends ACF save-time workspace validation to reject layouts unsupported by the selected registered runtime when both values are submitted together.
+- Preserves the frozen shell, Promotions, routing, runtime asset integration, and JSON Formatter behavior from dev.15.
+
+## 1.0.60-dev.15 — WEB-007.7 Active Operation State Correction
+
+- Replaces the legacy permanent primary-button class with a runtime-owned `is-active` state.
+- Styles active Format/Minify/Validate controls from both `is-active` and `aria-pressed="true"` for resilient visual synchronization.
+- Keeps Sample and Clear as non-persistent utility actions.
+- No shell layout, Promotions, routing, ACF, monetization, or asset architecture changes.
+
+## 1.0.60-dev.13 — WEB-007.7 Active Runtime Operation State
+
+- Corrects the JSON Formatter operation-state model so Format, Minify, and Validate visibly transfer the solid-blue selected state to the last invoked primary operation.
+- Keeps Sample and Clear as non-persistent utility actions.
+- Adds `aria-pressed` state synchronization for the three primary operations.
+- Preserves the approved shell layout, Promotions behavior, asset integration, routing, ACF configuration, and runtime output behavior.
+
+## 1.0.60-dev.12 — WEB-007.7 Runtime Interaction State Polish
+
+- Strengthens JSON Formatter `:focus-visible` styling so keyboard focus is clearly distinguishable from default and hover states.
+- Adds explicit hover and pressed interaction feedback for runtime action buttons while preserving the approved primary action treatment.
+- Adds matching hover/focus-visible feedback to the indentation selector for consistent keyboard accessibility.
+- No layout, shell architecture, Promotions, asset ownership, routing, ACF, runtime behavior, or production cutover changes.
+
+## 1.0.60-dev.11 — WEB-007.7 Runtime Asset Integration
+
+- Enqueues Application Shell CSS only after Core resolves an enabled internal application, avoiding shell asset leakage from dormant/disabled shortcode surfaces.
+- Makes the trusted runtime registry asset declaration authoritative for runtime CSS/JS enqueueing.
+- Enqueues only already-registered WordPress asset handles; unknown declarations fail closed and cannot introduce arbitrary runtime URLs.
+- Removes JSON Formatter-specific enqueue calls from its renderer while preserving its registered, versioned, runtime-scoped assets and approved dev.10 UI.
+- No shell presentation, Promotions, routing, ACF, runtime behavior, or production cutover changes.
+
+## 1.0.60-dev.10 — WEB-007.7 Pre-Runtime Tool Promotion Polish
+
+- Added shell-scoped responsive presentation for the AD-B / `internal-hero` first-party Tool Promotion.
+- Desktop/tablet now render AD-B as a compact wide campaign card; mobile uses a compact stacked card.
+- Preserved Promotions as the content source of truth, Custom Code/reusable ad-unit rendering, zero-footprint behavior, and all frozen AD-A/AD-C rules.
+- No routing, ACF, runtime logic, production cutover, or legacy Tool Detail presentation changes.
+
+## 1.0.60-dev.9 — WEB-007.7 Responsive Application Shell Polish
+
+- Refines Desktop Tool Meta proportions, contextual alignment, shell spacing, and runtime density without changing Promotions or application architecture.
+- Tightens Tablet identity typography and spacing while preserving AD-A and improving runtime control wrapping.
+- Compacts Mobile identity and runtime controls, keeps AD-A structurally omitted, and reduces unnecessary workspace height.
+- Preserves all approved AD-A/AD-B/AD-C placement behavior, zero-footprint monetization, runtime actions, and responsive workspace rules.
+
+## 1.0.60-dev.8 — WEB-007.7 Contextual Featured Tool Adaptation
+
+- Adds a dedicated `contextual` Tool-promotion variant for Application Shell AD-A (`internal-contextual`).
+- Keeps Promotions authoritative while adapting first-party Featured Tool content to the compact Desktop/Tablet contextual column.
+- Prevents narrow-column title collapse and oversized contextual promotion layout without changing Custom Code or reusable ad-unit rendering.
+- Preserves AD-A mobile omission, AD-B/AD-C behavior, and zero-footprint handling for disabled or empty placements.
+
+## 1.0.60-dev.7 — WEB-007.7 Application Shell Placement Integration
+
+- Routes Application Shell AD-A through the existing `internal-contextual` named monetization placement.
+- Routes AD-B and AD-C through the existing `internal-hero` and `internal-after-app` placements instead of directly consuming reusable ad units.
+- Preserves ToolNTip Promotions as the authoritative resolver for disabled placements, first-party Tool promotions, trusted custom campaign code, and reusable ad-unit shortcodes.
+- Preserves zero-footprint behavior by emitting shell placement wrappers only when the established placement renderer returns markup.
+- Keeps the approved responsive rule that AD-A is omitted on mobile while AD-B and AD-C remain available.
+
+## 1.0.60-dev.6 — WEB-007.7 Application Shell Monetization Integration
+
+- Wires Application Shell AD-A directly to the existing reusable Rectangle ad unit managed in ToolNTip Promotions.
+- Wires AD-B and AD-C directly to the existing reusable Leaderboard ad unit, preserving the centralized provider-neutral ad configuration.
+- Preserves the approved responsive rule that AD-A is omitted on mobile.
+- Emits no application-shell ad wrapper when the mapped reusable ad unit is empty, so empty ads consume zero layout space.
+- Keeps the existing placement/promotion APIs intact for legacy Tool and Resource rendering.
+
+## 1.0.60-dev.5 — WEB-007.7 Responsive Application Shell UI/UX
+
+- Implements the approved responsive application-shell visual baseline across desktop, tablet, and mobile.
+- Adds AD-A contextual monetization beside the Tool identity/meta region for desktop and tablet only.
+- Preserves AD-B pre-runtime and AD-C post-runtime monetization placements across supported breakpoints.
+- Refines Tool identity sizing, responsive spacing, runtime card hierarchy, controls, editors, status states, and mobile stacking.
+- Keeps AD-A structurally omitted on mobile and preserves the existing production migration boundary.
+
+## 1.0.60-dev.4 - WEB-007.7 Core Shell Rendering
+
+- Added the controlled `[tnt_application_shell]` integration surface for explicit non-production shell rendering.
+- Added scoped Core application-shell presentation and responsive identity/runtime/monetization regions.
+- Wired shell assets only when the Core shell renderer is invoked.
+- Preserved the canonical Tool route and existing Elementor JSON Formatter production path; no automatic template cutover is performed.
+- Supports explicit `post_id` or `tool_slug` context for controlled integration testing.
+
 ## 1.0.60-dev.3 - WEB-007.7 JSON Formatter Runtime
 
 - Added the trusted `json_formatter` internal application runtime registration.
@@ -215,3 +334,6 @@ v1.0.0
 
 v1.1.0
 - Tool Card component
+## 1.0.60-dev.15
+- WEB-007.7 asset-cache correction: moved JSON Formatter runtime CSS/JS to new versioned asset paths so caches that ignore query-string versions cannot serve stale interaction logic.
+- Preserves runtime-owned active operation state for Format, Minify, and Validate.

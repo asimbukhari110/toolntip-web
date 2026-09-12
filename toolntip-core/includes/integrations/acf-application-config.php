@@ -191,8 +191,29 @@ function tnt_validate_application_layout_acf_value( $valid, $value ) {
         return $valid;
     }
 
-    if ( ! in_array( sanitize_key( (string) $value ), tnt_get_application_workspace_layouts(), true ) ) {
+    $layout = sanitize_key( (string) $value );
+
+    if ( ! in_array( $layout, tnt_get_application_workspace_layouts(), true ) ) {
         return __( 'Select a recognized ToolNTip workspace layout.', 'toolntip-core' );
+    }
+
+    // When the runtime field is part of the same ACF submission, also reject
+    // layouts that the selected registered runtime does not support.
+    $runtime_id = '';
+    if ( isset( $_POST['acf']['field_tnt_runtime_module'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- ACF owns nonce validation for this validation hook.
+        $runtime_id = sanitize_key( wp_unslash( $_POST['acf']['field_tnt_runtime_module'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+    }
+
+    if ( '' !== $runtime_id ) {
+        $runtime = tnt_get_application_runtime( $runtime_id );
+
+        if ( null === $runtime ) {
+            return __( 'Select a registered ToolNTip application runtime.', 'toolntip-core' );
+        }
+
+        if ( empty( $runtime['supported_layouts'] ) || ! in_array( $layout, $runtime['supported_layouts'], true ) ) {
+            return __( 'The selected runtime does not support this workspace layout.', 'toolntip-core' );
+        }
     }
 
     return $valid;

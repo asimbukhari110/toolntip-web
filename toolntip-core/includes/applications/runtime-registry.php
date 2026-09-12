@@ -136,6 +136,41 @@ function tnt_validate_application_runtime_definition( $runtime_id, $definition )
     );
 }
 
+
+/**
+ * Enqueue assets declared by a trusted runtime definition.
+ *
+ * Asset handles must already be registered by Core. Unknown handles are
+ * ignored so a malformed declaration cannot inject arbitrary URLs or files.
+ *
+ * @param array $runtime Trusted runtime definition.
+ * @return void
+ */
+function tnt_enqueue_application_runtime_assets( $runtime ) {
+    if ( ! is_array( $runtime ) || empty( $runtime['assets'] ) || ! is_array( $runtime['assets'] ) ) {
+        return;
+    }
+
+    $styles = isset( $runtime['assets']['styles'] ) && is_array( $runtime['assets']['styles'] )
+        ? $runtime['assets']['styles']
+        : array();
+    $scripts = isset( $runtime['assets']['scripts'] ) && is_array( $runtime['assets']['scripts'] )
+        ? $runtime['assets']['scripts']
+        : array();
+
+    foreach ( array_unique( array_map( 'sanitize_key', $styles ) ) as $handle ) {
+        if ( '' !== $handle && wp_style_is( $handle, 'registered' ) ) {
+            wp_enqueue_style( $handle );
+        }
+    }
+
+    foreach ( array_unique( array_map( 'sanitize_key', $scripts ) ) as $handle ) {
+        if ( '' !== $handle && wp_script_is( $handle, 'registered' ) ) {
+            wp_enqueue_script( $handle );
+        }
+    }
+}
+
 /**
  * Get the internal application runtime registry.
  *

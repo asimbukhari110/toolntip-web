@@ -41,9 +41,29 @@ function tnt_get_application_shell_state( $context ) {
  * @return string
  */
 function tnt_render_application_unavailable( $context = null ) {
-    return '<div class="tnt-application-feedback tnt-application-feedback--unavailable" role="status">'
+    return '<div class="tnt-application-feedback tnt-application-feedback--unavailable" role="status" aria-live="polite">'
         . '<p>' . esc_html__( 'This application is temporarily unavailable. Please try again later.', 'toolntip-core' ) . '</p>'
         . '</div>';
+}
+
+/**
+ * Log a runtime failure without exposing visitor input, filesystem paths,
+ * callback details, stack traces, or exception messages.
+ *
+ * @param array  $context Resolved application context.
+ * @param string $reason  Controlled failure reason.
+ * @return void
+ */
+function tnt_log_application_runtime_failure( $context, $reason ) {
+    if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
+        return;
+    }
+
+    $tool_id    = isset( $context['tool_id'] ) ? absint( $context['tool_id'] ) : 0;
+    $runtime_id = isset( $context['runtime_id'] ) ? sanitize_key( (string) $context['runtime_id'] ) : '';
+    $reason     = sanitize_key( (string) $reason );
+
+    error_log( sprintf( 'ToolNTip application runtime failure [tool=%d runtime=%s reason=%s]', $tool_id, $runtime_id, $reason ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 }
 
 /**
@@ -110,19 +130,28 @@ function tnt_render_application_runtime( $context ) {
         return tnt_render_application_unavailable( $context );
     }
 
-    $renderer = $context['runtime']['renderer'];
+    $runtime  = $context['runtime'];
+    $renderer = $runtime['renderer'];
+
+    if ( function_exists( 'tnt_enqueue_application_runtime_assets' ) ) {
+        tnt_enqueue_application_runtime_assets( $runtime );
+    }
 
     try {
         $output = call_user_func( $renderer, $context );
     } catch ( Throwable $throwable ) {
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-            error_log( 'ToolNTip application runtime failure: ' . $throwable->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-        }
+        tnt_log_application_runtime_failure( $context, 'renderer_exception' );
 
         return tnt_render_application_unavailable( $context );
     }
 
-    if ( ! is_string( $output ) || '' === trim( $output ) ) {
+    if ( ! is_string( $output ) ) {
+        tnt_log_application_runtime_failure( $context, 'renderer_invalid_output' );
+        return tnt_render_application_unavailable( $context );
+    }
+
+    if ( '' === trim( $output ) ) {
+        tnt_log_application_runtime_failure( $context, 'renderer_empty_output' );
         return tnt_render_application_unavailable( $context );
     }
 
@@ -147,6 +176,9 @@ function tnt_render_application_shell( $args = array() ) {
         return '';
     }
 
+    // Shell CSS is needed only when an enabled application shell is emitted.
+    wp_enqueue_style( 'tnt-application-shell' );
+
     $tool  = $context['tool'];
     $state = tnt_get_application_shell_state( $context );
 
@@ -155,11 +187,29 @@ function tnt_render_application_shell( $args = array() ) {
     $output .= ' data-layout="' . esc_attr( (string) ( $context['workspace_layout'] ?? '' ) ) . '">';
 
     $identity = tnt_render_application_identity( $context );
-    if ( '' !== $identity ) {
-        $output .= $identity;
+    $contextual = function_exists( 'tnt_render_monetization_placement' )
+        ? tnt_render_monetization_placement( 'internal-contextual', $tool, array( 'variant' => 'contextual' ) )
+        : '';
+
+    if ( '' !== $identity || '' !== $contextual ) {
+        $hero_class = 'tnt-application-shell__hero';
+        if ( '' !== $contextual ) {
+            $hero_class .= ' tnt-application-shell__hero--has-contextual';
+        }
+
+        $output .= '<div class="' . esc_attr( $hero_class ) . '">';
+        if ( '' !== $identity ) {
+            $output .= $identity;
+        }
+        if ( '' !== $contextual ) {
+            $output .= '<aside class="tnt-application-shell__contextual" aria-label="' . esc_attr__( 'Contextual promotional content', 'toolntip-core' ) . '">' . $contextual . '</aside>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        }
+        $output .= '</div>';
     }
 
-    $pre_runtime = tnt_render_monetization_placement( 'internal-hero', $tool );
+    $pre_runtime = function_exists( 'tnt_render_monetization_placement' )
+        ? tnt_render_monetization_placement( 'internal-hero', $tool, array( 'variant' => 'hero' ) )
+        : '';
     if ( '' !== $pre_runtime ) {
         $output .= '<div class="tnt-application-shell__monetization tnt-application-shell__monetization--before">' . $pre_runtime . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
@@ -168,7 +218,9 @@ function tnt_render_application_shell( $args = array() ) {
     $output .= tnt_render_application_runtime( $context ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     $output .= '</div>';
 
-    $post_runtime = tnt_render_monetization_placement( 'internal-after-app', $tool );
+    $post_runtime = function_exists( 'tnt_render_monetization_placement' )
+        ? tnt_render_monetization_placement( 'internal-after-app', $tool )
+        : '';
     if ( '' !== $post_runtime ) {
         $output .= '<div class="tnt-application-shell__monetization tnt-application-shell__monetization--after">' . $post_runtime . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }

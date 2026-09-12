@@ -20,9 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function tnt_render_json_formatter_runtime( $context ) {
-    wp_enqueue_style( 'tnt-json-formatter-runtime' );
-    wp_enqueue_script( 'tnt-json-formatter-runtime' );
-
     $tool_id = isset( $context['tool_id'] ) ? absint( $context['tool_id'] ) : 0;
 
     ob_start();
@@ -30,9 +27,9 @@ function tnt_render_json_formatter_runtime( $context ) {
     <div class="tnt-json-formatter" data-tnt-runtime="json_formatter" data-tool-id="<?php echo esc_attr( (string) $tool_id ); ?>">
         <div class="tnt-json-formatter__header">
             <div class="tnt-json-formatter__actions" aria-label="<?php esc_attr_e( 'JSON actions', 'toolntip-core' ); ?>">
-                <button type="button" class="tnt-json-formatter__button tnt-json-formatter__button--primary" data-action="format"><?php esc_html_e( 'Format', 'toolntip-core' ); ?></button>
-                <button type="button" class="tnt-json-formatter__button" data-action="minify"><?php esc_html_e( 'Minify', 'toolntip-core' ); ?></button>
-                <button type="button" class="tnt-json-formatter__button" data-action="validate"><?php esc_html_e( 'Validate', 'toolntip-core' ); ?></button>
+                <button type="button" class="tnt-json-formatter__button is-active" data-action="format" aria-pressed="true"><?php esc_html_e( 'Format', 'toolntip-core' ); ?></button>
+                <button type="button" class="tnt-json-formatter__button" data-action="minify" aria-pressed="false"><?php esc_html_e( 'Minify', 'toolntip-core' ); ?></button>
+                <button type="button" class="tnt-json-formatter__button" data-action="validate" aria-pressed="false"><?php esc_html_e( 'Validate', 'toolntip-core' ); ?></button>
                 <button type="button" class="tnt-json-formatter__button" data-action="sample"><?php esc_html_e( 'Sample', 'toolntip-core' ); ?></button>
                 <button type="button" class="tnt-json-formatter__button" data-action="clear"><?php esc_html_e( 'Clear', 'toolntip-core' ); ?></button>
             </div>

@@ -141,15 +141,29 @@ add_action( 'wp_enqueue_scripts', 'tnt_enqueue_assets' );
  */
 function tnt_register_application_runtime_assets() {
     wp_register_style(
+        'tnt-application-shell',
+        TNT_CORE_URL . 'assets/css/applications/shell.css',
+        array(),
+        TNT_CORE_VERSION
+    );
+
+    wp_register_style(
+        'tnt-application-support',
+        TNT_CORE_URL . 'assets/css/applications/support.css',
+        array(),
+        TNT_CORE_VERSION
+    );
+
+    wp_register_style(
         'tnt-json-formatter-runtime',
-        TNT_CORE_URL . 'assets/css/applications/json-formatter.css',
+        TNT_CORE_URL . 'assets/css/applications/json-formatter-runtime-v2.css',
         array(),
         TNT_CORE_VERSION
     );
 
     wp_register_script(
         'tnt-json-formatter-runtime',
-        TNT_CORE_URL . 'assets/js/applications/json-formatter.js',
+        TNT_CORE_URL . 'assets/js/applications/json-formatter-runtime-v2.js',
         array(),
         TNT_CORE_VERSION,
         true

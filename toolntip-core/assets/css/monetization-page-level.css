@@ -372,3 +372,293 @@
         padding: .75rem;
     }
 }
+
+/* ---------------------------------------------------------
+   Application Shell Contextual Tool Promotion (AD-A)
+   --------------------------------------------------------- */
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .7rem;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    padding: 1rem;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__label {
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__body {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-areas:
+        "logo eyebrow"
+        "logo title"
+        "description description";
+    align-items: center;
+    gap: .18rem .7rem;
+    min-width: 0;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__logo {
+    grid-area: logo;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__eyebrow {
+    grid-area: eyebrow;
+    min-width: 0;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__title {
+    grid-area: title;
+    min-width: 0;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    font-size: .9rem;
+    line-height: 1.2;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__description {
+    grid-area: description;
+    margin-top: .45rem;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__cta {
+    align-self: flex-start;
+    min-width: 0;
+    margin-top: auto;
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+    .tnt-application-shell__contextual .tnt-tool-promo--contextual {
+        padding: .8rem;
+        gap: .55rem;
+    }
+
+    .tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__body {
+        grid-template-columns: 36px minmax(0, 1fr);
+        column-gap: .55rem;
+    }
+
+    .tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__logo {
+        width: 36px;
+        height: 36px;
+        max-width: 36px;
+        max-height: 36px;
+    }
+
+    .tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__title {
+        font-size: .8rem;
+    }
+
+    .tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__description {
+        font-size: .72rem;
+        -webkit-line-clamp: 2;
+    }
+
+    .tnt-application-shell__contextual .tnt-tool-promo--contextual .tnt-tool-promo__cta {
+        width: 100%;
+        padding: .52rem .65rem;
+        font-size: .75rem;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   WEB-007.7 Application Shell — Pre-Runtime Tool Promotion
+   AD-B / internal-hero. Shell-scoped so legacy Tool Detail
+   hero presentation and Custom Code/ad-unit paths are untouched.
+   --------------------------------------------------------- */
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "label body cta";
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: .9rem 1.15rem;
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, .05);
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-label {
+    grid-area: label;
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    padding: .24rem .52rem;
+    border-radius: 999px;
+    background: #eef4ff;
+    color: #17345b;
+    font-size: .66rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-body {
+    grid-area: body;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-areas:
+        "mark eyebrow"
+        "mark title"
+        "mark description";
+    align-items: center;
+    column-gap: .85rem;
+    min-width: 0;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-mark {
+    grid-area: mark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-mark .tnt-tool-promo__logo {
+    display: block;
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    margin: 0;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-eyebrow {
+    grid-area: eyebrow;
+    margin: 0;
+    color: #17345b;
+    font-size: .66rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-title {
+    grid-area: title;
+    margin: .08rem 0 0;
+    color: #0f2747;
+    font-size: 1rem;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-description {
+    grid-area: description;
+    margin: .15rem 0 0;
+    color: #64748b;
+    font-size: .82rem;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-cta {
+    grid-area: cta;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    min-width: 118px;
+    padding: .62rem .9rem;
+    border: 1px solid #f5b400;
+    border-radius: 8px;
+    background: #fbb900;
+    color: #071b35;
+    font-size: .82rem;
+    line-height: 1;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-cta:hover,
+.tnt-application-shell__monetization--before .tnt-tool-hero__promo-cta:focus-visible {
+    background: #f5b400;
+    color: #071b35;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "label label"
+            "body cta";
+        gap: .7rem 1rem;
+        padding: .8rem .9rem;
+    }
+
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo-description {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 767px) {
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "label"
+            "body"
+            "cta";
+        gap: .65rem;
+        padding: .8rem;
+    }
+
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo-body {
+        grid-template-columns: 42px minmax(0, 1fr);
+        column-gap: .7rem;
+    }
+
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo-mark,
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo-mark .tnt-tool-promo__logo {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        max-width: 42px;
+        max-height: 42px;
+    }
+
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo-description {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .tnt-application-shell__monetization--before .tnt-tool-hero__promo-cta {
+        width: 100%;
+    }
+}

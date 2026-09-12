@@ -20,6 +20,19 @@
         var indent = root.querySelector('[data-setting="indent"]');
         var copy = root.querySelector('[data-action="copy"]');
         var download = root.querySelector('[data-action="download"]');
+        var operationActions = ['format', 'minify', 'validate'];
+
+        function setActiveOperation(action) {
+            operationActions.forEach(function (operation) {
+                var button = root.querySelector('[data-action="' + operation + '"]');
+                if (!button) return;
+                var isActive = operation === action;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        }
+
+        setActiveOperation('format');
 
         function setState(state, text, parsed) {
             feedback.dataset.state = state;
@@ -88,6 +101,9 @@
             var action = button.dataset.action;
 
             if (['format', 'minify', 'validate', 'sample', 'clear'].indexOf(action) !== -1) {
+                if (operationActions.indexOf(action) !== -1) {
+                    setActiveOperation(action);
+                }
                 run(action);
                 return;
             }

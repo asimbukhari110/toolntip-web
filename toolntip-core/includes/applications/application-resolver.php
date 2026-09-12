@@ -218,6 +218,7 @@ function tnt_resolve_application_context( $args = array() ) {
         'workspace_layout' => '',
         'status'           => 'disabled',
         'error'            => null,
+        'error_code'       => '',
     );
 
     if ( ! $context['enabled'] ) {
@@ -226,6 +227,7 @@ function tnt_resolve_application_context( $args = array() ) {
 
     if ( '' === $context['runtime_id'] ) {
         $context['status'] = 'unavailable';
+        $context['error_code'] = 'runtime_missing';
         $context['error']  = new WP_Error(
             'tnt_application_runtime_missing',
             __( 'No application runtime is configured for this Tool.', 'toolntip-core' )
@@ -238,6 +240,7 @@ function tnt_resolve_application_context( $args = array() ) {
 
     if ( null === $runtime ) {
         $context['status'] = 'unavailable';
+        $context['error_code'] = 'runtime_unregistered';
         $context['error']  = new WP_Error(
             'tnt_application_runtime_unregistered',
             __( 'The configured application runtime is unavailable.', 'toolntip-core' )
@@ -255,6 +258,7 @@ function tnt_resolve_application_context( $args = array() ) {
 
     if ( is_wp_error( $workspace_layout ) ) {
         $context['status'] = 'unavailable';
+        $context['error_code'] = 'workspace_invalid';
         $context['error']  = $workspace_layout;
 
         return $context;
