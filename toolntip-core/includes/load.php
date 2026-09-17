@@ -24,6 +24,7 @@ require_once TNT_CORE_PATH . 'includes/helpers-tool-query.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-query.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-card.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-hub.php';
+require_once TNT_CORE_PATH . 'includes/integrations/aioseo-editor.php';
 require_once TNT_CORE_PATH . 'includes/integrations/aioseo-resource.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-detail.php';
 require_once TNT_CORE_PATH . 'includes/helpers-resource-comments.php';
@@ -62,10 +63,17 @@ require_once TNT_CORE_PATH . 'includes/admin-tool-context.php';
 require_once TNT_CORE_PATH . 'includes/admin-promo-settings.php';
 
 require_once TNT_CORE_PATH . 'includes/applications/runtime-registry.php';
+require_once TNT_CORE_PATH . 'includes/applications/package-manifest.php';
+require_once TNT_CORE_PATH . 'includes/applications/package-installer.php';
+require_once TNT_CORE_PATH . 'includes/applications/package-registry.php';
+require_once TNT_CORE_PATH . 'includes/applications/package-runtime.php';
+require_once TNT_CORE_PATH . 'includes/applications/package-lifecycle.php';
+require_once TNT_CORE_PATH . 'includes/applications/page-provisioner.php';
+require_once TNT_CORE_PATH . 'includes/applications/tool-linkage.php';
+require_once TNT_CORE_PATH . 'includes/applications/applications-admin.php';
 require_once TNT_CORE_PATH . 'includes/applications/application-resolver.php';
 require_once TNT_CORE_PATH . 'includes/applications/shell-orchestrator.php';
 require_once TNT_CORE_PATH . 'includes/applications/application-support.php';
-require_once TNT_CORE_PATH . 'includes/applications/runtimes/json-formatter.php';
 require_once TNT_CORE_PATH . 'includes/integrations/acf-application-config.php';
 
 require_once TNT_CORE_PATH . 'includes/render-tool-application-pages.php';

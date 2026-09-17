@@ -1,3 +1,136 @@
+## 1.1.0 — WEB-007.8 Application Package Platform release
+
+- Promote the accepted WEB-007.8 package-platform implementation to the first stable 1.1 release with no functional changes from the validated dev40 checkpoint.
+- Includes governed client-side application package validation and managed storage, runtime registration, Draft runtime Page provisioning/adoption, Tool linkage, side-by-side versions, explicit activation and rollback, Applications Manager, and governed uninstall/reinstall lifecycle.
+- Uninstall removes managed package versions and runtime state while preserving Tool/editorial content and the governed runtime Page as Draft; reinstall re-adopts the same Page identity.
+- Preserves the package security boundary that rejects executable/server-side package files and retains transactional housekeeping safeguards.
+- Includes the accepted WEB-007.8 Resource sidebar behavior, Draft Tool linkage support, generic package runtime bootstrap, and native AIOSEO editor compatibility.
+
+## 1.0.60-dev.40 — WEB-007.8 8.3-P uninstall/reinstall re-adoption fix
+
+- Preserve the governed package ownership marker on a Draft runtime Page during uninstall while removing active-version and package-map state.
+- Reinstall can therefore re-adopt the exact same Page identity without creating a `-2` slug.
+- Adds a narrow backward-compatible recovery path for Pages already preserved by dev39 before the ownership-marker correction.
+
+## 1.0.60-dev.37 — WEB-007.8 / 8.3-H.2 AIOSEO editor compatibility
+
+- Guarantees REST exposure for Tool and Resource custom post types so AIOSEO can use its native editor/REST integration.
+- Keeps AIOSEO's native metabox visible and high-priority on Tool and Resource edit screens.
+- Does not create, copy, or override SEO title, description, canonical, robots, schema, or social metadata; AIOSEO remains the owner.
+- Adds an administrator warning only when AIOSEO itself is unavailable on Tool/Resource edit screens.
+
+## 1.0.60-dev.35 — WEB-007.8 / 8.3-H.1 sidebar output correction
+- Removed a stray literal `?>` emitted immediately before the Resource sidebar monetization block.
+- No change to adaptive sidebar detection or layout behavior.
+
+## 1.0.60-dev.34 — WEB-007.8 / 8.3-H.1 Adaptive Resource Sidebar
+- Makes Resource Detail sidebar participation depend on actual rendered modules: Related Tools, Related Resources, or the resource-sidebar monetization placement.
+- Keeps sidebar advertising independent from relationship selections, so an active ad can render even when no related content is selected.
+- Removes the sidebar entirely when all three module sources are empty.
+- Expands the Resource editorial body into the full 1180px reading canvas when no sidebar module renders, eliminating reserved blank sidebar space.
+- Preserves the existing two-column contextual sidebar when any module has output and preserves existing responsive behavior.
+
+## 1.0.60-dev.33 — WEB-007.8 / 8.3-F Draft Tool Linkage
+
+- Allow the existing Application Page → Tool selector to list editable non-trash Tool records in draft, pending, private, published and future states.
+- Preserve `_tnt_tool_context_id` as the sole Page → Tool relationship and keep the existing save validation/capability checks unchanged.
+- Enable pre-publication package onboarding and runtime QA without publishing a Tool merely to establish its application relationship.
+- Keep Tool routing, public directory queries, package resolution, JSON Formatter and VLAN Designer package code unchanged.
+
+## 1.0.60-dev.32 — WEB-007.8 / 8.2-J Generic Runtime Bootstrap Correction
+
+- Retire the legacy Core-specific JSON Formatter runtime registration, renderer and Core-owned runtime assets.
+- Move installed-package runtime registration to `init` priority 5 so package-backed runtimes are available at the same early application-resolution boundary previously occupied by built-in runtimes.
+- Keep runtime registration generic: no JSON Formatter exception, renderer or asset path remains in Core.
+- Preserve installed packages, active-version selection, adopted runtime Pages, Tool linkage, shell and lifecycle contracts unchanged.
+- Supersedes rejected dev.31, which exposed a frontend routing regression after retirement.
+
+## 1.0.60-dev.30 — WEB-007.8 / 8.2-J JSON Formatter Migration
+
+- Add a strict existing-Page adoption path for package migrations: same-slug content is adopted only when it is already a governed application-shell Page linked to a Tool configured for the same runtime ID.
+- Preserve the existing WordPress Page ID, slug, publication state, content and `_tnt_tool_context_id` relationship during adoption; package identity is added without recreating the Page.
+- Keep the legacy Core JSON Formatter runtime as a migration fallback only while no validated `json_formatter` package is installed; once the package exists, the generic package runtime bridge becomes authoritative.
+- Preserve the existing JSON Formatter public routes and avoid any duplicate `/json-formatter-online/` Page.
+- Keep generic package security, lifecycle, activation and rollback contracts unchanged.
+
+## 1.0.60-dev.29 — WEB-007.8 / 8.2-I Update / Rollback Lifecycle
+
+- Add explicit administrator activation of any valid installed application package version; newly installed versions remain side-by-side and do not silently replace the active version.
+- Preflight target runtime HTML and manifest-declared local assets before changing the selected active version; failed preflight leaves the previous active version untouched.
+- Add governed Activate / Rollback actions to ToolNTip Library → Applications with nonce and capability protection.
+- Preserve the existing provisioned runtime Page and `_tnt_tool_context_id` Tool association across version switches by changing only the active-version selection.
+- Keep package deletion/removal deferred; installed rollback versions remain retained.
+
+## 1.0.60-dev.28 — WEB-007.8 / 8.2-H Tool ↔ Application Linkage
+
+- Reuse the existing `_tnt_tool_context_id` Page → Tool relationship as the sole explicit Tool association for package-backed Application Pages.
+- Add read-only package linkage helpers, including fail-closed reverse Tool → Application Page resolution when duplicate relationships are present.
+- Make the application resolver package-aware on provisioned runtime Pages: linked Tool identity comes from the existing Page context while the governed package ID selects the registered package runtime.
+- Surface Linked Tool state and direct edit navigation in ToolNTip Library → Applications.
+- Preserve the frozen entity boundary: Tool remains catalog/SEO/discovery; Page remains runtime destination; no Tool is auto-created and no Page is auto-published.
+- Keep version switching, rollback, removal and JSON Formatter migration deferred.
+
+## 1.0.60-dev.27 — WEB-007.8 / 8.2-G Automatic Draft Runtime Page
+
+- Provision exactly one Draft WordPress Page per valid installed application using the manifest page title and slug.
+- Reconcile applications installed before this checkpoint without requiring package deletion or reinstallation.
+- Persist package-to-Page identity and make provisioning idempotent across admin refreshes, Core upgrades and package updates.
+- Fail closed on requested slug collisions instead of allowing WordPress to silently create a suffixed `-2` slug.
+- Seed the governed application composition shortcodes on the Draft Page while leaving Tool association to WEB-007.8 / 8.2-H.
+- Surface runtime Page provisioning state and an Edit Page link in ToolNTip Library → Applications.
+- Preserve existing Page identity/status on later reconciliation; no auto-publish, version switching, rollback or removal is introduced.
+
+## 1.0.60-dev.26 — WEB-007.8 / 8.2-F Applications Manager
+
+- Add a dedicated read-only ToolNTip Library → Applications administration screen backed by the validated installed-package registry.
+- Surface application identity, installed and active versions, runtime registration state, default workspace layout, manifest capabilities and planned runtime Page metadata.
+- Keep Application Packages as the package upload/install surface and provide direct navigation between the two governed admin views.
+- Preserve checkpoint boundaries: no Page provisioning, Tool association, version switching, rollback, removal or JSON Formatter migration.
+
+## 1.0.60-dev.25 — WEB-007.8 / 8.2-E Dynamic Package Runtime + Assets
+
+- Bridge valid installed client-side packages into the existing WEB-007.7 application runtime registry; no parallel runtime system is introduced.
+- Select and persist the first active package version only after successful runtime registration; later installed versions do not silently replace that selection.
+- Register only manifest-declared CSS/JS from validated ToolNTip managed storage and expose them to the existing trusted-handle enqueue contract.
+- Render package runtime HTML through a Core-owned callable and fail closed for missing/changed packages, executable/resource-loading markup, inline event handlers, or external/absolute runtime resource URLs.
+- Keep built-in Core runtimes authoritative by registering package runtimes after built-in runtime hooks; ID collisions fail closed.
+- Add minimal Application Packages observability for active version and runtime registration status.
+- Keep runtime Page provisioning, Tool linkage, update/rollback controls and JSON Formatter migration deferred to later checkpoints.
+
+## 1.0.60-dev.24 — WEB-007.8 / 8.2-D Installed Application Registry
+
+- Add a read-only installed-application registry backed by committed ToolNTip managed storage.
+- Revalidate installed manifests, declared files, payload paths, symlinks and governed package limits before exposing a version as installed.
+- Enumerate valid installed applications and semantic versions while ignoring `.staging`, malformed directories and failed/invalid artifacts.
+- Expose lookup APIs for applications and individual installed versions; activation state remains deliberately unset until the dynamic runtime checkpoint.
+- Add read-only housekeeping status for staging and unexpected managed-root artifacts.
+- Keep runtime activation, package asset loading, Page provisioning, Tool linkage, updates and rollback out of this checkpoint.
+
+## 1.0.60-dev.23 — WEB-007.8 / 8.2-C Admin Navigation Correction
+
+- Move the application package installer from WordPress Tools into the existing ToolNTip Library (`edit.php?post_type=tool`) administration area.
+- Rename the submenu to Application Packages and the screen heading to ToolNTip Application Packages.
+- Update all installer success/error redirects to the ToolNTip Library submenu route.
+- Do not duplicate the installer under WordPress Tools; transactional installation behavior remains unchanged from dev.22.
+
+
+## 1.0.60-dev.22 — WEB-007.8 / 8.2-C Transactional Application Package Installer
+
+- Add administrator-only transactional ZIP package installation under Tools → ToolNTip Package Installer.
+- Inspect archives before extraction; reject unsafe paths, symbolic links, disallowed payload types, missing manifest-declared files, excessive file counts and oversized extracted payloads.
+- Support manifest.json at archive root or within one top-level application folder.
+- Stage extraction in ToolNTip-managed temporary storage, revalidate after extraction, and commit only to immutable application/version storage.
+- Preserve existing installed versions on validation or installation failure.
+- Automatically remove transaction staging data and consume the uploaded temporary ZIP; clean stale interrupted staging transactions on later admin requests.
+- Deliberately defer runtime activation, installed-app registry, Draft Page provisioning and Tool linkage to later WEB-007.8 checkpoints.
+
+## 1.0.60-dev.21 — WEB-007.8 / 8.2-B Application Package Manifest
+
+- Add schema-1 declarative application package manifest contract.
+- Add strict validation for package identity, semantic versions, runtime entry, layouts, assets, Draft Page metadata and capabilities.
+- Reject absolute/traversal paths and non-allowlisted client-side file extensions.
+- Keep installation, extraction, activation, rollback and housekeeping out of this checkpoint.
+
 ## 1.0.60-dev.19 — ToolNTip Promotions Request De-duplication
 
 - Adds request-scoped de-duplication for first-party Tool promotions in the existing ToolNTip Promotions resolver.

@@ -154,19 +154,5 @@ function tnt_register_application_runtime_assets() {
         TNT_CORE_VERSION
     );
 
-    wp_register_style(
-        'tnt-json-formatter-runtime',
-        TNT_CORE_URL . 'assets/css/applications/json-formatter-runtime-v2.css',
-        array(),
-        TNT_CORE_VERSION
-    );
-
-    wp_register_script(
-        'tnt-json-formatter-runtime',
-        TNT_CORE_URL . 'assets/js/applications/json-formatter-runtime-v2.js',
-        array(),
-        TNT_CORE_VERSION,
-        true
-    );
 }
 add_action( 'wp_enqueue_scripts', 'tnt_register_application_runtime_assets', 5 );

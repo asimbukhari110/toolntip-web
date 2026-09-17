@@ -209,6 +209,24 @@ function tnt_resolve_application_context( $args = array() ) {
         return null;
     }
 
+    /*
+     * On a provisioned package-backed Application Page, the existing
+     * _tnt_tool_context_id relationship supplies Tool identity while the
+     * Page's governed package identity supplies the runtime ID. This avoids a
+     * duplicate linkage/runtime field and keeps ordinary Tool Detail requests
+     * on the existing Tool-authored application configuration contract.
+     */
+    if ( function_exists( 'tnt_get_current_application_package_id' ) ) {
+        $package_id = tnt_get_current_application_package_id();
+        $page_id    = absint( get_queried_object_id() );
+        if ( ! $page_id ) { $page_id = absint( get_the_ID() ); }
+        $linked_tool = $package_id ? tnt_get_application_package_linked_tool( $page_id ) : null;
+        if ( $linked_tool instanceof WP_Post && (int) $linked_tool->ID === (int) $tool->ID ) {
+            $config['enabled']    = true;
+            $config['runtime_id'] = $package_id;
+        }
+    }
+
     $context = array(
         'tool'             => $tool,
         'tool_id'          => (int) $tool->ID,

@@ -255,8 +255,11 @@
 }
 
 .tnt-resource-detail__reading-layout--single {
-    grid-template-columns: minmax(0, 760px);
-    justify-content: center;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.tnt-resource-detail__reading-layout--single .tnt-resource-detail__content {
+    width: 100%;
 }
 
 .tnt-resource-detail__reading-main { min-width: 0; }
