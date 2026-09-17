@@ -155,7 +155,17 @@ while ( have_posts() ) :
                     : array();
                 ?>
 
-                <div class="tnt-resource-detail__reading-layout<?php echo ( empty( $related_tools ) && empty( $related_resources ) ) ? ' tnt-resource-detail__reading-layout--single' : ''; ?>">
+                <?php
+                // Resolve sidebar monetization before choosing the layout. The sidebar
+                // participates whenever any contextual module has real output; when all
+                // modules are empty the article expands into the full reading canvas.
+                $resource_sidebar_monetization = function_exists( 'tnt_render_monetization_placement' )
+                    ? tnt_render_monetization_placement( 'resource-sidebar', array(), array( 'variant' => 'standalone' ) )
+                    : '';
+                $has_resource_sidebar = ! empty( $related_tools ) || ! empty( $related_resources ) || '' !== $resource_sidebar_monetization;
+                ?>
+
+                <div class="tnt-resource-detail__reading-layout<?php echo $has_resource_sidebar ? '' : ' tnt-resource-detail__reading-layout--single'; ?>">
                     <div class="tnt-resource-detail__reading-main">
                         <div class="tnt-resource-detail__content">
                             <?php
@@ -171,7 +181,7 @@ while ( have_posts() ) :
                         </div>
                     </div>
 
-                    <?php if ( ! empty( $related_tools ) || ! empty( $related_resources ) ) : ?>
+                    <?php if ( $has_resource_sidebar ) : ?>
                         <aside class="tnt-resource-context" aria-label="<?php esc_attr_e( 'Related content', 'toolntip-core' ); ?>">
                             <?php if ( ! empty( $related_tools ) ) : ?>
                                 <section class="tnt-context-recommendations" aria-labelledby="tnt-resource-related-tools-title">
@@ -252,12 +262,7 @@ while ( have_posts() ) :
                                 </section>
                             <?php endif; ?>
 
-                            <?php
-                            $resource_sidebar_monetization = function_exists( 'tnt_render_monetization_placement' )
-                                ? tnt_render_monetization_placement( 'resource-sidebar', array(), array( 'variant' => 'standalone' ) )
-                                : '';
-                            if ( '' !== $resource_sidebar_monetization ) :
-                                ?>
+                            <?php if ( '' !== $resource_sidebar_monetization ) : ?>
                                 <div class="tnt-resource-detail__monetization tnt-resource-detail__monetization--sidebar">
                                     <?php echo $resource_sidebar_monetization; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                                 </div>

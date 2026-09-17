@@ -22,13 +22,17 @@ function tnt_get_monetization_placement_definitions() {
             'label'       => __( 'Tool Detail — After Hero', 'toolntip-core' ),
             'description' => __( 'Renders immediately after the Tool Detail page hero.', 'toolntip-core' ),
         ),
+        'internal-contextual' => array(
+            'label'       => __( 'Application Shell — Contextual (AD-A)', 'toolntip-core' ),
+            'description' => __( 'Renders beside the Tool identity/meta header on desktop and tablet. The responsive application shell omits this placement on mobile.', 'toolntip-core' ),
+        ),
         'internal-hero' => array(
-            'label'       => __( 'Application Page — Hero', 'toolntip-core' ),
-            'description' => __( 'Renders in the linked Tool Application Page hero composition.', 'toolntip-core' ),
+            'label'       => __( 'Application Shell — Pre-Runtime (AD-B)', 'toolntip-core' ),
+            'description' => __( 'Renders immediately before the interactive application runtime.', 'toolntip-core' ),
         ),
         'internal-after-app' => array(
-            'label'       => __( 'Application Page — After Application', 'toolntip-core' ),
-            'description' => __( 'Renders immediately after the interactive application on the linked Tool Application Page.', 'toolntip-core' ),
+            'label'       => __( 'Application Shell — Post-Runtime (AD-C)', 'toolntip-core' ),
+            'description' => __( 'Renders immediately after the interactive application runtime and before supporting Tool content.', 'toolntip-core' ),
         ),
         'resource-after-hero' => array(
             'label'       => __( 'Resource Detail — After Hero', 'toolntip-core' ),

@@ -61,7 +61,7 @@ function tnt_render_tool_shell_context_meta_box( $post ) {
     $tools = get_posts(
         array(
             'post_type'      => 'tool',
-            'post_status'    => 'publish',
+            'post_status'    => array( 'draft', 'pending', 'private', 'publish', 'future' ),
             'posts_per_page' => -1,
             'orderby'        => 'title',
             'order'          => 'ASC',

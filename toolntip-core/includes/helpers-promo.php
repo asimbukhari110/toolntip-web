@@ -494,6 +494,41 @@ function tnt_get_promo_current_tool_id( $tool ) {
     return 0;
 }
 
+/**
+ * Return Tool promotion IDs already committed during the current PHP request.
+ *
+ * This request-scoped ledger prevents the same first-party Tool promotion from
+ * being rendered repeatedly across independent monetization placements. Custom
+ * code placements are intentionally outside this Tool-ID ledger.
+ *
+ * @return array<int>
+ */
+function tnt_get_rendered_tool_promo_ids() {
+    if ( ! isset( $GLOBALS['tnt_rendered_tool_promo_ids'] ) || ! is_array( $GLOBALS['tnt_rendered_tool_promo_ids'] ) ) {
+        $GLOBALS['tnt_rendered_tool_promo_ids'] = array();
+    }
+
+    return array_values( array_unique( array_map( 'absint', $GLOBALS['tnt_rendered_tool_promo_ids'] ) ) );
+}
+
+/**
+ * Commit a first-party Tool promotion to the request-scoped de-duplication ledger.
+ *
+ * @param int $tool_id Tool post ID.
+ *
+ * @return void
+ */
+function tnt_mark_tool_promo_rendered( $tool_id ) {
+    $tool_id = absint( $tool_id );
+    if ( $tool_id <= 0 ) {
+        return;
+    }
+
+    $rendered_ids = tnt_get_rendered_tool_promo_ids();
+    $rendered_ids[] = $tool_id;
+    $GLOBALS['tnt_rendered_tool_promo_ids'] = array_values( array_unique( array_map( 'absint', $rendered_ids ) ) );
+}
+
 function tnt_get_eligible_tool_promo_ids( $placement, $tool = array() ) {
     $config = tnt_get_monetization_placement_config( $placement );
     if ( 'tool' !== ( $config['mode'] ?? 'disabled' ) ) {
@@ -501,11 +536,16 @@ function tnt_get_eligible_tool_promo_ids( $placement, $tool = array() ) {
     }
 
     $current_tool_id = tnt_get_promo_current_tool_id( $tool );
+    $rendered_tool_ids = tnt_get_rendered_tool_promo_ids();
     $eligible_ids = array();
 
     foreach ( $config['tool_ids'] ?? array() as $tool_id ) {
         $tool_id = absint( $tool_id );
-        if ( $tool_id <= 0 || ( $current_tool_id > 0 && $current_tool_id === $tool_id ) ) {
+        if (
+            $tool_id <= 0
+            || ( $current_tool_id > 0 && $current_tool_id === $tool_id )
+            || in_array( $tool_id, $rendered_tool_ids, true )
+        ) {
             continue;
         }
 
@@ -557,6 +597,11 @@ function tnt_get_tool_promo_placement( $placement, $tool = array() ) {
     if ( '' === $url ) {
         return array();
     }
+
+    // Commit only after the promotion has resolved to a renderable destination.
+    // If later placements have no distinct eligible Tool, they fail closed to an
+    // empty placement and retain the existing zero-footprint behavior.
+    tnt_mark_tool_promo_rendered( $promoted_tool->ID );
 
     return array(
         'type'        => 'house-tool',

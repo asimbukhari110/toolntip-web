@@ -39,6 +39,40 @@ function tnt_render_tool_promo_markup( $promo, $placement, $variant = 'standalon
         );
     }
 
+    if ( 'contextual' === $variant ) {
+        $output = '<aside class="tnt-tool-promo tnt-tool-promo--contextual tnt-tool-promo--' . esc_attr( $placement_class ) . ' tnt-tool-promo--type-' . esc_attr( $promo_type ) . '" aria-label="' . esc_attr__( 'Promotional content', 'toolntip-core' ) . '">';
+
+        if ( ! empty( $promo['label'] ) ) {
+            $output .= '<span class="tnt-tool-promo__label">' . esc_html( $promo['label'] ) . '</span>';
+        }
+
+        $output .= '<div class="tnt-tool-promo__body">';
+        if ( '' !== $logo_markup ) {
+            $output .= $logo_markup;
+        }
+        if ( ! empty( $promo['eyebrow'] ) ) {
+            $output .= '<span class="tnt-tool-promo__eyebrow">' . esc_html( $promo['eyebrow'] ) . '</span>';
+        }
+        if ( ! empty( $promo['title'] ) ) {
+            $output .= '<strong class="tnt-tool-promo__title">' . esc_html( $promo['title'] ) . '</strong>';
+        }
+        if ( ! empty( $promo['description'] ) ) {
+            $output .= '<p class="tnt-tool-promo__description">' . esc_html( $promo['description'] ) . '</p>';
+        }
+        $output .= '</div>';
+
+        if ( ! empty( $promo['url'] ) && ! empty( $promo['cta_label'] ) ) {
+            $output .= '<a class="tnt-tool-promo__cta" href="' . esc_url( $promo['url'] ) . '"';
+            if ( ! empty( $promo['external'] ) ) {
+                $output .= ' target="_blank" rel="noopener noreferrer"';
+            }
+            $output .= '><span>' . esc_html( $promo['cta_label'] ) . '</span><span aria-hidden="true">&#8594;</span></a>';
+        }
+
+        $output .= '</aside>';
+        return $output;
+    }
+
     if ( 'hero' === $variant ) {
         $output = '<aside class="tnt-tool-hero__promo tnt-tool-hero__promo--' . esc_attr( $promo_type ) . '" aria-label="' . esc_attr__( 'Promotional content', 'toolntip-core' ) . '">';
 

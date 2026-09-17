@@ -1,0 +1,90 @@
+:root{
+  --tnt-app-navy:#0b2340;
+  --tnt-app-text:#0f2747;
+  --tnt-app-muted:#66758d;
+  --tnt-app-line:#dce6f2;
+  --tnt-app-surface:#ffffff;
+  --tnt-app-surface-soft:#f7faff;
+  --tnt-app-blue:#0b66ff;
+  --tnt-app-radius:16px;
+  --tnt-app-shadow:0 10px 30px rgba(11,35,64,.07);
+}
+.tnt-application-shell{box-sizing:border-box;width:100%;max-width:1440px;margin:0 auto;padding:24px;color:var(--tnt-app-text)}
+.tnt-application-shell__hero{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-bottom:18px}
+.tnt-application-shell__hero--has-contextual{grid-template-columns:minmax(0,1fr) minmax(250px,300px)}
+.tnt-application-shell__identity{display:flex;align-items:center;gap:18px;min-width:0;padding:22px;background:var(--tnt-app-surface);border:1px solid var(--tnt-app-line);border-radius:var(--tnt-app-radius);box-shadow:var(--tnt-app-shadow)}
+.tnt-application-shell__icon{flex:0 0 88px;width:88px;height:88px;border-radius:18px;overflow:hidden;background:#0b2340;display:grid;place-items:center}
+.tnt-application-shell__icon .tnt-tool-icon{display:block;width:100%;height:100%;object-fit:cover}
+.tnt-application-shell__identity-content{min-width:0;flex:1}
+.tnt-application-shell__title{margin:0 0 5px;font-size:clamp(1.75rem,2.7vw,2.35rem);line-height:1.08;letter-spacing:-.025em;color:var(--tnt-app-navy)}
+.tnt-application-shell__tagline{margin:0 0 10px;color:var(--tnt-app-muted);font-size:1rem;line-height:1.5}
+.tnt-application-shell__meta .tnt-tool-meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:#45617f;font-size:.9rem}
+.tnt-application-shell__meta .tnt-tool-meta__separator{opacity:.45}
+.tnt-application-shell__meta .tnt-tool-verified{font-weight:700;color:#177c45}
+.tnt-application-shell__contextual{min-width:0;display:flex;align-items:stretch}
+.tnt-application-shell__contextual>.tnt-monetization,.tnt-application-shell__contextual>.tnt-tool-promo,.tnt-application-shell__contextual>.tnt-ad-unit{width:100%;margin:0;min-height:100%;border-radius:var(--tnt-app-radius);overflow:hidden}
+.tnt-application-shell__monetization{margin:16px 0}
+.tnt-application-shell__monetization:first-child{margin-top:0}
+.tnt-application-shell__runtime{width:100%;padding:14px;background:var(--tnt-app-surface-soft);border:1px solid var(--tnt-app-line);border-radius:var(--tnt-app-radius);box-shadow:0 8px 24px rgba(11,35,64,.04)}
+.tnt-application-feedback{padding:16px;border:1px solid #d8e2ee;border-radius:12px;background:#f6f8fb;color:#40556f}
+.tnt-application-feedback p{margin:0}
+.tnt-application-feedback--unavailable{border-color:#c9d4e2;background:#f1f4f8}
+@media(max-width:1023px){
+  .tnt-application-shell{padding:20px}
+  .tnt-application-shell__hero--has-contextual{grid-template-columns:minmax(0,1fr) 250px}
+  .tnt-application-shell__identity{padding:18px;gap:15px}
+  .tnt-application-shell__icon{flex-basis:76px;width:76px;height:76px;border-radius:16px}
+  .tnt-application-shell__title{font-size:clamp(1.45rem,3.4vw,1.9rem)}
+}
+@media(max-width:767px){
+  .tnt-application-shell{padding:14px}
+  .tnt-application-shell__hero,.tnt-application-shell__hero--has-contextual{display:block;margin-bottom:12px}
+  .tnt-application-shell__identity{align-items:flex-start;padding:14px;gap:12px;border-radius:14px}
+  .tnt-application-shell__icon{flex-basis:62px;width:62px;height:62px;border-radius:14px}
+  .tnt-application-shell__title{font-size:1.35rem}
+  .tnt-application-shell__tagline{font-size:.9rem;margin-bottom:8px}
+  .tnt-application-shell__meta .tnt-tool-meta{font-size:.78rem;gap:5px}
+  .tnt-application-shell__contextual{display:none!important}
+  .tnt-application-shell__monetization{margin:12px 0}
+  .tnt-application-shell__runtime{padding:10px;border-radius:14px}
+}
+
+.tnt-application-shell__monetization>.tnt-ad-unit{width:100%;max-width:100%;margin:0 auto}
+.tnt-application-shell__monetization .tnt-ad-unit__content{max-width:100%;overflow:hidden}
+.tnt-application-shell__monetization .tnt-ad-unit__content>*{max-width:100%}
+
+/* WEB-007.7 dev.9 responsive polish */
+@media(min-width:1024px){
+  .tnt-application-shell{padding-top:20px;padding-bottom:28px}
+  .tnt-application-shell__hero{align-items:stretch;gap:20px;margin-bottom:20px}
+  .tnt-application-shell__hero--has-contextual{grid-template-columns:minmax(0,1fr) 300px}
+  .tnt-application-shell__identity{align-self:stretch;padding:20px 24px;gap:20px}
+  .tnt-application-shell__icon{flex-basis:80px;width:80px;height:80px;border-radius:16px}
+  .tnt-application-shell__title{font-size:clamp(1.7rem,2.25vw,2.15rem)}
+  .tnt-application-shell__tagline{max-width:760px;margin-bottom:9px}
+  .tnt-application-shell__contextual{align-self:stretch}
+  .tnt-application-shell__monetization{margin:18px 0}
+  .tnt-application-shell__runtime{padding:16px}
+}
+@media(min-width:768px) and (max-width:1023px){
+  .tnt-application-shell{padding:18px}
+  .tnt-application-shell__hero{gap:14px;margin-bottom:16px;align-items:stretch}
+  .tnt-application-shell__hero--has-contextual{grid-template-columns:minmax(0,1fr) minmax(220px,250px)}
+  .tnt-application-shell__identity{align-self:stretch;padding:16px;gap:14px}
+  .tnt-application-shell__icon{flex-basis:68px;width:68px;height:68px;border-radius:14px}
+  .tnt-application-shell__title{font-size:clamp(1.35rem,3vw,1.7rem);line-height:1.12}
+  .tnt-application-shell__tagline{font-size:.92rem;line-height:1.42;margin-bottom:8px}
+  .tnt-application-shell__meta .tnt-tool-meta{font-size:.82rem;gap:5px}
+  .tnt-application-shell__monetization{margin:14px 0}
+  .tnt-application-shell__runtime{padding:12px}
+}
+@media(max-width:767px){
+  .tnt-application-shell{padding:12px}
+  .tnt-application-shell__identity{padding:12px;gap:11px}
+  .tnt-application-shell__icon{flex-basis:56px;width:56px;height:56px;border-radius:12px}
+  .tnt-application-shell__title{font-size:1.22rem;line-height:1.15;margin-bottom:4px}
+  .tnt-application-shell__tagline{font-size:.84rem;line-height:1.4;margin-bottom:7px}
+  .tnt-application-shell__meta .tnt-tool-meta{font-size:.74rem;line-height:1.35}
+  .tnt-application-shell__monetization{margin:10px 0}
+  .tnt-application-shell__runtime{padding:9px}
+}
