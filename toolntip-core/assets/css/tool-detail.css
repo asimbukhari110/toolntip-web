@@ -36,13 +36,14 @@
 
 .tnt-tool-detail__hero .tnt-tool-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr) minmax(240px, 0.75fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr);
     grid-template-areas:
-        "identity-header identity-header identity-header"
-        "identity-details preview         promo";
+        "identity-header identity-header"
+        "identity-details preview"
+        "promo            promo";
     align-items: start;
     column-gap: 1.25rem;
-    row-gap: 0.5rem;
+    row-gap: 1rem;
 
     padding: 1.25rem;
 
@@ -511,11 +512,13 @@
     grid-area: promo;
     align-self: start;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
 
     min-width: 0;
-    min-height: 282px;
+    min-height: 0;
     padding: 1rem;
 
     overflow: hidden;
@@ -560,7 +563,7 @@
     display: inline-flex;
     align-self: flex-start;
 
-    margin-bottom: 1rem;
+    margin: 0;
     padding: 0.24rem 0.5rem;
 
     color: #D8E4F0;
@@ -580,16 +583,13 @@
     position: relative;
     z-index: 1;
 
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
+    display: block;
 
     min-width: 0;
 }
 
 .tnt-tool-detail__hero .tnt-tool-hero__promo-mark {
-    display: inline-flex;
+    display: none;
     align-items: center;
     justify-content: center;
 
@@ -648,7 +648,8 @@
     justify-content: space-between;
     gap: 0.5rem;
 
-    margin-top: 1rem;
+    margin-top: 0;
+    min-width: 132px;
     padding: 0.62rem 0.7rem;
 
     color: var(--tnt-detail-navy);
@@ -2019,41 +2020,7 @@
 @media (max-width: 1180px) {
 
     .tnt-tool-detail__hero .tnt-tool-hero {
-        grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-        grid-template-areas:
-            "identity-header identity-header"
-            "identity-details preview"
-            "promo            promo";
-    }
-
-    .tnt-tool-detail__hero .tnt-tool-hero__promo {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 1rem;
-
-        min-height: 0;
-    }
-
-    .tnt-tool-detail__hero .tnt-tool-hero__promo-label {
-        margin: 0;
-    }
-
-    .tnt-tool-detail__hero .tnt-tool-hero__promo-body {
-        display: block;
-    }
-
-    .tnt-tool-detail__hero .tnt-tool-hero__promo-mark {
-        display: none;
-    }
-
-    .tnt-tool-detail__hero .tnt-tool-hero__promo-description {
-        margin-top: 0.35rem;
-    }
-
-    .tnt-tool-detail__hero .tnt-tool-hero__promo-cta {
-        margin-top: 0;
-        min-width: 132px;
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
     }
 }
 

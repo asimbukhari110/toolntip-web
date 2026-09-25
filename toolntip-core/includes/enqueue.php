@@ -106,6 +106,27 @@ function tnt_enqueue_assets() {
         TNT_CORE_VERSION
     );
 
+
+    wp_register_style(
+        'tnt-product-public',
+        TNT_CORE_URL . 'assets/css/product-public.css',
+        array( 'toolntip-core', 'tnt-tool-card', 'tnt-resource-card' ),
+        TNT_CORE_VERSION
+    );
+
+    wp_register_script(
+        'tnt-product-public',
+        TNT_CORE_URL . 'assets/js/product-public.js',
+        array(),
+        TNT_CORE_VERSION,
+        true
+    );
+
+    if ( is_singular( 'tnt_product' ) || is_post_type_archive( 'tnt_product' ) ) {
+        wp_enqueue_style( 'tnt-product-public' );
+        wp_enqueue_script( 'tnt-product-public' );
+    }
+
     if ( is_post_type_archive( 'tool' ) ) {
         wp_enqueue_style( 'tnt-tool-directory' );
     }

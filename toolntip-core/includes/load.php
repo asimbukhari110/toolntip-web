@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once TNT_CORE_PATH . 'includes/enqueue.php';
 require_once TNT_CORE_PATH . 'includes/template-loader.php';
 require_once TNT_CORE_PATH . 'includes/content-types/post-type-resource.php';
+require_once TNT_CORE_PATH . 'includes/content-types/post-type-product.php';
 require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-type.php';
 require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-topic.php';
 require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-tag.php';
@@ -75,5 +76,25 @@ require_once TNT_CORE_PATH . 'includes/applications/application-resolver.php';
 require_once TNT_CORE_PATH . 'includes/applications/shell-orchestrator.php';
 require_once TNT_CORE_PATH . 'includes/applications/application-support.php';
 require_once TNT_CORE_PATH . 'includes/integrations/acf-application-config.php';
+
+require_once TNT_CORE_PATH . 'includes/products/platform.php';
+require_once TNT_CORE_PATH . 'includes/products/schema.php';
+require_once TNT_CORE_PATH . 'includes/products/product-meta.php';
+require_once TNT_CORE_PATH . 'includes/products/product-capabilities.php';
+require_once TNT_CORE_PATH . 'includes/products/editions.php';
+require_once TNT_CORE_PATH . 'includes/products/releases.php';
+require_once TNT_CORE_PATH . 'includes/products/product-relationships.php';
+require_once TNT_CORE_PATH . 'includes/products/release-audit.php';
+require_once TNT_CORE_PATH . 'includes/products/release-locations.php';
+require_once TNT_CORE_PATH . 'includes/products/provider-adapters.php';
+require_once TNT_CORE_PATH . 'includes/products/provider-live.php';
+require_once TNT_CORE_PATH . 'includes/products/release-lifecycle.php';
+require_once TNT_CORE_PATH . 'includes/products/product-downloads.php';
+require_once TNT_CORE_PATH . 'includes/products/download-delivery.php';
+require_once TNT_CORE_PATH . 'includes/products/public-rendering.php';
+require_once TNT_CORE_PATH . 'includes/products/admin-products.php';
+require_once TNT_CORE_PATH . 'includes/products/admin-releases.php';
+require_once TNT_CORE_PATH . 'includes/products/admin-release-locations.php';
+require_once TNT_CORE_PATH . 'includes/products/admin-provider-settings.php';
 
 require_once TNT_CORE_PATH . 'includes/render-tool-application-pages.php';

@@ -1,3 +1,213 @@
+## 1.2.0-dev.11.11 — I-18 Governed Download Failure Presentation
+- Replaced the raw `wp_die()` download failure screen with a ToolNTip public error state using the normal site header/footer and Product visual language.
+- Invalid Product, Edition and Release routes retain a generic non-disclosing 404 message and now provide a clear Back to Products recovery action.
+- Governed download failures retain their HTTP status, no-cache behavior and `X-Robots-Tag: noindex, nofollow` protection.
+- No schema, provider, authorization, lifecycle or routing-policy changes.
+
+## 1.2.0-dev.11.10 — I-17 Multi-Tool Supporting Content
+
+- Expanded Product → Tool relationships from one Tool to an ordered multi-Tool set while preserving one-Product ownership per Tool.
+- Preserved the legacy single Tool meta/accessors for backward compatibility and automatic read compatibility.
+- Added governed Add/Remove/Move Up/Move Down administration for associated Tools.
+- Product public rendering now composes multiple canonical Tool Cards with canonical Resource Cards.
+- Corrected Supporting Content CSS so desktop/tablet/mobile render true 3/2/1-column grids instead of full-width rows.
+- Kept single-item layouts balanced and hid the section when no supporting content exists.
+- Product database schema remains unchanged.
+
+## 1.2.0-dev.11.9 - I-17 Adaptive Supporting Content
+
+- Composes the published Associated Tool and published related Resources together on Product Detail using the existing canonical Tool Card and Resource Card renderers.
+- Uses relationship-aware cardinality: one supporting item receives a balanced half-width desktop/tablet footprint, two items use two columns, and three or more use the established three-column grid.
+- Collapses all supporting content to one column on mobile and hides the section when neither a public Tool nor public Resource is available.
+- Keeps Product/Tool/Resource relationship storage, Tool action contracts, Product schema, releases, downloads and provider behavior unchanged.
+
+## 1.2.0-dev.11.8 - I-17 Single-Edition Metadata-First Composition
+
+- Moves Edition status and pricing labels into a compact metadata row above the Edition title.
+- Presents pricing as a neutral pill while retaining provider/status styling for lifecycle state.
+- Keeps the Edition title as the primary identity with description directly beneath it.
+- Preserves multi-Edition grids and responsive stacking; no schema, release, download, or provider changes.
+
+## 1.2.0-dev.11.7 - I-17 Single-Edition Composition Refinement
+
+- Refines the one-edition public Product layout into a balanced hierarchy: edition identity/status first, then pricing and description.
+- Keeps multi-edition grids and Product data behavior unchanged.
+- Preserves responsive stacking on narrow screens.
+
+## 1.2.0-dev.11.6 - I-17 Single-Edition Presentation
+
+- Added count-aware Product Edition presentation so a single Edition uses the available section width instead of occupying one cell of the three-column grid.
+- Single Editions use a balanced horizontal desktop layout and collapse back to the established stacked card treatment on narrow screens.
+- Multi-Edition grids, Product data, Release/download behavior, provider routing and Product DB schema remain unchanged.
+
+## 1.2.0-dev.11.5
+
+- Render governed Product capability icons on public Product Detail cards using Core-owned inline SVGs.
+- Preserve icon selection from Product administration without depending on theme icon fonts or third-party libraries.
+- No schema, Product data, Release, download, provider, or routing changes.
+
+## 1.2.0-dev.11.4 - I-17 Product Hero Vertical Rhythm
+
+- Increased the Product Detail hero spacing between category, Product name, development status and positioning copy to restore a clear identity hierarchy with short public Product names such as ToolNTip IGA.
+- Kept Product archive cards, hero geometry, Product data/rendering contracts, release/download behavior and Product DB schema unchanged.
+
+## 1.2.0-dev.11.3 - I-17 Cross-Surface Visual Convergence
+
+- Reused the canonical Resource Card renderer inside Product related Resources so Product and Resource surfaces no longer maintain visually divergent supporting-content cards.
+- Refined Product archive cards and Product Detail containers to follow the established Tool Card / Tool Detail geometry, spacing, borders, radii, surfaces and action hierarchy.
+- Expanded Resource Detail headlines to use the available identity width instead of the previous 28-character measure cap.
+- Refined the Tool Detail hero to a balanced two-column identity/preview composition with the promotional placement spanning the full hero width below, reducing desktop crowding.
+- Preserved Product routes, download authorization, provider abstraction, release lifecycle and Product DB schema version 1.
+
+## 1.2.0-dev.11.2 - I-17 Product Visual Language Alignment
+
+- Aligned Product archive, Product Detail, capability, edition, release and related-resource presentation with the established ToolNTip Tool/Resource visual language.
+- Replaced theme-palette-dependent card surfaces with the established white surface, navy text, neutral border, 14px radius and subtle navy shadow vocabulary.
+- Aligned primary Product actions to ToolNTip navy and secondary/copy actions to the established subtle-surface treatment.
+- Aligned status badges, fact panels, focus-visible treatment, responsive spacing and Resource-style supporting cards without changing Product data, routes, download authorization or provider behavior.
+- Product DB schema remains version 1.
+
+## 1.2.0-dev.11.1 - I-17 Guest Checksum Copy Compatibility
+
+- Fixed public Product checksum Copy so a rejected Clipboard API request falls back to the legacy copy path instead of silently doing nothing.
+- Copy remains informational and available to guests; download authorization remains unchanged.
+- No schema, provider, release, routing, or download-policy changes.
+
+
+## 1.2.0-dev.11 - WEB-007.9 I-17 Public Product Rendering
+
+- Added Core-owned native `/products/` archive and `/products/{slug}/` Product detail templates.
+- Added centralized normalized Product public view model and canonical Product card renderer.
+- Added reusable `[tnt_products]` shortcode using the same card renderer as the native archive.
+- Added conditional Product sections for overview, capabilities, platform/deployment, editions, published releases/downloads and related Resources.
+- Added login-aware governed Release download actions, provider-agnostic public CTAs and SHA-256 copy interaction.
+- Product public CSS/JS load only on native Product archive/single requests.
+- Product DB schema remains version 1.
+## 1.2.0-dev.10.3 — WEB-007.9 I-16 Verification Persistence & Admin Notices
+
+## 1.2.0-dev.10.4 — Storage Replica Save Intelligence & Messaging
+
+- Added verification-aware Storage Replica save behavior: new replicas and provider/file-reference changes automatically run provider verification after persistence.
+- Routing-only edits (enabled, priority, weight) preserve the last explicit verification result while immediately invalidating live delivery-health routing cache.
+- Explicit Verify now invalidates stale live delivery-health cache so recovered providers can re-enter routing immediately.
+- Added provider-aware, self-explanatory Storage Replica notices for add/update/verify/remove operations and safe verification failures.
+- Added warning-state admin feedback when a replica saves successfully but automatic provider verification needs attention.
+- Product database schema remains version 1.
+
+
+- Persists the safe summary of each explicit storage-replica verification so Healthy/mismatch states survive navigation and transient expiry.
+- Adds a persistent Last checked timestamp to Storage Replicas administration while keeping delivery-time provider health in its separate short-lived runtime cache.
+- Clears persisted verification when a replica provider/file identity changes or the replica is removed; routing-only edits preserve the last verification record.
+- Stores no provider credentials, OAuth tokens, raw provider responses or temporary download URLs in verification records.
+- Replaces generic Release administration success notices with action-specific Edition/Release lifecycle messages.
+- Makes Product Storage configuration, OAuth connection and disconnect notices provider-specific.
+- Product schema remains version 1; no Product table migration is required.
+
+## 1.2.0-dev.10.2 — WEB-007.9 I-16 OAuth Redirect URI Corrective
+
+- Fixed OAuth authorization URL construction so callback URIs containing their own query string are RFC3986-encoded as one `redirect_uri` parameter.
+- Prevents Google/Microsoft from receiving only the first callback query parameter and eliminates the resulting `redirect_uri_mismatch` condition.
+- Preserves the existing I-16 provider configuration, token exchange, adapter, and admin contracts.
+
+## 1.2.0-dev.10 — WEB-007.9 I-16 Provider Configuration & Live Adapters
+
+- Adds centrally governed Product Storage configuration for Google Drive and OneDrive / Microsoft Graph.
+- Stores OAuth client secrets, access tokens and refresh tokens encrypted at rest; credentials never enter Product, Release, replica, audit or download-event rows.
+- Adds capability/nonce-protected provider configuration, connect/reconnect and disconnect administration.
+- Adds OAuth authorization-code flows with state validation and refresh-token handling.
+- Implements live Google Drive v3 metadata, download capability and browser-destination resolution.
+- Implements live Microsoft Graph v1.0 driveItem metadata and short-lived preauthenticated download-destination resolution.
+- Wires live provider health and destination callbacks into the existing adapter registry while preserving Release replica references.
+- Keeps WordPress as the control plane: artifact bytes remain on the external storage provider and are not proxied through WordPress.
+- Product DB schema remains version 1; no Product table migration is required.
+
+## 1.2.0-dev.9.4 — WEB-007.9 I-15 Storage Replicas Progressive Enhancement
+
+- Adds fetch-based progressive enhancement for Storage Replica Add, Update, Remove and Verify actions.
+- Updates only the Storage Replicas section instead of refreshing the entire Editions & Releases page when JavaScript is available.
+- Preserves the existing nonce/capability/repository/lifecycle checks and POST/Redirect/GET no-JavaScript fallback.
+- Keeps success/error notices local to the Storage Replicas section and resets successful operations to a clean Add form.
+- Preserves edit context after validation failures so administrators can correct submitted replica data.
+
+## 1.2.0-dev.9.3 — WEB-007.9 I-15 Storage Replica Section UX
+
+- Keep safe POST → Redirect → GET handling for storage-replica mutations.
+- Return successful and failed storage operations to `#storage-replicas` instead of the page top.
+- Render storage-replica success/error notices inside the Storage Replicas section.
+- Keep Release-level notices separate from storage-replica notices.
+- Preserve the clean Add Storage Replica reset behavior from 1.2.0-dev.9.2.
+
+## 1.2.0-dev.9.2 — WEB-007.9 I-15 Replica Admin UX Separation
+
+- Reset Storage Replica administration to a clean Add form after successful add, update, remove, and verify operations.
+- Preserve edit context only when an existing replica update fails, so corrective input is not lost.
+- Added an optional top Save Release control for existing Releases and retained the primary Save Release action at the bottom of Release metadata.
+- Clarified in the UI that Save Release affects Release metadata only, while Storage Replicas have independent Add/Update actions.
+- Preserved replica governance, provider boundaries, last-replica protection, and external-file safety.
+
+## 1.2.0-dev.9.1 — WEB-007.9 I-15 Corrective Replica Create Reconciliation
+
+- Hardened Release Location creation against concurrent/double-submit false-negative insert results.
+- Added exact full-reference duplicate detection before insert.
+- Added post-insert reconciliation: if an insert reports failure but the exact Release/provider/file reference now exists, the persisted location is treated as the successful result.
+- Added specific admin success notices for replica add/update/remove/verify operations.
+- Preserved external-file safety, provider credential boundaries, and Published Release last-replica protection.
+
+## 1.2.0-dev.9 — WEB-007.9 I-15 Replica / Storage Administration UI
+
+- Added governed Storage Replicas administration directly within each Release editor.
+- Added Google Drive / OneDrive provider selection, durable provider file references, enable/disable controls, priority, and weight.
+- Added derived provider readiness/health presentation with short-lived verification cache; health is not persisted as Release truth.
+- Added explicit Verify action that validates provider references and, when centrally configured, compares provider metadata against the canonical artifact filename/size and runs the provider health check.
+- Preserved last-enabled-replica safeguards for Published Releases and never deletes external provider files when replica registrations are removed.
+- Keeps provider credentials outside Release/Location records and does not proxy artifact bytes through WordPress.
+
+## 1.2.0-dev.8 — WEB-007.9 I-14 Edition / Release Administration UI
+
+- Added governed Editions & Releases administration under Products.
+- Added Edition create/edit/delete with repository validation and release-aware deletion protection.
+- Added Draft Release create/edit/delete and lifecycle status presentation.
+- Added explicit Validate → Ready, Publish, and Withdraw actions backed by the lifecycle service.
+- Protected published/withdrawn release identity fields and routed descriptive corrections through the governed service.
+- Added Product-editor entry point and replica-count/readiness guidance without exposing raw database manipulation.
+
+## 1.2.0-dev.6 — WEB-007.9 / I-12 Governed Download Delivery Service
+- Added stable governed Product download routes for exact versions and `latest` resolution.
+- Enforces public Product/Edition/Published Release resolution before authenticated-user authorization.
+- Added centralized `tnt_can_download_product_release()` authorization with a future entitlement filter boundary.
+- Added health-aware priority/weight release-location selection with short-lived cache and per-request failover.
+- Requires provider-owned download destinations and never proxies artifact bytes through WordPress.
+- Records the successful authenticated redirect event before issuing the external provider redirect; logging failure fails closed.
+- Added noindex/nocache handling for download endpoints and safe local login return behavior for guests.
+- Bumped the Product rewrite contract to version 2 so the new download routes are installed once.
+
+## 1.2.0-dev.5 — WEB-007.9 / I-11 Release Lifecycle Service
+- Added governed Draft → Ready → Published → Withdrawn Release transitions.
+- Added readiness validation for canonical artifact identity, required release metadata and enabled registered storage locations.
+- Added expected-state concurrency checks and audit-backed lifecycle transitions.
+- Re-validates readiness immediately before publication and preserves `published_at` once set.
+- Added controlled descriptive corrections for Published/Withdrawn Releases without allowing canonical artifact identity changes.
+- Hardened the general Release repository so lifecycle status changes cannot bypass the lifecycle service.
+- Preserves external provider artifacts on withdrawal and does not add provider/OAuth UI.
+
+## 1.2.0-dev.4
+- WEB-007.9 I-10: storage-provider adapter foundation.
+- Adds a controlled Google Drive / OneDrive adapter registry, central-configuration readiness boundary, durable-reference validation contract, metadata/health operations, and provider-owned download-destination contract.
+- Keeps artifact bytes out of WordPress and keeps credentials out of Release, Release Location, download analytics, and audit records.
+- Google Drive API v3 and Microsoft Graph v1 delivery behavior was re-verified against current vendor documentation before implementation.
+
+## 1.2.0-dev.3
+- WEB-007.9 I-09: governed release-location repository and download analytics foundation.
+- Adds Google Drive/OneDrive provider-key governance, priority/weight controls, Published Release replica safeguards, redirect-event logging, geography snapshot hook, and analytics queries.
+
+# ToolNTip Core Changelog
+
+## 1.2.0-dev.2 - WEB-007.9 I-08
+- Added governed one-to-one Product-to-Tool relationship service and reverse resolver.
+- Added ordered Product-to-Resource relationship repository and reverse lookup.
+- Added append-only Product Release audit service with controlled action keys and secret-safe context handling.
+- Preserved Product database schema version 1; no database migration is required for this checkpoint.
+
 ## 1.1.0 — WEB-007.8 Application Package Platform release
 
 - Promote the accepted WEB-007.8 package-platform implementation to the first stable 1.1 release with no functional changes from the validated dev40 checkpoint.
@@ -470,3 +680,12 @@ v1.1.0
 ## 1.0.60-dev.15
 - WEB-007.7 asset-cache correction: moved JSON Formatter runtime CSS/JS to new versioned asset paths so caches that ignore query-string versions cannot serve stale interaction logic.
 - Preserves runtime-owned active operation state for Format, Minify, and Validate.
+
+## 1.2.0-dev.7 — WEB-007.9 I-13 Product Administration UI
+
+- Added Product Facts administration for controlled Product status and metadata.
+- Added canonical Product → Tool selector with one-to-one ownership protection.
+- Added ordered Product → Resource administration with accessible move controls.
+- Added governed Key Capabilities editor with add/remove/reorder support.
+- Added Edition/Release operational summary to the Product editor.
+- Added Product-specific admin assets without changing public rendering.

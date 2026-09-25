@@ -67,7 +67,8 @@
 }
 
 .tnt-resource-detail__title {
-    max-width: 28ch;
+    width: 100%;
+    max-width: none;
     margin: 0;
     color: #0b1d33;
     font-size: clamp(2rem, 4vw, 3.5rem);
