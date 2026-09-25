@@ -14,3 +14,5 @@ require_once TNT_CORE_PATH . 'shortcodes/resource-collections.php';
 require_once TNT_CORE_PATH . 'shortcodes/resource-hub.php';
 require_once TNT_CORE_PATH . 'shortcodes/application-shell.php';
 require_once TNT_CORE_PATH . 'shortcodes/application-support.php';
+
+require_once TNT_CORE_PATH . 'shortcodes/products.php';

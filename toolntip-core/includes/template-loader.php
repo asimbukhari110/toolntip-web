@@ -28,6 +28,21 @@ function tnt_tool_template_include( $template ) {
         }
     }
 
+
+    if ( is_singular( 'tnt_product' ) ) {
+        $product_template = TNT_CORE_PATH . 'templates/single-product.php';
+        if ( file_exists( $product_template ) ) {
+            return $product_template;
+        }
+    }
+
+    if ( is_post_type_archive( 'tnt_product' ) ) {
+        $product_archive_template = TNT_CORE_PATH . 'templates/archive-product.php';
+        if ( file_exists( $product_archive_template ) ) {
+            return $product_archive_template;
+        }
+    }
+
     if ( is_singular( 'tool' ) ) {
 
         $tool_template = TNT_CORE_PATH . 'templates/single-tool.php';

@@ -1,5 +1,15 @@
 # Toolntip Core v1.0 — Foundation Complete
 
+## 1.2.0-dev.10.4 — Storage Replica Save Intelligence & Messaging
+
+- Added verification-aware Storage Replica save behavior: new replicas and provider/file-reference changes automatically run provider verification after persistence.
+- Routing-only edits (enabled, priority, weight) preserve the last explicit verification result while immediately invalidating live delivery-health routing cache.
+- Explicit Verify now invalidates stale live delivery-health cache so recovered providers can re-enter routing immediately.
+- Added provider-aware, self-explanatory Storage Replica notices for add/update/verify/remove operations and safe verification failures.
+- Added warning-state admin feedback when a replica saves successfully but automatic provider verification needs attention.
+- Product database schema remains version 1.
+
+
 ## Release Summary
 
 Toolntip Core v1.0 establishes the architectural foundation for the Toolntip platform. This release focuses on building a scalable, maintainable plugin architecture rather than maximizing feature count.

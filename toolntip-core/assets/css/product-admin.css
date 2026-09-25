@@ -1,0 +1,92 @@
+.tnt-product-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+}
+
+.tnt-product-admin-field label,
+.tnt-product-admin-field strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.tnt-product-admin-field .description {
+    display: block;
+    margin-top: 6px;
+}
+
+.tnt-product-resource-picker {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.tnt-product-resource-picker select {
+    min-width: 260px;
+    max-width: 100%;
+}
+
+.tnt-product-sortable-list {
+    margin-left: 0;
+}
+
+.tnt-product-related-row,
+.tnt-product-capability-row,
+.tnt-product-edition-summary__item {
+    border: 1px solid #dcdcde;
+    background: #fff;
+    padding: 12px;
+    margin: 0 0 10px;
+}
+
+.tnt-product-related-row {
+    display: flex;
+    gap: 14px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tnt-product-related-title {
+    font-weight: 600;
+}
+
+.tnt-product-capability-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+}
+
+.tnt-product-row-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tnt-product-capability-row > .tnt-product-row-actions {
+    align-content: start;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.tnt-product-admin-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: #f0f0f1;
+}
+
+@media (max-width: 782px) {
+    .tnt-product-admin-grid,
+    .tnt-product-capability-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tnt-product-related-row,
+    .tnt-product-resource-picker {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
