@@ -23,7 +23,7 @@ function tnt_get_tool_badges( $tool ) {
      * Pricing
      */
 
-    $pricing = get_field( 'pricing', $tool->ID );
+    $pricing = tnt_get_tool_meta( $tool, 'pricing', '' );
 
     if ( ! empty( $pricing ) ) {
 
@@ -38,7 +38,7 @@ function tnt_get_tool_badges( $tool ) {
      * Tool Type
      */
 
-    $tool_type = get_field( 'tool_type', $tool->ID );
+    $tool_type = tnt_get_tool_meta( $tool, 'tool_type', '' );
 
     if ( ! empty( $tool_type ) ) {
 
@@ -53,7 +53,7 @@ function tnt_get_tool_badges( $tool ) {
      * Platform
      */
 
-    $platforms = get_field( 'platform', $tool->ID );
+    $platforms = tnt_get_tool_meta( $tool, 'platform', '' );
 
     if ( ! empty( $platforms ) ) {
 

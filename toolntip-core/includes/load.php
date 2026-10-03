@@ -9,8 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once TNT_CORE_PATH . 'includes/enqueue.php';
 require_once TNT_CORE_PATH . 'includes/template-loader.php';
+require_once TNT_CORE_PATH . 'includes/content-types/post-type-tool.php';
 require_once TNT_CORE_PATH . 'includes/content-types/post-type-resource.php';
 require_once TNT_CORE_PATH . 'includes/content-types/post-type-product.php';
+require_once TNT_CORE_PATH . 'includes/tool-meta.php';
+require_once TNT_CORE_PATH . 'includes/admin-tool-editor.php';
 require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-type.php';
 require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-topic.php';
 require_once TNT_CORE_PATH . 'includes/taxonomies/taxonomy-resource-tag.php';
@@ -75,7 +78,6 @@ require_once TNT_CORE_PATH . 'includes/applications/applications-admin.php';
 require_once TNT_CORE_PATH . 'includes/applications/application-resolver.php';
 require_once TNT_CORE_PATH . 'includes/applications/shell-orchestrator.php';
 require_once TNT_CORE_PATH . 'includes/applications/application-support.php';
-require_once TNT_CORE_PATH . 'includes/integrations/acf-application-config.php';
 
 require_once TNT_CORE_PATH . 'includes/products/platform.php';
 require_once TNT_CORE_PATH . 'includes/products/schema.php';

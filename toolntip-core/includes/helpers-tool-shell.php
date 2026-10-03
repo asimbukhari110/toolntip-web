@@ -100,7 +100,7 @@ function tnt_resolve_tool_shell_context( $args = array() ) {
  * @return string
  */
 function tnt_get_tool_shell_tagline( $tool ) {
-    return trim( (string) get_field( 'tool_tagline', $tool->ID ) );
+    return trim( (string) tnt_get_tool_meta( $tool, 'tool_tagline', '' ) );
 }
 
 /**
@@ -160,7 +160,7 @@ function tnt_get_tool_shell_review_count( $tool ) {
  * @return bool
  */
 function tnt_get_tool_shell_verified( $tool ) {
-    return (bool) get_field( 'verified', $tool->ID );
+    return (bool) tnt_get_tool_meta( $tool, 'verified', '' );
 }
 
 /**
@@ -170,7 +170,7 @@ function tnt_get_tool_shell_verified( $tool ) {
  * @return string
  */
 function tnt_get_tool_shell_pricing( $tool ) {
-    return trim( (string) get_field( 'pricing', $tool->ID ) );
+    return trim( (string) tnt_get_tool_meta( $tool, 'pricing', '' ) );
 }
 
 /**
@@ -180,7 +180,7 @@ function tnt_get_tool_shell_pricing( $tool ) {
  * @return array
  */
 function tnt_get_tool_shell_platforms( $tool ) {
-    $platforms = get_field( 'platform', $tool->ID );
+    $platforms = tnt_get_tool_meta( $tool, 'platform', '' );
 
     if ( empty( $platforms ) ) {
         return array();
@@ -209,7 +209,7 @@ function tnt_get_tool_shell_platforms( $tool ) {
  * @return string
  */
 function tnt_get_tool_shell_developer( $tool ) {
-    return trim( (string) get_field( 'developer', $tool->ID ) );
+    return trim( (string) tnt_get_tool_meta( $tool, 'developer', '' ) );
 }
 
 /**
@@ -219,7 +219,7 @@ function tnt_get_tool_shell_developer( $tool ) {
  * @return string
  */
 function tnt_get_tool_shell_type( $tool ) {
-    return trim( (string) get_field( 'tool_type', $tool->ID ) );
+    return trim( (string) tnt_get_tool_meta( $tool, 'tool_type', '' ) );
 }
 
 /**

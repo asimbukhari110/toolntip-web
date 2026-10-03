@@ -399,7 +399,7 @@ function tnt_get_tool_card_data( $tool ) {
         return null;
     }
 
-    $platforms = get_field( 'platform', $tool->ID );
+    $platforms = tnt_get_tool_meta( $tool, 'platform', '' );
 
     if ( empty( $platforms ) ) {
         $platforms = array();
@@ -418,7 +418,7 @@ function tnt_get_tool_card_data( $tool ) {
         )
     );
 
-    $editor_rating = (float) get_field( 'editor_rating', $tool->ID );
+    $editor_rating = (float) tnt_get_tool_meta( $tool, 'editor_rating', '' );
     $actions       = tnt_get_tool_actions( $tool );
 
     return array(
@@ -427,12 +427,12 @@ function tnt_get_tool_card_data( $tool ) {
         'post_id'    => $tool->ID,
         'title'      => get_the_title( $tool ),
         'slug'       => $tool->post_name,
-        'pricing'    => get_field( 'pricing', $tool->ID ),
+        'pricing'    => tnt_get_tool_meta( $tool, 'pricing', '' ),
         'platform'   => $platforms,
-        'featured'   => (bool) get_field( 'featured_tool', $tool->ID ),
+        'featured'   => (bool) tnt_get_tool_meta( $tool, 'featured_tool', '' ),
         'features'   => tnt_get_tool_features( $tool ),
         'hero'       => array(
-            'tagline' => get_field( 'tool_tagline', $tool->ID ),
+            'tagline' => tnt_get_tool_meta( $tool, 'tool_tagline', '' ),
         ),
         'rating'     => array(
             'value' => $editor_rating,

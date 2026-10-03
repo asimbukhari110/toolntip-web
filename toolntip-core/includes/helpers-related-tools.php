@@ -183,8 +183,8 @@ function tnt_calculate_related_score( WP_Post $tool, WP_Post $candidate ) {
      */
 
     if (
-        get_field( 'tool_type', $tool->ID ) ===
-        get_field( 'tool_type', $candidate->ID )
+        tnt_get_tool_meta( $tool, 'tool_type', '' ) ===
+        tnt_get_tool_meta( $candidate, 'tool_type', '' )
     ) {
         $score += 15;
     }
@@ -198,8 +198,8 @@ function tnt_calculate_related_score( WP_Post $tool, WP_Post $candidate ) {
 	 * value overlaps.
 	 */
 
-	$tool_platforms = get_field( 'platform', $tool->ID );
-	$candidate_platforms = get_field( 'platform', $candidate->ID );
+	$tool_platforms = tnt_get_tool_meta( $tool, 'platform', '' );
+	$candidate_platforms = tnt_get_tool_meta( $candidate, 'platform', '' );
 
 	$tool_platforms = is_array( $tool_platforms )
 		? $tool_platforms
@@ -219,8 +219,8 @@ function tnt_calculate_related_score( WP_Post $tool, WP_Post $candidate ) {
      */
 
     if (
-        get_field( 'pricing', $tool->ID ) ===
-        get_field( 'pricing', $candidate->ID )
+        tnt_get_tool_meta( $tool, 'pricing', '' ) ===
+        tnt_get_tool_meta( $candidate, 'pricing', '' )
     ) {
         $score += 10;
     }
@@ -230,7 +230,7 @@ function tnt_calculate_related_score( WP_Post $tool, WP_Post $candidate ) {
      * -------------------------------------------------
      */
 
-    if ( get_field( 'featured_tool', $candidate->ID ) ) {
+    if ( tnt_get_tool_meta( $candidate, 'featured_tool', '' ) ) {
         $score += 5;
     }
 

@@ -60,9 +60,9 @@ function tnt_get_tool_actions( $tool ) {
         return array();
     }
 
-    $use_tool_url = trim( (string) get_field( 'use_tool_url', $tool->ID ) );
-    $official_url = trim( (string) get_field( 'official_website', $tool->ID ) );
-    $affiliate_url = trim( (string) get_field( 'affiliate_url', $tool->ID ) );
+    $use_tool_url = trim( (string) tnt_get_tool_meta( $tool, 'use_tool_url', '' ) );
+    $official_url = trim( (string) tnt_get_tool_meta( $tool, 'official_website', '' ) );
+    $affiliate_url = trim( (string) tnt_get_tool_meta( $tool, 'affiliate_url', '' ) );
     $details_url  = get_permalink( $tool );
 
     return array(

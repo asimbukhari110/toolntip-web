@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Return the application configuration field names used by Core.
  *
- * These names form the storage contract for the ACF fields introduced in the
+ * These names form the Core-owned storage contract introduced in the
  * later application-configuration implementation step.
  *
  * @return array
@@ -47,14 +47,6 @@ function tnt_get_tool_application_config_value( $tool_id, $field_name ) {
 
     if ( $tool_id <= 0 || '' === $field_name ) {
         return null;
-    }
-
-    if ( function_exists( 'get_field' ) ) {
-        $value = get_field( $field_name, $tool_id );
-
-        if ( null !== $value && false !== $value ) {
-            return $value;
-        }
     }
 
     return get_post_meta( $tool_id, $field_name, true );

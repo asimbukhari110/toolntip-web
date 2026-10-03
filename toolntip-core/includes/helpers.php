@@ -138,9 +138,9 @@ function tnt_get_tool_data( $tool ) {
 
     
 	
-$last_verified = get_field( 'last_verified', $tool->ID );
+$last_verified = tnt_get_tool_meta( $tool, 'last_verified', '' );
 
-$platforms = get_field( 'platform', $tool->ID );
+$platforms = tnt_get_tool_meta( $tool, 'platform', '' );
 
 $actions = tnt_get_tool_actions( $tool );
 
@@ -175,25 +175,25 @@ return array(
 
     'excerpt' => get_the_excerpt( $tool ),
 
-    'about' => get_field( 'about_this_tool', $tool->ID ),
+    'about' => tnt_get_tool_meta( $tool, 'about_this_tool', '' ),
 
-    'tool_type' => get_field( 'tool_type', $tool->ID ),
+    'tool_type' => tnt_get_tool_meta( $tool, 'tool_type', '' ),
 
-    'use_tool_url' => get_field( 'use_tool_url', $tool->ID ),
+    'use_tool_url' => tnt_get_tool_meta( $tool, 'use_tool_url', '' ),
 
-    'official_website' => get_field( 'official_website', $tool->ID ),
+    'official_website' => tnt_get_tool_meta( $tool, 'official_website', '' ),
 
-    'affiliate_url' => get_field( 'affiliate_url', $tool->ID ),
+    'affiliate_url' => tnt_get_tool_meta( $tool, 'affiliate_url', '' ),
 
-    'pricing' => get_field( 'pricing', $tool->ID ),
+    'pricing' => tnt_get_tool_meta( $tool, 'pricing', '' ),
 
     'platform' => $platforms,
 
     'badges' => tnt_get_tool_badges( $tool ),
 
-    'developer' => get_field( 'developer', $tool->ID ),
+    'developer' => tnt_get_tool_meta( $tool, 'developer', '' ),
 
-    'featured' => (bool) get_field( 'featured_tool', $tool->ID ),
+    'featured' => (bool) tnt_get_tool_meta( $tool, 'featured_tool', '' ),
 	
 	'features' => tnt_get_tool_features( $tool ),
 	

@@ -21,10 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function tnt_get_tool_rating( $tool ) {
 
-    $editor_value = (float) get_field(
-        'editor_rating',
-        $tool->ID
-    );
+    $editor_value = (float) tnt_get_tool_meta( $tool, 'editor_rating', '' );
 
     $community = tnt_get_tool_community_rating( $tool );
 
