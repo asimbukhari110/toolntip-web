@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function tnt_get_tool_video( $tool ) {
 
-    $url = get_field( 'demo_video', $tool->ID );
+    $url = tnt_get_tool_meta( $tool, 'demo_video', '' );
 
     if ( empty( $url ) ) {
         return array();

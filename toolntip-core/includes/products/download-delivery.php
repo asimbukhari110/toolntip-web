@@ -499,6 +499,37 @@ function tnt_product_download_error_response( $status, $message ) {
 }
 
 /**
+ * Build the authentication transition for a protected Product download.
+ *
+ * ToolNTip Members is an optional integration. When its public API major 1
+ * facade is unavailable, not ready, or cannot construct a transition, Core
+ * preserves its native WordPress login fallback. The return target remains
+ * navigation intent only; Product authorization is always repeated after the
+ * authenticated request returns to this endpoint.
+ *
+ * @param string $return_to Product-owned local return URL.
+ * @return string
+ */
+function tnt_get_product_download_authentication_url( $return_to ) {
+    $return_to = (string) $return_to;
+
+    // Members' public return-target contract is bounded to 2,048 bytes.
+    if ( strlen( $return_to ) <= 2048
+        && function_exists( 'toolntip_members_api_ready' )
+        && function_exists( 'toolntip_members_authentication_url' )
+        && toolntip_members_api_ready()
+    ) {
+        $members_url = toolntip_members_authentication_url( $return_to );
+
+        if ( ! is_wp_error( $members_url ) && is_string( $members_url ) && '' !== trim( $members_url ) ) {
+            return $members_url;
+        }
+    }
+
+    return wp_login_url( $return_to );
+}
+
+/**
  * Handle governed Product download requests.
  *
  * @return void
@@ -526,7 +557,7 @@ function tnt_handle_product_download_request() {
             $target['release'],
             'latest' === strtolower( (string) get_query_var( 'tnt_release_version' ) )
         );
-        wp_safe_redirect( wp_login_url( $current_url ) );
+        wp_safe_redirect( tnt_get_product_download_authentication_url( $current_url ) );
         exit;
     }
 

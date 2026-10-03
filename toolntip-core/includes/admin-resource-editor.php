@@ -493,6 +493,15 @@ function tnt_add_resource_fallback_meta_boxes() {
             'side',
             'default'
         );
+
+        add_meta_box(
+            'tnt-resource-icon',
+            __( 'Resource Icon', 'toolntip-core' ),
+            'tnt_render_resource_icon_fallback_meta_box',
+            'resource',
+            'side',
+            'default'
+        );
     }
 
     // ACF Pro supplies the enhanced relationship UI when available.
@@ -567,6 +576,26 @@ function tnt_render_resource_featured_fallback_meta_box( $post ) {
         <?php esc_html_e( 'Feature this Resource', 'toolntip-core' ); ?>
     </label>
     <p class="description"><?php esc_html_e( 'Displays the ToolNTip Featured treatment and makes the Resource available to featured-only queries.', 'toolntip-core' ); ?></p>
+    <?php
+}
+
+/**
+ * Render Core fallback Resource Icon control.
+ *
+ * @param WP_Post $post Current Resource.
+ */
+function tnt_render_resource_icon_fallback_meta_box( $post ) {
+    $icon_id = absint( get_post_meta( $post->ID, 'tnt_resource_icon', true ) );
+    wp_nonce_field( 'tnt_save_resource_editorial', 'tnt_resource_editorial_nonce' );
+    ?>
+    <p>
+        <label for="tnt-resource-icon-id"><?php esc_html_e( 'Media attachment ID', 'toolntip-core' ); ?></label>
+        <input class="widefat" id="tnt-resource-icon-id" type="number" min="0" name="tnt_resource_icon" value="<?php echo esc_attr( $icon_id ); ?>">
+    </p>
+    <?php if ( $icon_id > 0 ) : ?>
+        <p><?php echo wp_kses_post( wp_get_attachment_image( $icon_id, 'thumbnail' ) ); ?></p>
+    <?php endif; ?>
+    <p class="description"><?php esc_html_e( 'Optional square identity icon. ToolNTip site identity is used when no icon is assigned.', 'toolntip-core' ); ?></p>
     <?php
 }
 
@@ -740,6 +769,12 @@ function tnt_save_resource_editorial_fields( $post_id ) {
             $post_id,
             'tnt_resource_featured',
             isset( $_POST['tnt_resource_featured'] ) ? '1' : '0'
+        );
+
+        update_post_meta(
+            $post_id,
+            'tnt_resource_icon',
+            isset( $_POST['tnt_resource_icon'] ) ? absint( wp_unslash( $_POST['tnt_resource_icon'] ) ) : 0
         );
 
         $related_tools = isset( $_POST['tnt_related_tool_ids'] ) ? (array) wp_unslash( $_POST['tnt_related_tool_ids'] ) : array();

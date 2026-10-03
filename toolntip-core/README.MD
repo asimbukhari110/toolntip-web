@@ -1,3 +1,6 @@
+## Core Ownership Consolidation checkpoint
+Current development package: `1.2.0-dev.16` (Gate 2 / G2-UX-02 FAQ entity-fidelity correction).
+
 ## 1.2.0-dev.11.8 - I-17 Single-Edition Metadata-First Composition
 
 - Moves Edition status and pricing labels into a compact metadata row above the Edition title.

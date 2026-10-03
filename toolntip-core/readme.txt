@@ -6,7 +6,7 @@
 
 ## Overview
 
-Toolntip Core is the primary WordPress plugin that powers the Toolntip platform. It provides the application's core functionality, including custom post types, Advanced Custom Fields (ACF) integration, reusable helper functions, a template rendering engine, shortcodes, and frontend assets.
+Toolntip Core is the primary WordPress plugin that powers the Toolntip platform. It provides the application's core functionality, including custom post types, Core-owned metadata/editor handling, reusable helper functions, a template rendering engine, shortcodes, and frontend assets.
 
 The plugin is designed with a modular architecture so new features can be added without affecting existing functionality.
 
@@ -19,7 +19,7 @@ The plugin is designed with a modular architecture so new features can be added 
 * Template rendering engine
 * Dynamic Tool shortcode
 * Reusable Tool Card template
-* Advanced Custom Fields (ACF) integration
+* Core-owned Tool and Resource metadata/editor handling
 
 ## Planned Features
 
@@ -86,7 +86,6 @@ toolntip-core/
 
 * WordPress 6.8+
 * PHP 8.1+
-* Advanced Custom Fields (ACF) Pro
 * Elementor (recommended)
 
 ## Installation

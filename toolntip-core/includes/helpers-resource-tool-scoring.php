@@ -318,8 +318,8 @@ function tnt_get_resource_tool_candidate_context( WP_Post $tool ) {
     $category_tokens = tnt_resource_scoring_taxonomy_tokens( $tool->ID, 'tool_category' );
     $feature_tax_tokens = tnt_resource_scoring_taxonomy_tokens( $tool->ID, 'tool_feature' );
 
-    $tagline = function_exists( 'get_field' ) ? get_field( 'tool_tagline', $tool->ID ) : '';
-    $about   = function_exists( 'get_field' ) ? get_field( 'about_this_tool', $tool->ID ) : '';
+    $tagline = tnt_get_tool_meta( $tool, 'tool_tagline', '' );
+    $about   = tnt_get_tool_meta( $tool, 'about_this_tool', '' );
 
     $feature_values = function_exists( 'tnt_get_tool_features' )
         ? tnt_get_tool_features( $tool )

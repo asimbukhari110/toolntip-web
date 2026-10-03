@@ -1,3 +1,15 @@
+## 1.2.0-dev.16 - 2026-10-03
+
+- Correct FAQ editor round-trip entity presentation discovered by the no-ACF unchanged-save test.
+- Decode WordPress-normalized HTML entities only for the FAQ textarea editing surface before context escaping, preventing visible `&amp;` / repeated entity accumulation while preserving `wp_kses_post()` sanitization on save and output.
+- No Tool schema, postmeta key, ACF/CPT UI dependency, Product Platform, Members API, or WEB-007.10 behavior changes.
+
+## 1.2.0-dev.14 - 2026-10-03
+
+- Core Ownership Consolidation Gate 2 candidate: read Tool metadata directly from WordPress post meta and provide native Tool/Application editor fallbacks so ACF is no longer a required runtime dependency.
+- Preserve legacy ACF field-reference rows and existing Tool meta storage shapes for non-destructive rollback compatibility.
+- Add Resource Icon fallback editing when ACF is unavailable.
+
 # Toolntip Core v1.0 — Foundation Complete
 
 ## 1.2.0-dev.10.4 — Storage Replica Save Intelligence & Messaging
