@@ -132,3 +132,8 @@ Website: https://toolntip.com
 ---
 
 © 2026 Toolntip. All rights reserved.
+
+## WEB-007.10 Download Preparation
+
+Authenticated Product downloads return to a Core-owned information page. The explicit Download action opens a Product-owned preparation screen immediately, resolves a healthy provider through the governed Core delivery service, shows a verified ready state, and then continues to provider-owned delivery. Artifact bytes do not pass through WordPress.
+

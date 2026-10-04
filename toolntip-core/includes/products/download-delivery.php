@@ -39,6 +39,8 @@ function tnt_register_product_download_query_vars( $vars ) {
     $vars[] = 'tnt_product_slug';
     $vars[] = 'tnt_edition_key';
     $vars[] = 'tnt_release_version';
+    $vars[] = 'tnt_product_delivery';
+    $vars[] = 'tnt_product_delivery_resolve';
     return array_values( array_unique( $vars ) );
 }
 add_filter( 'query_vars', 'tnt_register_product_download_query_vars' );
@@ -50,6 +52,33 @@ add_filter( 'query_vars', 'tnt_register_product_download_query_vars' );
  */
 function tnt_is_product_download_request() {
     return '1' === (string) get_query_var( 'tnt_product_download' );
+}
+
+
+/**
+ * Whether the current governed Product request is the explicit delivery step.
+ *
+ * The stable Product download route renders a Product-owned information page.
+ * Actual provider resolution and redirect occur only after the authenticated
+ * user explicitly activates Download from that page.
+ *
+ * @return bool
+ */
+function tnt_is_product_delivery_request() {
+    return '1' === (string) get_query_var( 'tnt_product_delivery' );
+}
+
+/**
+ * Whether the current delivery request should resolve a provider destination.
+ *
+ * The first delivery request renders an immediate Product-owned preparation
+ * screen. JavaScript (or the no-JavaScript fallback) then requests resolution
+ * through this same governed route.
+ *
+ * @return bool
+ */
+function tnt_is_product_delivery_resolution_request() {
+    return '1' === (string) get_query_var( 'tnt_product_delivery_resolve' );
 }
 
 /**
@@ -530,6 +559,194 @@ function tnt_get_product_download_authentication_url( $return_to ) {
 }
 
 /**
+ * Render the Product-owned download information page.
+ *
+ * @param array $target Resolved Product/Edition/Release target.
+ * @return void
+ */
+function tnt_render_product_download_information( $target ) {
+    $product = $target['product'];
+    $edition = $target['edition'];
+    $release = $target['release'];
+
+    $delivery_url = add_query_arg(
+        'tnt_product_delivery',
+        '1',
+        tnt_get_product_release_download_url(
+            $release,
+            'latest' === strtolower( (string) get_query_var( 'tnt_release_version' ) )
+        )
+    );
+
+    status_header( 200 );
+    nocache_headers();
+    header( 'X-Robots-Tag: noindex, nofollow', true );
+    wp_enqueue_style( 'tnt-product-public' );
+
+    get_header();
+    ?>
+    <main id="primary" class="site-main tnt-product-download-information">
+        <div class="tnt-product-shell">
+            <section class="tnt-product-section" aria-labelledby="tnt-product-download-title">
+                <div class="tnt-product-error-state__eyebrow"><?php esc_html_e( 'Product Download', 'toolntip-core' ); ?></div>
+                <h1 id="tnt-product-download-title"><?php esc_html_e( 'Download information', 'toolntip-core' ); ?></h1>
+                <p class="tnt-product-lead"><?php echo esc_html( get_the_title( $product ) ); ?></p>
+
+                <dl class="tnt-product-release__facts">
+                    <div><dt><?php esc_html_e( 'Edition', 'toolntip-core' ); ?></dt><dd><?php echo esc_html( $edition->name ); ?></dd></div>
+                    <div><dt><?php esc_html_e( 'Version', 'toolntip-core' ); ?></dt><dd><?php echo esc_html( $release->version ); ?></dd></div>
+                    <?php if ( $release->platform ) : ?><div><dt><?php esc_html_e( 'Platform', 'toolntip-core' ); ?></dt><dd><?php echo esc_html( $release->platform ); ?></dd></div><?php endif; ?>
+                    <?php if ( $release->architecture ) : ?><div><dt><?php esc_html_e( 'Architecture', 'toolntip-core' ); ?></dt><dd><?php echo esc_html( $release->architecture ); ?></dd></div><?php endif; ?>
+                    <?php if ( $release->artifact_filename ) : ?><div><dt><?php esc_html_e( 'Filename', 'toolntip-core' ); ?></dt><dd><?php echo esc_html( $release->artifact_filename ); ?></dd></div><?php endif; ?>
+                    <?php if ( ! empty( $release->artifact_size ) ) : ?><div><dt><?php esc_html_e( 'File size', 'toolntip-core' ); ?></dt><dd><?php echo esc_html( size_format( absint( $release->artifact_size ), 2 ) ); ?></dd></div><?php endif; ?>
+                </dl>
+
+                <?php if ( $release->artifact_sha256 ) : ?>
+                    <div class="tnt-product-checksum"><strong><?php esc_html_e( 'SHA-256', 'toolntip-core' ); ?></strong><code><?php echo esc_html( strtolower( (string) $release->artifact_sha256 ) ); ?></code></div>
+                <?php endif; ?>
+                <?php if ( $release->release_notes ) : ?><div class="tnt-product-release__notes"><h2><?php esc_html_e( 'Release Notes', 'toolntip-core' ); ?></h2><?php echo wp_kses_post( wpautop( $release->release_notes ) ); ?></div><?php endif; ?>
+                <?php if ( $release->system_requirements ) : ?><div><h2><?php esc_html_e( 'Release Requirements', 'toolntip-core' ); ?></h2><?php echo wp_kses_post( wpautop( $release->system_requirements ) ); ?></div><?php endif; ?>
+
+                <p><a class="tnt-product-button" href="<?php echo esc_url( $delivery_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Download', 'toolntip-core' ); ?></a></p>
+                <p><?php esc_html_e( 'The download opens in a new tab. Your storage provider may display its own download or security confirmation.', 'toolntip-core' ); ?></p>
+                <p><a href="<?php echo esc_url( get_permalink( $product ) . '#download' ); ?>"><?php esc_html_e( 'Back to product', 'toolntip-core' ); ?></a></p>
+            </section>
+        </div>
+    </main>
+    <?php
+    get_footer();
+    exit;
+}
+
+/**
+ * Render the immediate Product-owned delivery preparation state.
+ *
+ * This response is intentionally cheap and does not call a storage provider.
+ * The browser can therefore paint useful feedback immediately while a second
+ * governed request performs provider resolution.
+ *
+ * @param array $target Resolved Product/Edition/Release target.
+ * @return void
+ */
+function tnt_render_product_download_preparation( $target ) {
+    $product = $target['product'];
+    $release = $target['release'];
+
+    $resolution_url = add_query_arg(
+        array(
+            'tnt_product_delivery'         => '1',
+            'tnt_product_delivery_resolve' => '1',
+        ),
+        tnt_get_product_release_download_url(
+            $release,
+            'latest' === strtolower( (string) get_query_var( 'tnt_release_version' ) )
+        )
+    );
+
+    status_header( 200 );
+    nocache_headers();
+    header( 'X-Robots-Tag: noindex, nofollow', true );
+    wp_enqueue_style( 'tnt-product-public' );
+    wp_enqueue_script( 'tnt-product-public' );
+
+    get_header();
+    ?>
+    <main id="primary" class="site-main tnt-product-download-preparation">
+        <div class="tnt-product-shell">
+            <section
+                class="tnt-product-download-progress"
+                data-tnt-download-preparation
+                data-resolution-url="<?php echo esc_url( $resolution_url ); ?>"
+                aria-labelledby="tnt-product-download-progress-title"
+            >
+                <div class="tnt-product-error-state__eyebrow"><?php esc_html_e( 'Product Download', 'toolntip-core' ); ?></div>
+                <div class="tnt-product-download-progress__indicator" data-tnt-download-indicator aria-hidden="true">
+                    <span class="tnt-product-download-spinner"></span>
+                    <span class="tnt-product-download-check">&#10003;</span>
+                    <span class="tnt-product-download-error-mark">!</span>
+                </div>
+                <div class="tnt-product-download-progress__status" role="status" aria-live="polite" aria-atomic="true">
+                    <h1 id="tnt-product-download-progress-title" data-tnt-download-title><?php esc_html_e( 'Preparing your download…', 'toolntip-core' ); ?></h1>
+                    <p data-tnt-download-message><?php esc_html_e( 'Creating a secure download link. This may take a few seconds.', 'toolntip-core' ); ?></p>
+                </div>
+                <p class="tnt-product-download-progress__product"><?php echo esc_html( get_the_title( $product ) ); ?></p>
+                <div class="tnt-product-download-progress__actions">
+                    <a class="tnt-product-button tnt-product-download-start" data-tnt-download-start href="<?php echo esc_url( $resolution_url ); ?>" hidden><?php esc_html_e( 'Start download', 'toolntip-core' ); ?></a>
+                    <button class="tnt-product-button tnt-product-download-retry" data-tnt-download-retry type="button" hidden><?php esc_html_e( 'Try again', 'toolntip-core' ); ?></button>
+                    <a class="tnt-product-button tnt-product-button--secondary" data-tnt-download-back href="<?php echo esc_url( get_permalink( $product ) . '#download' ); ?>" hidden><?php esc_html_e( 'Back to product', 'toolntip-core' ); ?></a>
+                </div>
+                <noscript>
+                    <p><?php esc_html_e( 'JavaScript is unavailable. Continue to prepare your download.', 'toolntip-core' ); ?></p>
+                    <p><a class="tnt-product-button" href="<?php echo esc_url( $resolution_url ); ?>"><?php esc_html_e( 'Continue', 'toolntip-core' ); ?></a></p>
+                </noscript>
+            </section>
+        </div>
+    </main>
+    <?php
+    get_footer();
+    exit;
+}
+
+/**
+ * Return a resolved provider destination for the interactive preparation page.
+ *
+ * JavaScript requests JSON. The no-JavaScript fallback receives the historical
+ * server-side 302 redirect. In both cases authorization, provider selection,
+ * failover and redirect-event recording happen before the destination leaves
+ * Core.
+ *
+ * @param array $target Resolved Product/Edition/Release target.
+ * @param int   $user_id Authenticated user ID.
+ * @return void
+ */
+function tnt_resolve_product_download_delivery( $target, $user_id ) {
+    if ( ! tnt_can_download_product_release( $user_id, $target['release'] ) ) {
+        if ( wp_is_json_request() ) {
+            wp_send_json_error( array( 'message' => __( 'You are not authorized to download this Product Release.', 'toolntip-core' ) ), 403 );
+        }
+        tnt_product_download_error_response( 403, __( 'You are not authorized to download this Product Release.', 'toolntip-core' ) );
+    }
+
+    $resolved = tnt_resolve_product_download_destination( $target['release'], $user_id );
+    if ( is_wp_error( $resolved ) ) {
+        if ( wp_is_json_request() ) {
+            wp_send_json_error( array( 'message' => __( 'We could not create a download link right now. Please try again.', 'toolntip-core' ) ), 503 );
+        }
+        tnt_product_download_error_response( 503, __( 'Download temporarily unavailable. Please try again later.', 'toolntip-core' ) );
+    }
+
+    $event_id = tnt_record_product_download_event(
+        array(
+            'user_id'      => $user_id,
+            'release_id'   => absint( $target['release']->id ),
+            'location_id'  => absint( $resolved['location']->id ),
+            'event_status' => 'redirected',
+        )
+    );
+
+    if ( is_wp_error( $event_id ) ) {
+        if ( wp_is_json_request() ) {
+            wp_send_json_error( array( 'message' => __( 'We could not create a download link right now. Please try again.', 'toolntip-core' ) ), 503 );
+        }
+        tnt_product_download_error_response( 503, __( 'Download temporarily unavailable. Please try again later.', 'toolntip-core' ) );
+    }
+
+    $destination_url = esc_url_raw( $resolved['destination']['url'] );
+
+    if ( wp_is_json_request() ) {
+        wp_send_json_success(
+            array(
+                'url'     => $destination_url,
+                'message' => __( 'Your download is ready.', 'toolntip-core' ),
+            )
+        );
+    }
+
+    wp_redirect( $destination_url, 302, 'ToolNTip Core' ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+    exit;
+}
+
+/**
  * Handle governed Product download requests.
  *
  * @return void
@@ -566,30 +783,14 @@ function tnt_handle_product_download_request() {
         tnt_product_download_error_response( 403, __( 'You are not authorized to download this Product Release.', 'toolntip-core' ) );
     }
 
-    $resolved = tnt_resolve_product_download_destination( $target['release'], $user_id );
-    if ( is_wp_error( $resolved ) ) {
-        tnt_product_download_error_response( 503, __( 'Download temporarily unavailable. Please try again later.', 'toolntip-core' ) );
+    if ( ! tnt_is_product_delivery_request() ) {
+        tnt_render_product_download_information( $target );
     }
 
-    $event_id = tnt_record_product_download_event(
-        array(
-            'user_id'      => $user_id,
-            'release_id'   => absint( $target['release']->id ),
-            'location_id'  => absint( $resolved['location']->id ),
-            'event_status' => 'redirected',
-        )
-    );
-
-    if ( is_wp_error( $event_id ) ) {
-        tnt_product_download_error_response( 503, __( 'Download temporarily unavailable. Please try again later.', 'toolntip-core' ) );
+    if ( ! tnt_is_product_delivery_resolution_request() ) {
+        tnt_render_product_download_preparation( $target );
     }
 
-    /**
-     * The destination is generated by a registered provider adapter after
-     * authentication/authorization. It is intentionally an external redirect;
-     * wp_safe_redirect() would reject legitimate provider hosts.
-     */
-    wp_redirect( esc_url_raw( $resolved['destination']['url'] ), 302, 'ToolNTip Core' ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
-    exit;
+    tnt_resolve_product_download_delivery( $target, $user_id );
 }
 add_action( 'template_redirect', 'tnt_handle_product_download_request', 1 );

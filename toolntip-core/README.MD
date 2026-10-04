@@ -71,3 +71,8 @@ I-17 refinement: balanced single-edition public presentation with the Edition na
 ### 1.2.0-dev.11.6
 
 - Refined single-Edition public Product presentation with a responsive horizontal layout; multi-Edition behavior and data contracts are unchanged.
+
+## WEB-007.10 Download Preparation
+
+Authenticated Product downloads return to a Core-owned information page. The explicit Download action opens a Product-owned preparation screen immediately, resolves a healthy provider through the governed Core delivery service, shows a verified ready state, and then continues to provider-owned delivery. Artifact bytes do not pass through WordPress.
+
