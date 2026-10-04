@@ -976,3 +976,142 @@
         padding-bottom: 48px;
     }
 }
+
+
+/* WEB-007.10 dev.18: interactive governed download preparation. */
+.tnt-product-download-preparation .tnt-product-shell {
+    padding-top: 64px;
+    padding-bottom: 80px;
+}
+
+.tnt-product-download-progress {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    text-align: center;
+    background: var(--tnt-product-surface);
+    border: 1px solid var(--tnt-product-border);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 29, 51, 0.06);
+}
+
+.tnt-product-download-progress__indicator {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.2rem;
+}
+
+.tnt-product-download-spinner,
+.tnt-product-download-check,
+.tnt-product-download-error-mark {
+    grid-area: 1 / 1;
+}
+
+.tnt-product-download-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--tnt-product-border);
+    border-top-color: var(--tnt-product-text);
+    border-radius: 50%;
+    animation: tnt-product-download-spin 0.85s linear infinite;
+}
+
+.tnt-product-download-check,
+.tnt-product-download-error-mark {
+    display: none;
+    width: 54px;
+    height: 54px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.tnt-product-download-check {
+    color: #166534;
+    background: #ecfdf3;
+    border: 1px solid #bbf7d0;
+}
+
+.tnt-product-download-error-mark {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.tnt-product-download-progress[data-state="ready"] .tnt-product-download-spinner,
+.tnt-product-download-progress[data-state="error"] .tnt-product-download-spinner {
+    display: none;
+}
+
+.tnt-product-download-progress[data-state="ready"] .tnt-product-download-check {
+    display: flex;
+}
+
+.tnt-product-download-progress[data-state="error"] .tnt-product-download-error-mark {
+    display: flex;
+}
+
+.tnt-product-download-progress h1 {
+    margin: 0 0 0.75rem;
+    color: var(--tnt-product-text);
+}
+
+.tnt-product-download-progress__status p,
+.tnt-product-download-progress__product {
+    color: var(--tnt-product-text-muted);
+}
+
+.tnt-product-download-progress__status p {
+    max-width: 56ch;
+    margin: 0 auto;
+}
+
+.tnt-product-download-progress__product {
+    margin: 1rem 0 0;
+    font-weight: 600;
+}
+
+.tnt-product-download-progress__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.tnt-product-download-progress__actions [hidden] {
+    display: none !important;
+}
+
+@keyframes tnt-product-download-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tnt-product-download-spinner {
+        animation: none;
+        border-top-color: var(--tnt-product-border);
+        border-right-color: var(--tnt-product-text);
+    }
+}
+
+@media (max-width: 640px) {
+    .tnt-product-download-preparation .tnt-product-shell {
+        padding-top: 32px;
+        padding-bottom: 48px;
+    }
+
+    .tnt-product-download-progress__actions {
+        flex-direction: column;
+    }
+
+    .tnt-product-download-progress__actions .tnt-product-button {
+        width: 100%;
+        justify-content: center;
+    }
+}

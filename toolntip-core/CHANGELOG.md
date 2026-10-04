@@ -1,3 +1,17 @@
+## 1.2.0-dev.18 - 2026-10-04
+
+- WEB-007.10 Download Preparation UX: replace the blank provider-resolution tab with an immediate Product-owned preparation screen.
+- Add an accessible animated wait indicator, live status messaging, verified ready check mark, automatic provider continuation, manual Start download fallback, governed retry/error state and no-JavaScript continuation.
+- Split the delivery step into presentation and resolution requests while preserving Product reauthorization, health-aware provider selection/failover, redirect-event recording and provider-owned binary delivery.
+- Rename the pre-delivery heading from "Your download is ready" to "Download information" so ready state is asserted only after provider resolution succeeds.
+- No Product DB schema, provider adapter, Members API or artifact-byte proxying changes.
+
+## 1.2.0-dev.17 - 2026-10-04
+
+- WEB-007.10 Download Information UX candidate: return authenticated Product downloads to a Core-owned release information page before external delivery.
+- Add an explicit governed Download action that opens in a new tab and reauthorizes before provider selection.
+- Preserve existing provider adapters, health-aware failover, event recording and direct provider delivery.
+
 ## 1.2.0-dev.16 - 2026-10-03
 
 - Correct FAQ editor round-trip entity presentation discovered by the no-ACF unchanged-save test.
